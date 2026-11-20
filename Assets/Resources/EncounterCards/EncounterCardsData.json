@@ -1,0 +1,2126 @@
+[
+  {
+    "number": 1,
+    "type": "TraderGift",
+    "title": {
+      "en": "Petition of the Elyron Convoy",
+      "de": "Das Hilfegesuch des Elyron-Konvois"
+    },
+    "situation": {
+      "en": "A laden trade freighter of the Elyrian Consortium has suffered a reactor drop on its shipping corridor. The reptilian merchant hails your flagship requesting relief cargo (0 to 3 resources).",
+      "de": "Ein beladener Handelsfrachter der Elyrier leidet unter Energieverlust auf seiner Versorgungsroute. Der reisende Kaufmann bittet dein Flaggschiff um dringend benötigte Hilfslieferungen (0 bis 3 Rohstoffe)."
+    },
+    "playerChoice": {
+      "en": "How many cargo crates (0 to 3) will you transfer to the stranded freighter?",
+      "de": "Wie viele Rohstoffeinheiten (0 bis 3) stellst du dem Frachter zur Verfügung?"
+    },
+    "outcomes": [
+      {
+        "condition": {
+          "en": "Offer 0",
+          "de": "Spende 0"
+        },
+        "effectSummary": {
+          "en": "Assistance refused: Word of your selfishness spreads (-2 medal pieces). However, the other players must each surrender 1 resource to you.",
+          "de": "Hilfe verweigert: Dein Egoismus spricht sich im Sektor herum (-2 halbe Medaillen). Die Mitspieler müssen dir jedoch je einen Rohstoff abtreten."
+        },
+        "effects": {
+          "halfMedals": -2,
+          "resourceReward": "StealAll:1",
+          "resourceCost": "Donation"
+        }
+      },
+      {
+        "condition": {
+          "en": "Offer 1",
+          "de": "Spende 1"
+        },
+        "effectSummary": {
+          "en": "Token gesture: You provide 1 resource and receive Food in return, but the Consortium views you as tightfisted (-1 medal piece).",
+          "de": "Kleine Geste: Du spendest 1 Rohstoff und erhältst Nahrung, wirst im Konsortium aber als knauserig eingestuft (-1 halbe Medaille)."
+        },
+        "effects": {
+          "halfMedals": -1,
+          "resourceReward": "Food:1",
+          "resourceCost": "Donation"
+        }
+      },
+      {
+        "condition": {
+          "en": "Offer 2",
+          "de": "Spende 2"
+        },
+        "effectSummary": {
+          "en": "Sincere aid: You provide 2 resources. The grateful merchant rewards you with 1 resource of your choice and awards a fame medal piece.",
+          "de": "Echtes Entgegenkommen: Du spendest 2 Rohstoffe. Der dankbare Kaufmann belohnt dich mit 1 Rohstoff deiner Wahl und einer halben Medaille."
+        },
+        "effects": {
+          "halfMedals": 1,
+          "resourceReward": "Choice:1",
+          "resourceCost": "Donation"
+        }
+      },
+      {
+        "condition": {
+          "en": "Offer 3",
+          "de": "Spende 3"
+        },
+        "effectSummary": {
+          "en": "Magnanimous relief: You provide 3 resources. Deeply impressed, the Consortium honors you with 2 resources of choice and a fame medal piece.",
+          "de": "Großherzige Rettungsfracht: Du spendest 3 Rohstoffe. Tief beeindruckt gewährt dir das Konsortium 2 Rohstoffe deiner Wahl und eine halbe Medaille."
+        },
+        "effects": {
+          "halfMedals": 1,
+          "resourceReward": "Choice:2",
+          "resourceCost": "Donation"
+        }
+      }
+    ],
+    "interaction": "donation",
+    "opponent": "none",
+    "comparison": "none",
+    "characterIndex": 0
+  },
+  {
+    "number": 2,
+    "type": "TraderGift",
+    "title": {
+      "en": "Sponsorship of the Elyron Expedition",
+      "de": "Sponsorship für die Elyron-Expedition"
+    },
+    "situation": {
+      "en": "A high-ranking trade magnate from Elyron seeks sponsors for surveying newly discovered asteroid veins and asks for a contribution to the fleet treasury.",
+      "de": "Ein hochrangiger Handelsmagnat aus Elyron sucht Sponsoren für die Erschließung neuer Asteroidenschürffelder und bittet um einen Beitrag zur Flottenkasse."
+    },
+    "playerChoice": {
+      "en": "Determine your investment contribution (0 to 3 resources).",
+      "de": "Bestimme deinen Investitionsbeitrag (0 bis 3 Rohstoffe)."
+    },
+    "outcomes": [
+      {
+        "condition": {
+          "en": "Offer 0",
+          "de": "Spende 0"
+        },
+        "effectSummary": {
+          "en": "Investment declined: You lose standing with the Consortium (-1 medal piece).",
+          "de": "Investition abgelehnt: Du verlierst Ansehen beim Konsortium (-1 halbe Medaille)."
+        },
+        "effects": {
+          "halfMedals": -1,
+          "resourceCost": "Donation"
+        }
+      },
+      {
+        "condition": {
+          "en": "Offer 1",
+          "de": "Spende 1"
+        },
+        "effectSummary": {
+          "en": "Modest venture: You receive 1 resource of your choice from the expedition's reserves.",
+          "de": "Geringer Beitrag: Du erhältst 1 Rohstoff deiner Wahl aus den Expeditionsrücklagen."
+        },
+        "effects": {
+          "resourceReward": "Choice:1",
+          "resourceCost": "Donation"
+        }
+      },
+      {
+        "condition": {
+          "en": "Offer 2",
+          "de": "Spende 2"
+        },
+        "effectSummary": {
+          "en": "Solid partnership: The Consortium rewards your backing with 1 resource of choice and a fame medal piece.",
+          "de": "Solide Partnerschaft: Das Konsortium belohnt deine Unterstützung mit 1 Rohstoff nach Wahl und einer halben Medaille."
+        },
+        "effects": {
+          "halfMedals": 1,
+          "resourceReward": "Choice:1",
+          "resourceCost": "Donation"
+        }
+      },
+      {
+        "condition": {
+          "en": "Offer 3",
+          "de": "Spende 3"
+        },
+        "effectSummary": {
+          "en": "Exclusive patron: Your generous funding is rewarded with a full flagship upgrade and a fame medal piece.",
+          "de": "Exklusiv-Patron: Deine großzügige Finanzierung wird mit einem vollwertigen Flaggschiff-Ausbau und einer halben Medaille geehrt."
+        },
+        "effects": {
+          "halfMedals": 1,
+          "gainUpgrade": true,
+          "resourceCost": "Donation"
+        }
+      }
+    ],
+    "interaction": "donation",
+    "opponent": "none",
+    "comparison": "none",
+    "characterIndex": 0
+  },
+  {
+    "number": 3,
+    "type": "TraderGift",
+    "title": {
+      "en": "The Elyrian Customs Depot",
+      "de": "Die Zollstation von Elyron"
+    },
+    "situation": {
+      "en": "At an orbital frontier station, an Elyrian customs magistrate requests a voluntary navigational security fee to maintain the warp buoys.",
+      "de": "An einer orbitalen Grenzstation erbittet ein elyrianischer Zollmeister eine freiwillige Sicherheitsabgabe zur Instandhaltung der Navigationsbojen."
+    },
+    "playerChoice": {
+      "en": "How much will you deposit into the navigational beacon fund (0 to 3 resources)?",
+      "de": "Wie viel möchtest du in den Navigationsfonds einzahlen (0 bis 3 Rohstoffe)?"
+    },
+    "outcomes": [
+      {
+        "condition": {
+          "en": "Offer 0",
+          "de": "Spende 0"
+        },
+        "effectSummary": {
+          "en": "Refusal to pay: The customs officer logs your lack of cooperation with the interstellar authorities (-1 medal piece).",
+          "de": "Zahlungsverweigerung: Der Zollmeister meldet deine mangelnde Kooperation den Sternenvölkern (-1 halbe Medaille)."
+        },
+        "effects": {
+          "halfMedals": -1,
+          "resourceCost": "Donation"
+        }
+      },
+      {
+        "condition": {
+          "en": "Offer 1",
+          "de": "Spende 1"
+        },
+        "effectSummary": {
+          "en": "Minimal fee: The customs bureau files your payment coldly without returning any favours.",
+          "de": "Minimale Abgabe: Die Behörde registriert die Zahlung kühl und ohne Gegenleistung."
+        },
+        "effects": {
+          "resourceCost": "Donation"
+        }
+      },
+      {
+        "condition": {
+          "en": "Offer 2",
+          "de": "Spende 2"
+        },
+        "effectSummary": {
+          "en": "Official recognition: The customs depot issues an official commendation seal (+1 medal piece).",
+          "de": "Offizielle Anerkennung: Die Station stellt dir ein offizielles Belobigungssiegel aus (+1 halbe Medaille)."
+        },
+        "effects": {
+          "halfMedals": 1,
+          "resourceCost": "Donation"
+        }
+      },
+      {
+        "condition": {
+          "en": "Offer 3",
+          "de": "Spende 3"
+        },
+        "effectSummary": {
+          "en": "Generous patron: For your substantial aid you receive valuable Trade Goods and a fame medal piece.",
+          "de": "Großzügiger Förderer: Für deine substanzielle Hilfe erhältst du edle Handelswaren und eine halbe Medaille."
+        },
+        "effects": {
+          "halfMedals": 1,
+          "resourceReward": "Goods:1",
+          "resourceCost": "Donation"
+        }
+      }
+    ],
+    "interaction": "donation",
+    "opponent": "none",
+    "comparison": "none",
+    "characterIndex": 2
+  },
+  {
+    "number": 4,
+    "type": "TraderGift",
+    "title": {
+      "en": "Stranded Merchant in Distress",
+      "de": "Gefallener Händler in Raumnot"
+    },
+    "situation": {
+      "en": "A small merchant vessel is drifting helplessly with damaged engines. The desperate trader hopes for a vital resource donation from your holds.",
+      "de": "Ein kleiner Frachter treibt mit Triebwerksschaden im Vakuum. Der verzweifelte Händler hofft auf eine rettende Rohstoffspende aus deinen Vorräten."
+    },
+    "playerChoice": {
+      "en": "Choose your relief offering to the stranded merchant (0 to 3 resources).",
+      "de": "Wähle deine Spende an den havarierten Frachter (0 bis 3 Rohstoffe)."
+    },
+    "outcomes": [
+      {
+        "condition": {
+          "en": "Offer 0",
+          "de": "Spende 0"
+        },
+        "effectSummary": {
+          "en": "Callous stance: You provide nothing; the disappointed trader departs empty-handed.",
+          "de": "Harte Haltung: Du gibst nichts ab; der enttäuschte Händler zieht ohne Austausch ab."
+        },
+        "effects": {
+          "resourceCost": "Donation"
+        }
+      },
+      {
+        "condition": {
+          "en": "Offer 1",
+          "de": "Spende 1"
+        },
+        "effectSummary": {
+          "en": "Solidarity shown: The merchant thanks you warmly and hands you a fame medal piece.",
+          "de": "Geste der Solidarität: Der Händler dankt dir herzlich und überreicht dir eine halbe Medaille."
+        },
+        "effects": {
+          "halfMedals": 1,
+          "resourceCost": "Donation"
+        }
+      },
+      {
+        "condition": {
+          "en": "Offer 2",
+          "de": "Spende 2"
+        },
+        "effectSummary": {
+          "en": "Effective emergency aid: The freighter can make repairs. You receive Trade Goods and a fame medal piece.",
+          "de": "Wirksame Nothilfe: Der Frachter kann repariert werden. Du erhältst Handelswaren und eine halbe Medaille."
+        },
+        "effects": {
+          "halfMedals": 1,
+          "resourceReward": "Goods:1",
+          "resourceCost": "Donation"
+        }
+      },
+      {
+        "condition": {
+          "en": "Offer 3",
+          "de": "Spende 3"
+        },
+        "effectSummary": {
+          "en": "Suspicious generosity: Suspecting hidden ulterior motives behind the lavish gift, the merchant politely returns it (donation refunded).",
+          "de": "Überbordende Gabe: Der Händler schöpft Verdacht vor verdeckten Absichten und gibt dein Geschenk dankend zurück."
+        },
+        "effects": {
+          "resourceReward": "DonationRefund"
+        }
+      }
+    ],
+    "interaction": "donation",
+    "opponent": "none",
+    "comparison": "none",
+    "characterIndex": 1
+  },
+  {
+    "number": 5,
+    "type": "TraderGift",
+    "title": {
+      "en": "Endowment for the Temple of Elyron",
+      "de": "Stiftung für den Elyron-Tempel"
+    },
+    "situation": {
+      "en": "A delegation of Elyrian temple wardens seeks offerings to maintain the Great Sclera Shrine on their homeworld.",
+      "de": "Eine Gesandtschaft elyrianischer Glaubenshüter bittet um Weihgaben für den Großen Schuppentempel auf der Heimatwelt."
+    },
+    "playerChoice": {
+      "en": "Determine your consecrated tribute to the temple delegation (0 to 3 resources).",
+      "de": "Bestimme deine Gabe an die Glaubenshüter (0 bis 3 Rohstoffe)."
+    },
+    "outcomes": [
+      {
+        "condition": {
+          "en": "Offer 0",
+          "de": "Spende 0"
+        },
+        "effectSummary": {
+          "en": "Sacrilegious denial: The priests curse your fleet. One of your ships is sabotaged (blocked this turn) and you lose a medal piece.",
+          "de": "Entweihung durch Verweigerung: Die Priester verfluchen deine Flotte. Ein Schiff wird sabotiert (diese Runde blockiert) und du verlierst eine halbe Medaille."
+        },
+        "effects": {
+          "halfMedals": -1,
+          "blockOneShip": true,
+          "resourceCost": "Donation"
+        }
+      },
+      {
+        "condition": {
+          "en": "Offer 1",
+          "de": "Spende 1"
+        },
+        "effectSummary": {
+          "en": "Paltry offering: The priests take offense at your meager gift (-1 medal piece).",
+          "de": "Mageres Opfer: Die Gesandtschaft empfindet die Gabe als Beleidigung (-1 halbe Medaille)."
+        },
+        "effects": {
+          "halfMedals": -1,
+          "resourceCost": "Donation"
+        }
+      },
+      {
+        "condition": {
+          "en": "Offer 2",
+          "de": "Spende 2"
+        },
+        "effectSummary": {
+          "en": "Worthy tribute: You receive 1 resource of your choice and a fame medal piece.",
+          "de": "Würdige Opfergabe: Du erhältst 1 Rohstoff nach Wahl und eine halbe Medaille."
+        },
+        "effects": {
+          "halfMedals": 1,
+          "resourceReward": "Choice:1",
+          "resourceCost": "Donation"
+        }
+      },
+      {
+        "condition": {
+          "en": "Offer 3",
+          "de": "Spende 3"
+        },
+        "effectSummary": {
+          "en": "High blessing: The delegation blesses your enterprise and endows you with a complete Trade Ship.",
+          "de": "Hohe Weihe: Die Gesandtschaft segnet dein Vorhaben und stiftet dir ein komplettes Handelsschiff."
+        },
+        "effects": {
+          "gainTradeShip": true,
+          "resourceCost": "Donation"
+        }
+      }
+    ],
+    "interaction": "donation",
+    "opponent": "none",
+    "comparison": "none",
+    "characterIndex": 1
+  },
+  {
+    "number": 6,
+    "type": "TraderGift",
+    "title": {
+      "en": "Elyrian Guild Gala",
+      "de": "Elyron-Zunftfeier auf Sternenbasis"
+    },
+    "situation": {
+      "en": "A splendid banquet vessel of the Merchant Guild invites you to a charity auction supporting underdeveloped rim colonies.",
+      "de": "Ein prunkvolles Bankettschiff der Handelsgilde lädt zu einer Wohltätigkeitsauktion zugunsten verarmter Außenwelten ein."
+    },
+    "playerChoice": {
+      "en": "Contribute to the guild foundation with 0 to 3 resources.",
+      "de": "Beteilige dich an der Zunftstiftung mit 0 bis 3 Rohstoffen."
+    },
+    "outcomes": [
+      {
+        "condition": {
+          "en": "Offer 0",
+          "de": "Spende 0"
+        },
+        "effectSummary": {
+          "en": "Scandal at the gala: Flouting guild tradition causes one of your ships to be impounded (blocked this turn) and costs you 1 medal piece.",
+          "de": "Eklat auf dem Bankett: Deine Missachtung der Gildentradition führt zur Festsetzung eines deiner Schiffe (blockiert) und dem Verlust einer halben Medaille."
+        },
+        "effects": {
+          "halfMedals": -1,
+          "blockOneShip": true,
+          "resourceCost": "Donation"
+        }
+      },
+      {
+        "condition": {
+          "en": "Offer 1",
+          "de": "Spende 1"
+        },
+        "effectSummary": {
+          "en": "Begrudging coin: The guild looks down on your parsimony (-1 medal piece).",
+          "de": "Pflichtbeitrag: Die Gilde rümpft die Nase über deinen Geiz (-1 halbe Medaille)."
+        },
+        "effects": {
+          "halfMedals": -1,
+          "resourceCost": "Donation"
+        }
+      },
+      {
+        "condition": {
+          "en": "Offer 2",
+          "de": "Spende 2"
+        },
+        "effectSummary": {
+          "en": "Respected attendee: You are welcomed warmly, receiving 1 resource of choice and a fame medal piece.",
+          "de": "Gesehener Gast: Du wirst wohlwollend erwähnt, erhältst 1 Rohstoff deiner Wahl und eine halbe Medaille."
+        },
+        "effects": {
+          "halfMedals": 1,
+          "resourceReward": "Choice:1",
+          "resourceCost": "Donation"
+        }
+      },
+      {
+        "condition": {
+          "en": "Offer 3",
+          "de": "Spende 3"
+        },
+        "effectSummary": {
+          "en": "Honorary Guild Member: In gratitude for your munificence, the guild gifts you a brand new Trade Ship.",
+          "de": "Ehrenmitglied der Gilde: Für deine Stiftung überlässt dir die Gilde ein fabrikneues Handelsschiff."
+        },
+        "effects": {
+          "gainTradeShip": true,
+          "resourceCost": "Donation"
+        }
+      }
+    ],
+    "interaction": "donation",
+    "opponent": "none",
+    "comparison": "none",
+    "characterIndex": 1
+  },
+  {
+    "number": 7,
+    "type": "TraderMarauder",
+    "title": {
+      "en": "Deception under Merchant Veil",
+      "de": "Täuschung im Händlerschleier"
+    },
+    "situation": {
+      "en": "A purported Elyrian trader gratefully receives your cargo. Once transferred, the vessel switches transponders: It is a disguised Void Corsair fleeing with your goods!",
+      "de": "Ein angeblicher Elyrier-Frachter nimmt deine Fracht dankend entgegen. Kaum transferiert, sendet das Schiff eine feindliche Signatur: Es sind getarnte Void-Korsaren, die mit der Beute davonjagen wollen!"
+    },
+    "playerChoice": {
+      "en": "Attack the fleeing corsair with your flagship cannons or let them get away.",
+      "de": "Greife den fliehenden Void-Korsaren mit deinen Bordgeschützen an oder lass ihn mit der Beute ziehen."
+    },
+    "outcomes": [
+      {
+        "condition": {
+          "en": "Do not attack",
+          "de": "Du greifst nicht an"
+        },
+        "effectSummary": {
+          "en": "Escape: The corsairs jump away with your transferred resources.",
+          "de": "Fliehen lassen: Der Void-Korsar entkommt mit den ergaunerten Rohstoffen."
+        },
+        "effects": {
+          "resourceCost": "Donation"
+        }
+      },
+      {
+        "condition": {
+          "en": "Victory in combat",
+          "de": "Sieg im Kampf"
+        },
+        "effectSummary": {
+          "en": "Salvo hits home: You cripple the raider, reclaim all donated resources, and earn a fame medal piece.",
+          "de": "Sieg im Feuergefecht: Du zwingst das Korsarenschiff in die Knie, holst deine Rohstoffe zurück und gewinnst eine halbe Medaille."
+        },
+        "effects": {
+          "halfMedals": 1,
+          "resourceReward": "DonationRefund"
+        }
+      },
+      {
+        "condition": {
+          "en": "Defeat in combat",
+          "de": "Niederlage im Kampf"
+        },
+        "effectSummary": {
+          "en": "Counterfire: The corsair keeps the loot and damages one of your ships (blocked this turn).",
+          "de": "Gegenfeuer: Der Void-Korsar behält die Beute; eines deiner Schiffe darf diese Runde nicht fliegen."
+        },
+        "effects": {
+          "blockOneShip": true,
+          "resourceCost": "Donation"
+        }
+      }
+    ],
+    "interaction": "choice",
+    "opponent": "right",
+    "comparison": "combat",
+    "characterIndex": 0
+  },
+  {
+    "number": 8,
+    "type": "TraderMarauder",
+    "title": {
+      "en": "Ambush of the False Consul",
+      "de": "Hinterhalt des falschen Konsuls"
+    },
+    "situation": {
+      "en": "The polite merchant envoy turns out to be a Void Corsair operative. After boarding your cargo bay, hidden laser batteries unveil and power up!",
+      "de": "Der Händler entpuppt sich als Spion der Void-Korsaren. Nach Übergabe der Fracht entblößen sie getarnte Laserlafetten und leiten die Fluchtsequenz ein."
+    },
+    "playerChoice": {
+      "en": "Open fire on the treacherous raider or yield to their escape.",
+      "de": "Eröffne das Feuer auf die Verräter oder lass sie entkommen."
+    },
+    "outcomes": [
+      {
+        "condition": {
+          "en": "Do not attack",
+          "de": "Du greifst nicht an"
+        },
+        "effectSummary": {
+          "en": "Withdrawal: The corsairs slip into the void with your cargo.",
+          "de": "Rückzug: Die Korsaren entwischen mit deiner Fracht."
+        },
+        "effects": {
+          "resourceCost": "Donation"
+        }
+      },
+      {
+        "condition": {
+          "en": "Victory in combat",
+          "de": "Sieg im Kampf"
+        },
+        "effectSummary": {
+          "en": "Pirate disabled: Your cannon broadside overwhelms their shields. You recover your resources and gain a medal piece.",
+          "de": "Kaperung erfolgreich: Deine Geschütze zersieben die Schilde. Du forderst deine Fracht zurück und erhältst eine halbe Medaille."
+        },
+        "effects": {
+          "halfMedals": 1,
+          "resourceReward": "DonationRefund"
+        }
+      },
+      {
+        "condition": {
+          "en": "Defeat in combat",
+          "de": "Niederlage im Kampf"
+        },
+        "effectSummary": {
+          "en": "Hull breach: The corsair retains the loot and leaves one of your ships incapacitated for this turn.",
+          "de": "Treffer eingesteckt: Eines deiner Schiffe wird für diese Runde manövrierunfähig geschossen; die Beute ist verloren."
+        },
+        "effects": {
+          "blockOneShip": true,
+          "resourceCost": "Donation"
+        }
+      }
+    ],
+    "interaction": "choice",
+    "opponent": "left",
+    "comparison": "combat",
+    "characterIndex": 0
+  },
+  {
+    "number": 9,
+    "type": "MarauderDemand",
+    "title": {
+      "en": "Void Corsair Tollway",
+      "de": "Wegelagerei der Void-Korsaren"
+    },
+    "situation": {
+      "en": "A heavily armed corsair cruiser cuts across your vector and brazenly demands extortion tribute: two resources of your choice.",
+      "de": "Ein schwer bewaffneter Korsaren-Kreuzer schneidet deinen Kurs und fordert unverblümt Schutzgeld: Zwei Rohstoffe deiner Wahl."
+    },
+    "playerChoice": {
+      "en": "Pay the extortion demand (2 resources) or engage the raider in cannon combat.",
+      "de": "Zahle das Lösegeld (2 Rohstoffe) oder nimm den Kampf gegen die Korsaren auf."
+    },
+    "outcomes": [
+      {
+        "condition": {
+          "en": "Surrender resources",
+          "de": "Du gibst die Rohstoffe ab"
+        },
+        "effectSummary": {
+          "en": "Tribute paid: You hand over 2 resources; the corsair lets you proceed unmolested.",
+          "de": "Tribut gezahlt: Du übergibst 2 Rohstoffe; der Void-Korsar lässt dich unbehelligt weiterfliegen."
+        },
+        "effects": {
+          "resourceCost": "Choice:2"
+        }
+      },
+      {
+        "condition": {
+          "en": "Victory in combat",
+          "de": "Sieg im Kampf"
+        },
+        "effectSummary": {
+          "en": "Glorious triumph: You blast the corsair to scrap and salvage an operational Trade Ship from their hangar!",
+          "de": "Glorreicher Sieg: Du vernichtest die Korsaren und erbeutest ein intaktes Handelsschiff zum späteren Einsatz!"
+        },
+        "effects": {
+          "gainTradeShip": true
+        }
+      },
+      {
+        "condition": {
+          "en": "Defeat in combat",
+          "de": "Niederlage im Kampf"
+        },
+        "effectSummary": {
+          "en": "Crushing hit: The corsairs blow off one of your flagship upgrades. You earn a medal piece for your valor.",
+          "de": "Schwere Treffer: Die Korsaren schießen einen deiner Flaggschiff-Ausbauten ab. Für deinen tapferen Widerstand erhältst du eine halbe Medaille."
+        },
+        "effects": {
+          "halfMedals": 1,
+          "loseUpgrade": true
+        }
+      }
+    ],
+    "interaction": "choice",
+    "opponent": "right",
+    "comparison": "combat",
+    "characterIndex": 3
+  },
+  {
+    "number": 10,
+    "type": "MarauderDemand",
+    "title": {
+      "en": "Blackmail in the Asteroid Belt",
+      "de": "Erpressung im Asteroidengürtel"
+    },
+    "situation": {
+      "en": "Two corsair gunboats box in your flagship among the tumbling rocks and demand two resource shipments for safe passage.",
+      "de": "Zwei Korsaren-Kanonenboote nehmen dein Schiff im Asteroidengürtel in die Zange und fordern zwei Ressourcenladungen für sicheres Geleit."
+    },
+    "playerChoice": {
+      "en": "Surrender the demanded resources or engage the extortionists in combat.",
+      "de": "Gib die geforderten Rohstoffe ab oder kämpfe gegen die Erpresser."
+    },
+    "outcomes": [
+      {
+        "condition": {
+          "en": "Surrender resources",
+          "de": "Du gibst die Rohstoffe ab"
+        },
+        "effectSummary": {
+          "en": "Extortion conceded: You surrender 2 resources and lose reputation (-1 medal piece).",
+          "de": "Erpressung nachgegeben: Du übergibst 2 Rohstoffe und verlierst eine halbe Medaille an Ansehen."
+        },
+        "effects": {
+          "halfMedals": -1,
+          "resourceCost": "Choice:2"
+        }
+      },
+      {
+        "condition": {
+          "en": "Victory in combat",
+          "de": "Sieg im Kampf"
+        },
+        "effectSummary": {
+          "en": "Bandits routed: You drive off the gunboats, seize 2 Carbon from their stash, and earn a medal piece.",
+          "de": "Erpresser abgewehrt: Du vertreibst die Banditen, erbeutest zwei Einheiten Carbon und erhältst eine halbe Medaille."
+        },
+        "effects": {
+          "halfMedals": 1,
+          "resourceReward": "Carbon:2"
+        }
+      },
+      {
+        "condition": {
+          "en": "Defeat in combat",
+          "de": "Niederlage im Kampf"
+        },
+        "effectSummary": {
+          "en": "Drive disabled: One of your ships is immobilized for this turn; you receive a medal piece for fighting back.",
+          "de": "Antriebsschaden: Eines deiner Schiffe wird lahmgelegt (blockiert); für den Kampfgeist erhältst du eine halbe Medaille."
+        },
+        "effects": {
+          "halfMedals": 1,
+          "blockOneShip": true
+        }
+      }
+    ],
+    "interaction": "choice",
+    "opponent": "secondRight",
+    "comparison": "combat",
+    "characterIndex": 0
+  },
+  {
+    "number": 11,
+    "type": "MarauderDemand",
+    "title": {
+      "en": "The Corsair Captain's Ultimatum",
+      "de": "Das Ultimatum des Korsaren-Kapitäns"
+    },
+    "situation": {
+      "en": "A scarred Void Corsair warlord barks through your comms, demanding two resource crates as 'transit duty' through his claimed sector.",
+      "de": "Ein verwegener Korsaren-Kapitän verlangt autoritär zwei Rohstoffladungen als 'Passierzoll' für den Durchflug seines Territoriums."
+    },
+    "playerChoice": {
+      "en": "Pay the transit duty (2 resources) or power up your combat weapons.",
+      "de": "Zahle den Passierzoll (2 Rohstoffe) oder aktiviere deine Waffensysteme."
+    },
+    "outcomes": [
+      {
+        "condition": {
+          "en": "Surrender resources",
+          "de": "Du gibst die Rohstoffe ab"
+        },
+        "effectSummary": {
+          "en": "Duty paid: You give up 2 resources and lose a fame medal piece.",
+          "de": "Passierzoll entrichtet: Die Korsaren gewähren Durchflug, doch du verlierst eine halbe Medaille."
+        },
+        "effects": {
+          "halfMedals": -1,
+          "resourceCost": "Choice:2"
+        }
+      },
+      {
+        "condition": {
+          "en": "Victory in combat",
+          "de": "Sieg im Kampf"
+        },
+        "effectSummary": {
+          "en": "Warlord repelled: You rout the pirate warband, earn a medal piece, and loot 1 resource of your choice.",
+          "de": "Kapitän überwältigt: Du schlägst die Korsaren in die Flucht, rettest dein Ansehen (+1 Medaille) und erbeutest einen Rohstoff deiner Wahl."
+        },
+        "effects": {
+          "halfMedals": 1,
+          "resourceReward": "Choice:1"
+        }
+      },
+      {
+        "condition": {
+          "en": "Defeat in combat",
+          "de": "Niederlage im Kampf"
+        },
+        "effectSummary": {
+          "en": "Cannons crushed: The corsairs destroy one of your flagship upgrades; you receive a medal piece for your courage.",
+          "de": "Feuergefecht verloren: Die Korsaren zerstören einen deiner Flaggschiff-Ausbauten; du erhältst eine halbe Medaille für deinen Mut."
+        },
+        "effects": {
+          "halfMedals": 1,
+          "loseUpgrade": true
+        }
+      }
+    ],
+    "interaction": "choice",
+    "opponent": "left",
+    "comparison": "combat",
+    "characterIndex": 0
+  },
+  {
+    "number": 12,
+    "type": "MarauderTrade",
+    "title": {
+      "en": "Shadow Market Barter",
+      "de": "Schwarzmarkt-Tausch im Schatten"
+    },
+    "situation": {
+      "en": "A shady corsair fence glides alongside with throttled reactors. He offers an enticing bargain: give him 1 resource to receive 2 units of refined Carbon.",
+      "de": "Ein zwielichtiger Korsaren-Hehler nähert sich mit gedrosseltem Reaktor. Er bietet dir ein verlockendes Geschäft: Gib 1 Rohstoff und erhalte 2 Einheiten Carbon."
+    },
+    "playerChoice": {
+      "en": "Accept the shadow market trade or target the smuggler with your cannons.",
+      "de": "Nimm den Schwarzmarkt-Handel an oder greife das Hehlerschiff mit Bordwaffen an."
+    },
+    "outcomes": [
+      {
+        "condition": {
+          "en": "Decline trade",
+          "de": "Tausch abgelehnt"
+        },
+        "effectSummary": {
+          "en": "Trade declined: You decline the contraband deal and fly on unharmed.",
+          "de": "Tausch abgelehnt: Du lehnst den Schmuggel ab und fliegst unbehelligt weiter."
+        },
+        "effects": {}
+      },
+      {
+        "condition": {
+          "en": "Accept trade",
+          "de": "Du nimmst den Tausch an"
+        },
+        "effectSummary": {
+          "en": "Deal struck: You trade 1 resource for 2 Carbon; the civilized galaxy frowns upon your contraband dealings (-1 medal piece).",
+          "de": "Deal besiegelt: Du tauschst 1 Rohstoff gegen 2 Einheiten Carbon; die Mitwelt blickt argwöhnisch auf dich (-1 halbe Medaille)."
+        },
+        "effects": {
+          "halfMedals": -1,
+          "resourceCost": "Choice:1",
+          "resourceReward": "Carbon:2"
+        }
+      },
+      {
+        "condition": {
+          "en": "Victory in combat",
+          "de": "Sieg im Kampf"
+        },
+        "effectSummary": {
+          "en": "Fence impounded: You capture the smuggler, seize 1 resource of choice, and earn a medal piece.",
+          "de": "Überraschungsangriff gewonnen: Du kaperst den Hehler, erbeutest 1 Rohstoff nach Wahl und gewinnst eine halbe Medaille."
+        },
+        "effects": {
+          "halfMedals": 1,
+          "resourceReward": "Choice:1"
+        }
+      },
+      {
+        "condition": {
+          "en": "Defeat in combat",
+          "de": "Niederlage im Kampf"
+        },
+        "effectSummary": {
+          "en": "Smuggler retaliates: The fence scores a critical hit, destroying one flagship upgrade. You gain a medal piece.",
+          "de": "Gegenfeuer eingesteckt: Der Hehler schlägt zurück; ein Flaggschiff-Ausbau wird vernichtet. Du erhältst eine halbe Medaille."
+        },
+        "effects": {
+          "halfMedals": 1,
+          "loseUpgrade": true
+        }
+      }
+    ],
+    "interaction": "choice",
+    "opponent": "none",
+    "comparison": "flagshipRoll",
+    "characterIndex": 0
+  },
+  {
+    "number": 13,
+    "type": "MarauderTrade",
+    "title": {
+      "en": "Corsair Grey-Market Exchange",
+      "de": "Grauzonen-Tausch der Korsaren"
+    },
+    "situation": {
+      "en": "A rogue corsair freighter offers 2 units of Ore (Fuel) in exchange for 1 of your resources.",
+      "de": "Ein Schmugglerschiff der Void-Korsaren bietet dir 2 Einheiten Erz im Tausch gegen 1 deiner Rohstoffe an."
+    },
+    "playerChoice": {
+      "en": "Agree to the trade or strike the corsairs down with heavy weapons.",
+      "de": "Tausche ein oder eröffne das Feuer auf die Korsaren-Schmuggler."
+    },
+    "outcomes": [
+      {
+        "condition": {
+          "en": "Decline trade",
+          "de": "Tausch abgelehnt"
+        },
+        "effectSummary": {
+          "en": "Trade declined: You decline the contraband deal and fly on unharmed.",
+          "de": "Tausch abgelehnt: Du lehnst den Schmuggel ab und fliegst unbehelligt weiter."
+        },
+        "effects": {}
+      },
+      {
+        "condition": {
+          "en": "Accept trade",
+          "de": "Du nimmst den Tausch an"
+        },
+        "effectSummary": {
+          "en": "Trade concluded: You gain 2 Ore for 1 resource, but forfeit a fame medal piece due to illicit trade.",
+          "de": "Handel abgeschlossen: Du erhältst 2 Einheiten Erz gegen 1 Rohstoff, verlierst jedoch eine halbe Medaille an Ansehen."
+        },
+        "effects": {
+          "halfMedals": -1,
+          "resourceCost": "Choice:1",
+          "resourceReward": "Ore:2"
+        }
+      },
+      {
+        "condition": {
+          "en": "Victory in combat",
+          "de": "Sieg im Kampf"
+        },
+        "effectSummary": {
+          "en": "Smuggler vanquished: You destroy the pirate ship, secure 2 resources of choice, and gain a medal piece.",
+          "de": "Schmuggler zerschlagen: Du besiegst die Korsaren, nimmst 2 Rohstoffe deiner Wahl an dich und erhältst eine halbe Medaille."
+        },
+        "effects": {
+          "halfMedals": 1,
+          "resourceReward": "Choice:2"
+        }
+      },
+      {
+        "condition": {
+          "en": "Defeat in combat",
+          "de": "Niederlage im Kampf"
+        },
+        "effectSummary": {
+          "en": "Drive damaged: The pirate hits your thrusters; one of your ships is blocked this turn (you gain a medal piece).",
+          "de": "Schiffsbeschädigung: Der Schmuggler trifft deine Triebwerke; eines deiner Schiffe ist diese Runde blockiert (du erhältst eine halbe Medaille)."
+        },
+        "effects": {
+          "halfMedals": 1,
+          "blockOneShip": true
+        }
+      }
+    ],
+    "interaction": "choice",
+    "opponent": "none",
+    "comparison": "flagshipRoll",
+    "characterIndex": 1
+  },
+  {
+    "number": 14,
+    "type": "MarauderRaidOffer",
+    "title": {
+      "en": "Privateering Offer from the Void Corsairs",
+      "de": "Das Kaperangebot der Void-Korsaren"
+    },
+    "situation": {
+      "en": "A corsair corsair warlord offers a sinister pact: Pay him 1 resource, and his raiding wing will pillage the trade lanes of your rivals.",
+      "de": "Ein Korsarenfürst bietet dir einen finsteren Pakt an: Wenn du ihm 1 Rohstoff zahlst, plündert sein Geschwader die Handelsrouten deiner Rivalen."
+    },
+    "playerChoice": {
+      "en": "Accept the privateering raid, reject it, or engage the corsair fleet in honorable combat.",
+      "de": "Pakt annehmen (Korsaren anheuern), Pakt ablehnen oder die Korsaren angreifen."
+    },
+    "outcomes": [
+      {
+        "condition": {
+          "en": "Decline raid offer",
+          "de": "Pakt abgelehnt"
+        },
+        "effectSummary": {
+          "en": "Offer rejected: You refuse the corsair pact and fly on safely.",
+          "de": "Pakt abgelehnt: Du weigerst dich, Piraten anzuheuern, und setzt deinen Flug unbehelligt fort."
+        },
+        "effects": {}
+      },
+      {
+        "condition": {
+          "en": "Accept raid offer",
+          "de": "Du nimmst das Angebot an"
+        },
+        "effectSummary": {
+          "en": "Pact sealed: You pay 1 resource. The corsairs raid 1 resource from each opponent for you. Your diplomatic reputation plummets (-2 medal pieces).",
+          "de": "Korsarenpakt geschmiedet: Du zahlst 1 Rohstoff. Die Korsaren rauben jedem Mitspieler 1 Rohstoff für dich. Dein Ansehen sinkt drastisch (-2 halbe Medaillen)."
+        },
+        "effects": {
+          "halfMedals": -2,
+          "resourceCost": "Choice:1",
+          "resourceReward": "StealAll:1"
+        }
+      },
+      {
+        "condition": {
+          "en": "Victory in combat",
+          "de": "Sieg im Kampf"
+        },
+        "effectSummary": {
+          "en": "Justice served: You reject piracy, crush the raiders in battle, and are honored with a medal piece.",
+          "de": "Recht und Ordnung verteidigt: Du attackierst die Schurken und siegst! Du erhältst eine halbe Medaille."
+        },
+        "effects": {
+          "halfMedals": 1
+        }
+      },
+      {
+        "condition": {
+          "en": "Defeat in combat",
+          "de": "Niederlage im Kampf"
+        },
+        "effectSummary": {
+          "en": "Ambushed: One of your ships is heavily damaged and cannot fly this turn.",
+          "de": "Gefecht verloren: Eines deiner Schiffe wird schwer getroffen und darf diese Runde nicht fliegen."
+        },
+        "effects": {
+          "blockOneShip": true
+        }
+      }
+    ],
+    "interaction": "choice",
+    "opponent": "none",
+    "comparison": "flagshipRoll",
+    "characterIndex": 1
+  },
+  {
+    "number": 15,
+    "type": "MarauderRaidOffer",
+    "title": {
+      "en": "Mercenary Raid Contract",
+      "de": "Söldnerüberfall im Auftrag"
+    },
+    "situation": {
+      "en": "Corsair gunships offer to launch a surprise raid on your competitors for a 'bounty' of 1 resource.",
+      "de": "Korsaren-Kanonenboote bieten dir an, für die 'Besoldung' von 1 Rohstoff einen Überraschungsangriff auf deine Konkurrenten zu fliegen."
+    },
+    "playerChoice": {
+      "en": "Hire the mercenaries, refuse, or attack the cutthroats for their predatory proposal.",
+      "de": "Besoldung zahlen und Angriff befehlen – oder die Söldner für ihr schändliches Angebot attackieren."
+    },
+    "outcomes": [
+      {
+        "condition": {
+          "en": "Decline raid offer",
+          "de": "Pakt abgelehnt"
+        },
+        "effectSummary": {
+          "en": "Offer rejected: You refuse the corsair pact and fly on safely.",
+          "de": "Pakt abgelehnt: Du weigerst dich, Söldner anzuheuern, und setzt deinen Flug unbehelligt fort."
+        },
+        "effects": {}
+      },
+      {
+        "condition": {
+          "en": "Accept raid offer",
+          "de": "Du nimmst das Angebot an"
+        },
+        "effectSummary": {
+          "en": "Mercenaries unleashed: You pay 1 resource; the raiders plunder 1 resource from every other player for you (-2 medal pieces).",
+          "de": "Söldner beauftragt: Du zahlst 1 Rohstoff; die Korsaren plündern je 1 Rohstoff von allen Mitspielern für dich (-2 halbe Medaillen)."
+        },
+        "effects": {
+          "halfMedals": -2,
+          "resourceCost": "Choice:1",
+          "resourceReward": "StealAll:1"
+        }
+      },
+      {
+        "condition": {
+          "en": "Victory in combat",
+          "de": "Sieg im Kampf"
+        },
+        "effectSummary": {
+          "en": "Honorable victory: You defeat the corsair squadron and earn a fame medal piece.",
+          "de": "Ehrenvoller Sieg: Du bezwingst das Söldnergeschwader und wirst mit einer halben Medaille belohnt."
+        },
+        "effects": {
+          "halfMedals": 1
+        }
+      },
+      {
+        "condition": {
+          "en": "Defeat in combat",
+          "de": "Niederlage im Kampf"
+        },
+        "effectSummary": {
+          "en": "Repelled: One of your ships is crippled and prohibited from moving this turn.",
+          "de": "Rückschlag im Kampf: Eines deiner Schiffe wird für diese Runde lahmgelegt."
+        },
+        "effects": {
+          "blockOneShip": true
+        }
+      }
+    ],
+    "interaction": "choice",
+    "opponent": "none",
+    "comparison": "flagshipRoll",
+    "characterIndex": 0
+  },
+  {
+    "number": 16,
+    "type": "MarauderAttack",
+    "title": {
+      "en": "Ambush in the Debris Field",
+      "de": "Hinterhalt im Trümmerfeld"
+    },
+    "situation": {
+      "en": "A heavily armored Void Corsair interdictor leaps out of hyperspace directly ahead of your bow and opens fire!",
+      "de": "Ein schwer gepanzerter Abfangkreuzer der Void-Korsaren springt aus dem Hyperraum direkt vor deinen Bug und eröffnet sofort das Feuer!"
+    },
+    "playerChoice": {
+      "en": "Fight the corsair interdictor or fire emergency boosters to flee.",
+      "de": "Kämpfe gegen den Korsaren oder zünde die Notfall-Triebwerke zur Flucht."
+    },
+    "outcomes": [
+      {
+        "condition": {
+          "en": "Escape",
+          "de": "Flucht"
+        },
+        "effectSummary": {
+          "en": "Evasive flight: Your flight thrusters outrun the pursuers; you escape unharmed.",
+          "de": "Erfolgreiche Flucht: Deine Triebwerke hängen die Piraten ab; die Flucht gelingt unbeschadet."
+        },
+        "effects": {}
+      },
+      {
+        "condition": {
+          "en": "Victory in combat",
+          "de": "Sieg im Kampf"
+        },
+        "effectSummary": {
+          "en": "Triumph over the corsairs: You smash the warship, salvage 1 resource of your choice, and gain a medal piece.",
+          "de": "Triumph über die Korsaren: Du zerschlägst das Korsarenschiff! Du erbeutest 1 Rohstoff nach Wahl und erhältst eine halbe Medaille."
+        },
+        "effects": {
+          "halfMedals": 1,
+          "resourceReward": "Choice:1"
+        }
+      },
+      {
+        "condition": {
+          "en": "Defeat in combat",
+          "de": "Niederlage im Kampf"
+        },
+        "effectSummary": {
+          "en": "Overwhelmed: Corsair fire destroys one of your flagship upgrades. You gain a medal piece for standing your ground.",
+          "de": "Geschlagen im Raumkampf: Das Korsarenfeuer zerschmettert einen deiner Flaggschiff-Ausbauten. Für deinen Widerstand erhältst du eine halbe Medaille."
+        },
+        "effects": {
+          "halfMedals": 1,
+          "loseUpgrade": true
+        }
+      }
+    ],
+    "interaction": "choice",
+    "opponent": "right",
+    "comparison": "combat",
+    "characterIndex": 1
+  },
+  {
+    "number": 17,
+    "type": "MarauderAttack",
+    "title": {
+      "en": "War Cry of the Void Corsairs",
+      "de": "Schlachtruf der Void-Korsaren"
+    },
+    "situation": {
+      "en": "A ruthless corsair battlecruiser ambushes your expedition to crack open your cargo pods.",
+      "de": "Ein Korsaren-Schlachtschiff greift deine Flotte an, um deine Frachtmodule aufzubrechen."
+    },
+    "playerChoice": {
+      "en": "Stand and fight for your fleet, or punch out and flee.",
+      "de": "Kämpfe um deine Ehre oder ergreife die Flucht."
+    },
+    "outcomes": [
+      {
+        "condition": {
+          "en": "Escape",
+          "de": "Flucht"
+        },
+        "effectSummary": {
+          "en": "Safe retreat: You duck into an asteroid's shadow and escape safely.",
+          "de": "Entkommen: Du entfliehst in den Schatten eines Asteroiden."
+        },
+        "effects": {}
+      },
+      {
+        "condition": {
+          "en": "Victory in combat",
+          "de": "Sieg im Kampf"
+        },
+        "effectSummary": {
+          "en": "Resounding triumph: You disable the enemy vessel, loot 1 Ore, and gain a fame medal piece.",
+          "de": "Überwältigender Sieg: Du setzt das feindliche Schiff außer Gefecht, erbeutest 1 Erz und eine halbe Medaille."
+        },
+        "effects": {
+          "halfMedals": 1,
+          "resourceReward": "Ore:1"
+        }
+      },
+      {
+        "condition": {
+          "en": "Defeat in combat",
+          "de": "Niederlage im Kampf"
+        },
+        "effectSummary": {
+          "en": "Battle loss: The corsairs strip one upgrade from your flagship; you receive a medal piece.",
+          "de": "Niederlage: Die Korsaren plündern ein Flaggschiff-Upgrade. Du erhältst eine halbe Medaille."
+        },
+        "effects": {
+          "halfMedals": 1,
+          "loseUpgrade": true
+        }
+      }
+    ],
+    "interaction": "choice",
+    "opponent": "secondLeft",
+    "comparison": "combat",
+    "characterIndex": 3
+  },
+  {
+    "number": 18,
+    "type": "MarauderAttack",
+    "title": {
+      "en": "Corsair Pincer in the Null Sector",
+      "de": "Korsaren-Korsett im Nullsektor"
+    },
+    "situation": {
+      "en": "A swarm of agile corsair strike-craft pins down your flagship in a deadly crossfire.",
+      "de": "Korsaren-Jäger eröffnen ein vernichtendes Sperrfeuer auf dein Flaggschiff."
+    },
+    "playerChoice": {
+      "en": "Engage the swarming strike-craft or execute high-speed evasion to flee.",
+      "de": "Kämpfe gegen die Jäger oder versuche einen Fluchtwinkel zu finden."
+    },
+    "outcomes": [
+      {
+        "condition": {
+          "en": "Escape",
+          "de": "Flucht"
+        },
+        "effectSummary": {
+          "en": "Maneuver out: You outwit their formation and escape unharmed.",
+          "de": "Fluchtversuch: Du weichst den Jägern aus und entkommst."
+        },
+        "effects": {}
+      },
+      {
+        "condition": {
+          "en": "Victory in combat",
+          "de": "Sieg im Kampf"
+        },
+        "effectSummary": {
+          "en": "Dogfight won: You swat the raiders from the stars, salvage 1 Carbon, and earn a medal piece.",
+          "de": "Sieg im Jägerduell: Du holst die Angreifer vom Sternenhimmel, erbeutest 1 Carbon und gewinnst eine halbe Medaille."
+        },
+        "effects": {
+          "halfMedals": 1,
+          "resourceReward": "Carbon:1"
+        }
+      },
+      {
+        "condition": {
+          "en": "Defeat in combat",
+          "de": "Niederlage im Kampf"
+        },
+        "effectSummary": {
+          "en": "Hull battered: A flagship upgrade is lost in the firefight; you receive a medal piece.",
+          "de": "Niederlage: Ein Flaggschiff-Ausbau geht in den Trümmern verloren; du erhältst eine halbe Medaille."
+        },
+        "effects": {
+          "halfMedals": 1,
+          "loseUpgrade": true
+        }
+      }
+    ],
+    "interaction": "choice",
+    "opponent": "left",
+    "comparison": "combat",
+    "characterIndex": 1
+  },
+  {
+    "number": 19,
+    "type": "Rescue",
+    "title": {
+      "en": "Gravity Trap of the White Dwarf",
+      "de": "Schwerkraftfalle des Weißen Zwergs"
+    },
+    "situation": {
+      "en": "A civilian science vessel with extinguished fusion thrusters is spiraling into the gravity well of a White Dwarf star. Hull temperatures are surging!",
+      "de": "Ein ziviles Forschungsschiff mit ausgefallenem Fusionsantrieb taumelt in den Gravitationsstrudel eines Weißen Zwergsterns. Die Hitze steigt rapide!"
+    },
+    "playerChoice": {
+      "en": "Decide whether to attempt the rescue mission or break away.",
+      "de": "Entscheide, ob du die Rettungsmission wagst oder abdrehst."
+    },
+    "outcomes": [
+      {
+        "condition": {
+          "en": "Do not help",
+          "de": "Du hilfst nicht"
+        },
+        "effectSummary": {
+          "en": "Abandoned: You refuse to risk your flagship; news of your neglect costs you a medal piece.",
+          "de": "Aufgegeben: Du riskierst dein Schiff nicht; die Nachricht über dein Versäumnis kostet dich eine halbe Medaille."
+        },
+        "effects": {
+          "halfMedals": -1
+        }
+      },
+      {
+        "condition": {
+          "en": "At least as fast",
+          "de": "Du bist mindestens so schnell"
+        },
+        "effectSummary": {
+          "en": "Heroic salvage: Your drives hold! You rescue the scholars of the Synapse of Xylos, mount an awarded flagship upgrade, and earn a medal piece.",
+          "de": "Heldenhafte Bergung: Deine Triebwerke halten stand! Du rettest die Wissenschaftler der Synapse von Xylos, montierst ein geborgenes Flaggschiff-Upgrade und erhältst eine halbe Medaille."
+        },
+        "effects": {
+          "halfMedals": 1,
+          "gainUpgrade": true
+        }
+      },
+      {
+        "condition": {
+          "en": "Slower",
+          "de": "Du bist langsamer"
+        },
+        "effectSummary": {
+          "en": "Scorched retreat: Gravitational shear forces you back; your flagship loses an upgrade in the pull.",
+          "de": "Verpasste Rettung: Die Gezeitenkräfte zwingen dich zum Abbruch; dein Flaggschiff verliert einen Ausbau."
+        },
+        "effects": {
+          "loseUpgrade": true
+        }
+      }
+    ],
+    "interaction": "choice",
+    "opponent": "secondRight",
+    "comparison": "speed",
+    "characterIndex": 3
+  },
+  {
+    "number": 20,
+    "type": "Rescue",
+    "title": {
+      "en": "Peril in the Plasma Wake",
+      "de": "Gefahr im Plasmaschweif"
+    },
+    "situation": {
+      "en": "A disabled ore freighter is caught in a violent coronal mass ejection. An urgent distress beacon pulses across all sub-ether channels.",
+      "de": "Ein antriebsloser Erzfrachter wird von einer koronalen Sonneneruption erfasst. Ein Notruf erreicht deine Funkkonsole."
+    },
+    "playerChoice": {
+      "en": "Attempt a high-speed emergency tow or break away to protect your own vessel.",
+      "de": "Wage das riskante Hochgeschwindigkeitsmanöver oder drehe ab."
+    },
+    "outcomes": [
+      {
+        "condition": {
+          "en": "Do not help",
+          "de": "Du hilfst nicht"
+        },
+        "effectSummary": {
+          "en": "Veered away: You safeguard your flagship, but your caution costs you a fame medal piece.",
+          "de": "Abgedreht: Du rettest dein eigenes Schiff, verlierst aber Ansehen (-1 halbe Medaille)."
+        },
+        "effects": {
+          "halfMedals": -1
+        }
+      },
+      {
+        "condition": {
+          "en": "At least as fast",
+          "de": "Du bist mindestens so schnell"
+        },
+        "effectSummary": {
+          "en": "Flawless tow: You haul the freighter out just in time! In reward, each rival player must give you 1 resource and you gain a medal piece.",
+          "de": "Erfolgreicher Schleppvorgang: Du erreichst den Frachter rechtzeitig! Zur Belohnung erhältst du je 1 Rohstoff von allen Mitspielern und eine halbe Medaille."
+        },
+        "effects": {
+          "halfMedals": 1,
+          "resourceReward": "StealAll:1"
+        }
+      },
+      {
+        "condition": {
+          "en": "Slower",
+          "de": "Du bist langsamer"
+        },
+        "effectSummary": {
+          "en": "Plasma burn: The maneuver falters; extreme heat burns out one flagship upgrade (you gain a medal piece).",
+          "de": "Zu spät: Das Manöver schlägt fehl; die Hitze fordert einen Flaggschiff-Ausbau (du erhältst eine halbe Medaille)."
+        },
+        "effects": {
+          "halfMedals": 1,
+          "loseUpgrade": true
+        }
+      }
+    ],
+    "interaction": "choice",
+    "opponent": "left",
+    "comparison": "speed",
+    "characterIndex": 2
+  },
+  {
+    "number": 21,
+    "type": "Rescue",
+    "title": {
+      "en": "Derelict on Solar Collision Course",
+      "de": "Havarist vor dem Sternenabsturz"
+    },
+    "situation": {
+      "en": "The escape capsule of a Xylos scholar is tumbling toward a blistering solar flare. Every microsecond counts.",
+      "de": "Die Kapsel eines Xylos-Gelehrten droht in die Korona einer Sonne zu stürzen. Jede Sekunde zählt."
+    },
+    "playerChoice": {
+      "en": "Ignite emergency afterburners to snatch the capsule before orbital decay.",
+      "de": "Aktiviere deine Nachbrenner, um die Kapsel vor dem Absturz einzufangen."
+    },
+    "outcomes": [
+      {
+        "condition": {
+          "en": "Do not help",
+          "de": "Du hilfst nicht"
+        },
+        "effectSummary": {
+          "en": "Stood by: You did not dare the rescue (-1 medal piece).",
+          "de": "Untätig geblieben: Du wagst die Rettung nicht (-1 halbe Medaille)."
+        },
+        "effects": {
+          "halfMedals": -1
+        }
+      },
+      {
+        "condition": {
+          "en": "At least as fast",
+          "de": "Du bist mindestens so schnell"
+        },
+        "effectSummary": {
+          "en": "Scholar secured: The Xylos researcher provides advanced flagship schematics (+1 upgrade) and awards a medal piece.",
+          "de": "Gelehrter gerettet: Der Xylos-Forscher übergibt dir fortschrittliche Flaggschiff-Baupläne (+1 Ausbau) und ehrt dich mit einer halben Medaille."
+        },
+        "effects": {
+          "halfMedals": 1,
+          "gainUpgrade": true
+        }
+      },
+      {
+        "condition": {
+          "en": "Slower",
+          "de": "Du bist langsamer"
+        },
+        "effectSummary": {
+          "en": "Thermal fatigue: Engine strain destroys one flagship upgrade.",
+          "de": "Triebwerksüberhitzung: Dein Schiff erleidet Strukturschäden (-1 Flaggschiff-Ausbau)."
+        },
+        "effects": {
+          "loseUpgrade": true
+        }
+      }
+    ],
+    "interaction": "choice",
+    "opponent": "right",
+    "comparison": "speed",
+    "characterIndex": 0
+  },
+  {
+    "number": 22,
+    "type": "Rescue",
+    "title": {
+      "en": "Raid on the Elyrian Convoy",
+      "de": "Angriff auf den Elyron-Konvoi"
+    },
+    "situation": {
+      "en": "Void Corsairs have surrounded a merchant carrier of the Elyrian Consortium and are battering its collapsing kinetic shields.",
+      "de": "Void-Korsaren haben einen Kaufmannsfrachter des Konsortiums von Elyron umstellt und feuern auf die Schutzschilde."
+    },
+    "playerChoice": {
+      "en": "Intervene with cannons to repel the pirates or proceed along your flight plan.",
+      "de": "Greife in das Gefecht ein und attackiere die Korsaren, oder setze deinen Kurs fort."
+    },
+    "outcomes": [
+      {
+        "condition": {
+          "en": "Do not help",
+          "de": "Du hilfst nicht"
+        },
+        "effectSummary": {
+          "en": "Course held: You leave the carrier to its fate (no direct consequence).",
+          "de": "Nicht eingegriffen: Du überlässt den Frachter seinem Schicksal (ohne direkte Folgen)."
+        },
+        "effects": {}
+      },
+      {
+        "condition": {
+          "en": "Victory in combat",
+          "de": "Sieg im Kampf"
+        },
+        "effectSummary": {
+          "en": "Pirates scattered: You save the merchant! The Consortium rewards you with 2 Trade Goods and a medal piece.",
+          "de": "Korsaren in die Flucht geschlagen: Du rettest den Händler! Das Konsortium belohnt dich mit 2 Einheiten Handelswaren und einer halben Medaille."
+        },
+        "effects": {
+          "halfMedals": 1,
+          "resourceReward": "Goods:2"
+        }
+      },
+      {
+        "condition": {
+          "en": "Defeat in combat",
+          "de": "Niederlage im Kampf"
+        },
+        "effectSummary": {
+          "en": "Repelled: Your intervention fails; one of your ships is disabled for this turn.",
+          "de": "Abgewehrt: Dein Rettungsversuch scheitert; eines deiner Schiffe wird für diese Runde manövrierunfähig geschossen."
+        },
+        "effects": {
+          "blockOneShip": true
+        }
+      }
+    ],
+    "interaction": "choice",
+    "opponent": "secondRight",
+    "comparison": "combat",
+    "characterIndex": 1
+  },
+  {
+    "number": 23,
+    "type": "Rescue",
+    "title": {
+      "en": "Desperate Mayday from the Merchant Fleet",
+      "de": "Verzweifelter Notruf der Handelsflotte"
+    },
+    "situation": {
+      "en": "An Elyrian trade vessel is besieged by corsair swarm fighters. The shields are on the verge of collapsing!",
+      "de": "Ein elyrianisches Handelsschiff wird von Korsaren-Schwarmjägern attackiert. Die Schilde brechen gleich zusammen!"
+    },
+    "playerChoice": {
+      "en": "Launch a counter-assault against the pirate fighters or disengage.",
+      "de": "Starte den Gegenangriff gegen die Korsaren oder ziehe dich zurück."
+    },
+    "outcomes": [
+      {
+        "condition": {
+          "en": "Do not help",
+          "de": "Du hilfst nicht"
+        },
+        "effectSummary": {
+          "en": "Fled the scene: Your refusal to assist is noted with disgrace (-1 medal piece).",
+          "de": "Flucht: Deine Weigerung spricht sich herum (-1 halbe Medaille)."
+        },
+        "effects": {
+          "halfMedals": -1
+        }
+      },
+      {
+        "condition": {
+          "en": "Victory in combat",
+          "de": "Sieg im Kampf"
+        },
+        "effectSummary": {
+          "en": "Swarm destroyed: The relieved trader rewards you with 2 Trade Goods and a fame medal piece.",
+          "de": "Korsaren zersiebt: Der gerettete Frachter bedankt sich mit 2 Einheiten Handelswaren und einer halben Medaille."
+        },
+        "effects": {
+          "halfMedals": 1,
+          "resourceReward": "Goods:2"
+        }
+      },
+      {
+        "condition": {
+          "en": "Defeat in combat",
+          "de": "Niederlage im Kampf"
+        },
+        "effectSummary": {
+          "en": "Damaged in fray: One of your ships takes hull damage and cannot fly this turn.",
+          "de": "Zurückgeschlagen: Eines deiner Schiffe wird beschädigt und darf diese Runde nicht fliegen."
+        },
+        "effects": {
+          "blockOneShip": true
+        }
+      }
+    ],
+    "interaction": "choice",
+    "opponent": "secondRight",
+    "comparison": "combat",
+    "characterIndex": 3
+  },
+  {
+    "number": 24,
+    "type": "Rescue",
+    "title": {
+      "en": "Assault on the Veda Biosphere Ark",
+      "de": "Angriff auf das Veda-Biosphärenschiff"
+    },
+    "situation": {
+      "en": "Void Corsairs are attempting to board a sacred green biosphere ark belonging to the Terra-Symbionts of Veda.",
+      "de": "Void-Korsaren versuchen ein grünes Biosphärenschiff der Terra-Symbionten von Veda zu entern."
+    },
+    "playerChoice": {
+      "en": "Fight alongside the bio-ark to repel the corsair boarding pods.",
+      "de": "Kämpfe zur Verteidigung des Bioschiffs gegen die Piraten."
+    },
+    "outcomes": [
+      {
+        "condition": {
+          "en": "Do not help",
+          "de": "Du hilfst nicht"
+        },
+        "effectSummary": {
+          "en": "Cowardice in the dark: The Veda arborists condemn your retreat (-1 medal piece).",
+          "de": "Feigheit im All: Dein Rückzug wird von den Veda-Gärtnern verurteilt (-1 halbe Medaille)."
+        },
+        "effects": {
+          "halfMedals": -1
+        }
+      },
+      {
+        "condition": {
+          "en": "Victory in combat",
+          "de": "Sieg im Kampf"
+        },
+        "effectSummary": {
+          "en": "Ark protected: The grateful bio-sage grants you 2 resources of choice and a medal piece.",
+          "de": "Biosphäre gerettet: Der dankbare Bio-Weise schenkt dir 2 Rohstoffe deiner Wahl und verleiht dir eine halbe Medaille."
+        },
+        "effects": {
+          "halfMedals": 1,
+          "resourceReward": "Choice:2"
+        }
+      },
+      {
+        "condition": {
+          "en": "Defeat in combat",
+          "de": "Niederlage im Kampf"
+        },
+        "effectSummary": {
+          "en": "Combat loss: The corsairs blast away one of your flagship upgrades; you receive a medal piece.",
+          "de": "Gefechtsschaden: Die Korsaren beschädigen einen deiner Flaggschiff-Ausbauten; für deinen Heldenmut erhältst du eine halbe Medaille."
+        },
+        "effects": {
+          "halfMedals": 1,
+          "loseUpgrade": true
+        }
+      }
+    ],
+    "interaction": "choice",
+    "opponent": "right",
+    "comparison": "combat",
+    "characterIndex": 2
+  },
+  {
+    "number": 25,
+    "type": "Rescue",
+    "title": {
+      "en": "Corsair Raid on the Star Drifters",
+      "de": "Korsarenüberfall auf die Sternen-Drifter"
+    },
+    "situation": {
+      "en": "A patched generation ship of the nomadic Star Drifters is besieged by marauding space raiders.",
+      "de": "Ein zusammengeschweißtes Habitat-Schiff der wandernden Sternen-Drifter wird von Raumpiraten belagert."
+    },
+    "playerChoice": {
+      "en": "Intervene with heavy weaponry to defend the drifter folk.",
+      "de": "Greife mit Bordwaffen ein, um den Driftern beizustehen."
+    },
+    "outcomes": [
+      {
+        "condition": {
+          "en": "Do not help",
+          "de": "Du hilfst nicht"
+        },
+        "effectSummary": {
+          "en": "Passive watcher: You avoid conflict and stay on course.",
+          "de": "Untätig: Du meidest den Konflikt und fliegst weiter."
+        },
+        "effects": {}
+      },
+      {
+        "condition": {
+          "en": "Victory in combat",
+          "de": "Sieg im Kampf"
+        },
+        "effectSummary": {
+          "en": "Drifters liberated: In gratitude, the drifters transmit secret jump coordinates: Execute an immediate space jump with one ship (+1 medal piece).",
+          "de": "Drifter befreit: Aus Dankbarkeit teilen die Drifter geheime Raumkoordinaten mit dir: Du führst mit einem Schiff einen Raumsprung aus (+1 halbe Medaille)."
+        },
+        "effects": {
+          "halfMedals": 1,
+          "spaceJump": true
+        }
+      },
+      {
+        "condition": {
+          "en": "Defeat in combat",
+          "de": "Niederlage im Kampf"
+        },
+        "effectSummary": {
+          "en": "Fended off: One of your ships is blocked this turn; you receive a medal piece for your bravery.",
+          "de": "Niederlage: Dein Eingreifen misslingt; eines deiner Schiffe wird blockiert (du erhältst eine halbe Medaille)."
+        },
+        "effects": {
+          "halfMedals": 1,
+          "blockOneShip": true
+        }
+      }
+    ],
+    "interaction": "choice",
+    "opponent": "left",
+    "comparison": "combat",
+    "characterIndex": 2
+  },
+  {
+    "number": 26,
+    "type": "SpaceDistortion",
+    "title": {
+      "en": "Tachyon Vortex in the Vacuum",
+      "de": "Tachyonen-Wirbel im Vakuum"
+    },
+    "situation": {
+      "en": "Sensors blare a warning of a spinning tachyon anomaly. Intense gravitational shearing tugs violently at your hulls.",
+      "de": "Sensoren warnen vor einer rotierenden Raumzerrung. Das Gravitationsfeld zerrt an der Hülle deines Schiffes."
+    },
+    "playerChoice": {
+      "en": "Attempt to ride the spacetime distortion for a tactical space jump, or steer clear.",
+      "de": "Versuche, die Raumkrümmung für einen kalkulierten Raumsprung zu nutzen, oder umfliege die Anomalie."
+    },
+    "outcomes": [
+      {
+        "condition": {
+          "en": "Do not jump",
+          "de": "Du versuchst keinen Sprung"
+        },
+        "effectSummary": {
+          "en": "Anomaly bypassed: You steer clear around the gravitational hazard.",
+          "de": "Anomalie gemieden: Du nimmst Kurs um das Gravitationsfeld."
+        },
+        "effects": {}
+      },
+      {
+        "condition": {
+          "en": "At least as fast",
+          "de": "Du bist mindestens so schnell"
+        },
+        "effectSummary": {
+          "en": "Jump executed: You ride the wave, executing an instant space jump with a ship of your choice!",
+          "de": "Sprung gelungen: Du reitest die Tachyonen-Welle und führst einen sofortigen Raumsprung mit einem Schiff deiner Wahl aus!"
+        },
+        "effects": {
+          "spaceJump": true
+        }
+      },
+      {
+        "condition": {
+          "en": "Slower",
+          "de": "Du bist langsamer"
+        },
+        "effectSummary": {
+          "en": "Subspace shock: The turbulence disrupts your impulse coils; one of your ships is paralyzed this turn.",
+          "de": "Subraum-Schock: Die Gravitation überlastet deine Impulsantriebe; ein Schiff ist für diese Runde lahmgelegt."
+        },
+        "effects": {
+          "blockOneShip": true
+        }
+      }
+    ],
+    "interaction": "choice",
+    "opponent": "left",
+    "comparison": "speed",
+    "characterIndex": 1
+  },
+  {
+    "number": 27,
+    "type": "SpaceDistortion",
+    "title": {
+      "en": "Subspace Rift Fluctuation",
+      "de": "Fluktuation des Subraum-Risses"
+    },
+    "situation": {
+      "en": "A flickering corridor through hyperspace flashes directly across your sensors. A rare, fleeting window for rapid transit!",
+      "de": "Ein flackernder Korridor durch den Hyperraum öffnet sich direkt vor deinen Sensoren. Eine seltene Chance zur Schnellreise!"
+    },
+    "playerChoice": {
+      "en": "Spool drives and punch through the rift, or keep a safe distance.",
+      "de": "Triebwerke beschleunigen und den Raumsprung wagen, oder sicheren Abstand halten."
+    },
+    "outcomes": [
+      {
+        "condition": {
+          "en": "Do not jump",
+          "de": "Du versuchst keinen Sprung"
+        },
+        "effectSummary": {
+          "en": "Prudent retreat: You let the unstable portal collapse safely.",
+          "de": "Abstand gewahrt: Du lässt das instabile Portal kollabieren."
+        },
+        "effects": {}
+      },
+      {
+        "condition": {
+          "en": "At least as fast",
+          "de": "Du bist mindestens so schnell"
+        },
+        "effectSummary": {
+          "en": "Precision transit: Your engines punch through smoothly; execute a space jump with one of your ships.",
+          "de": "Präzisionssprung: Deine Antriebe halten dem Druck stand; du führst mit einem Schiff einen Raumsprung aus."
+        },
+        "effects": {
+          "spaceJump": true
+        }
+      },
+      {
+        "condition": {
+          "en": "Slower",
+          "de": "Du bist langsamer"
+        },
+        "effectSummary": {
+          "en": "Field collapse: The shockwave clips your thrusters; one ship cannot fly this turn.",
+          "de": "Feldkollaps: Das Schiff gerät ins Trudeln; die Antriebe eines Schiffs fallen für diese Runde aus."
+        },
+        "effects": {
+          "blockOneShip": true
+        }
+      }
+    ],
+    "interaction": "choice",
+    "opponent": "right",
+    "comparison": "speed",
+    "characterIndex": 1
+  },
+  {
+    "number": 28,
+    "type": "SpaceDistortion",
+    "title": {
+      "en": "The Unstable Chrono Wormhole",
+      "de": "Das instabile Chrono-Wurmloch"
+    },
+    "situation": {
+      "en": "A massive spatial curvature twists light and timeline metrics around your flagship.",
+      "de": "Eine gewaltige Raumzerrung verzerrt Licht und Zeit um dein Flaggschiff."
+    },
+    "playerChoice": {
+      "en": "Will you risk jumping into the vortex or back out of the event horizon?",
+      "de": "Wagst du den Sprung durch das Phänomen?"
+    },
+    "outcomes": [
+      {
+        "condition": {
+          "en": "Do not jump",
+          "de": "Du versuchst keinen Sprung"
+        },
+        "effectSummary": {
+          "en": "Veered away: Backing away from the anomaly reveals an entirely new encounter (new card drawn).",
+          "de": "Rückzug aus dem Ereignishorizont: Eine neue kosmische Begegnung entfaltet sich (neue Karte wird aufgedeckt)."
+        },
+        "effects": {
+          "redrawCard": true
+        }
+      },
+      {
+        "condition": {
+          "en": "At least as fast",
+          "de": "Du bist mindestens so schnell"
+        },
+        "effectSummary": {
+          "en": "Wormhole traversed: Your vessel re-emerges across distant interstellar coordinates (space jump).",
+          "de": "Sprung geglückt: Dein Schiff taucht an fernen Sternenkoordinaten wieder auf (Raumsprung)."
+        },
+        "effects": {
+          "spaceJump": true
+        }
+      },
+      {
+        "condition": {
+          "en": "Slower",
+          "de": "Du bist langsamer"
+        },
+        "effectSummary": {
+          "en": "Structural fracture: Gravitational tidal forces shear off one of your flagship upgrades.",
+          "de": "Hüllenfraktur: Ein Ausbau deines Flaggschiffs wird von den Gezeitenkräften abgerissen."
+        },
+        "effects": {
+          "loseUpgrade": true
+        }
+      }
+    ],
+    "interaction": "choice",
+    "opponent": "secondRight",
+    "comparison": "speed",
+    "characterIndex": 2
+  },
+  {
+    "number": 29,
+    "type": "WanderingPeople",
+    "title": {
+      "en": "Encounter with the Oakhaven Drifters",
+      "de": "Begegnung mit den Oakhaven-Driftern"
+    },
+    "situation": {
+      "en": "A welded modular ark of the Star Drifters crosses your wake. The nomads request a small cargo donation (0 to 3 resources) for their life-support filters.",
+      "de": "Ein zusammengeschweißtes Generationenschiff der Sternen-Drifter kreuzt deinen Weg. Die Nomaden bitten um eine kleine Frachtspende (0 bis 3 Rohstoffe) für ihre Lebenserhaltungssysteme."
+    },
+    "playerChoice": {
+      "en": "Choose how many resources (0 to 3) to donate to the Drifters.",
+      "de": "Bestimme deine Spendenmenge (0 bis 3 Rohstoffe)."
+    },
+    "outcomes": [
+      {
+        "condition": {
+          "en": "Donate nothing",
+          "de": "Du spendest nichts"
+        },
+        "effectSummary": {
+          "en": "Nothing given: The drifters drift past peacefully; your parsimony has no consequences.",
+          "de": "Nichts gegeben: Die Drifter ziehen friedlich weiter; dein Geiz bleibt folgenlos."
+        },
+        "effects": {}
+      },
+      {
+        "condition": {
+          "en": "Donate",
+          "de": "Du spendest"
+        },
+        "effectSummary": {
+          "en": "Grateful nomads: The Drifters thank you deeply and award a fame medal piece.",
+          "de": "Hilfe geleistet: Die Drifter danken dir herzlich und verleihen dir eine halbe Medaille."
+        },
+        "effects": {
+          "halfMedals": 1,
+          "resourceCost": "Donation"
+        }
+      },
+      {
+        "condition": {
+          "en": "Generous donation",
+          "de": "Besonders großzügige Spende"
+        },
+        "effectSummary": {
+          "en": "Generous bequest: Awed by your kindness, the Drifters gift you parts and blueprints for a complete Trade Ship!",
+          "de": "Großzügige Stiftung: Beeindruckt von deiner Hilfe überlassen dir die Drifter die Bauteile für ein vollständiges Handelsschiff!"
+        },
+        "effects": {
+          "gainTradeShip": true,
+          "resourceCost": "Donation"
+        }
+      }
+    ],
+    "interaction": "donation",
+    "opponent": "none",
+    "comparison": "none",
+    "characterIndex": 0
+  },
+  {
+    "number": 30,
+    "type": "WanderingPeople",
+    "title": {
+      "en": "Vagabonds of the Starways",
+      "de": "Die Vagabunden der Sternenstraßen"
+    },
+    "situation": {
+      "en": "Nomadic scrap scavengers of the Star Drifters request resources (0 to 3) to maintain their aged sub-light reactors.",
+      "de": "Nomadische Schrottsammler der Sternen-Drifter bitten um Rohstoffe (0 bis 3), um ihre alten Schiffsreaktoren zu warten."
+    },
+    "playerChoice": {
+      "en": "Select your donation amount to the vagabonds (0 to 3 resources).",
+      "de": "Wähle deine Spende an die Vagabunden (0 bis 3 Rohstoffe)."
+    },
+    "outcomes": [
+      {
+        "condition": {
+          "en": "Donate nothing",
+          "de": "Du spendest nichts"
+        },
+        "effectSummary": {
+          "en": "Cold dismissal: The drifters warn others of your lack of warmth (-1 medal piece).",
+          "de": "Kalt abgewiesen: Die Drifter warnen andere Wanderer vor deiner Härte (-1 halbe Medaille)."
+        },
+        "effects": {
+          "halfMedals": -1
+        }
+      },
+      {
+        "condition": {
+          "en": "Donate",
+          "de": "Du spendest"
+        },
+        "effectSummary": {
+          "en": "Warm gratitude: The drifters salute your generosity (+1 medal piece).",
+          "de": "Spende übergeben: Die Drifter sprechen dir ihren Dank aus (+1 halbe Medaille)."
+        },
+        "effects": {
+          "halfMedals": 1,
+          "resourceCost": "Donation"
+        }
+      },
+      {
+        "condition": {
+          "en": "Generous donation",
+          "de": "Besonders großzügige Spende"
+        },
+        "effectSummary": {
+          "en": "Friend of the Drifters: The nomads guide your fleet through forgotten corridors (space jump + 1 medal piece).",
+          "de": "Freund der Drifter: Als Dank navigieren dich die Nomaden durch geheime Raumrouten (Raumsprung + 1 halbe Medaille)."
+        },
+        "effects": {
+          "halfMedals": 1,
+          "spaceJump": true,
+          "resourceCost": "Donation"
+        }
+      }
+    ],
+    "interaction": "donation",
+    "opponent": "none",
+    "comparison": "none",
+    "characterIndex": 0
+  },
+  {
+    "number": 31,
+    "type": "Event",
+    "title": {
+      "en": "Ravages of Deep Space",
+      "de": "Zahn der Zeit im Tiefraum"
+    },
+    "situation": {
+      "en": "Cosmic radiation and micrometeorite showers corrode outer hulls across over-fitted vessels.",
+      "de": "Kosmische Strahlung und mikroskopische Mikrometeoriten nagen an den Außenhüllen überrüsteter Schiffe."
+    },
+    "playerChoice": {
+      "en": "The galactic events take effect; the encounter deck is then reshuffled.",
+      "de": "Die galaktischen Ereignisse treten ein; danach wird das Begegnungsdeck neu gemischt."
+    },
+    "outcomes": [
+      {
+        "condition": {
+          "en": "Flagship with more than 8 upgrades",
+          "de": "Flaggschiff mit mehr als acht Ausbauten"
+        },
+        "effectSummary": {
+          "en": "Overburdened hull (> 8 upgrades): Extreme wear forces the owner to dismantle one flagship upgrade.",
+          "de": "Überdimensionierte Flaggschiffe (> 8 Ausbauten): Materialermüdung zwingt den Eigner, einen beliebigen Flaggschiff-Ausbau zu entfernen."
+        },
+        "effects": {
+          "loseUpgrade": true
+        }
+      },
+      {
+        "condition": {
+          "en": "In conclusion",
+          "de": "Zum Abschluss"
+        },
+        "effectSummary": {
+          "en": "Deck reshuffle: The encounter deck is reshuffled and a fresh encounter is drawn.",
+          "de": "Deck-Regeneration: Das gesamte Begegnungsdeck wird neu gemischt und eine neue Karte aufgedeckt."
+        },
+        "effects": {
+          "reshuffleDeck": true,
+          "redrawCard": true
+        }
+      }
+    ],
+    "interaction": "event",
+    "opponent": "none",
+    "comparison": "none",
+    "characterIndex": 3
+  },
+  {
+    "number": 32,
+    "type": "Event",
+    "title": {
+      "en": "Conclave of the Galactic Council",
+      "de": "Konklave des Galaktischen Rates"
+    },
+    "situation": {
+      "en": "The Galactic Council convenes while deep-space wear tests all fleets in the sector.",
+      "de": "Der Galaktische Rat tritt zusammen, während Weltraumverschleiß die Schiffe belastet."
+    },
+    "playerChoice": {
+      "en": "The galactic events take effect; the encounter deck is then reshuffled.",
+      "de": "Die galaktischen Ereignisse treten ein; danach wird das Begegnungsdeck neu gemischt."
+    },
+    "outcomes": [
+      {
+        "condition": {
+          "en": "Flagship with more than 6 upgrades",
+          "de": "Flaggschiff mit mehr als sechs Ausbauten"
+        },
+        "effectSummary": {
+          "en": "Vessel strain (> 6 upgrades): Owners with more than 6 upgrades must dismantle one upgrade.",
+          "de": "Schiffsverschleiß (> 6 Ausbauten): Eigner mit mehr als 6 Ausbauten müssen einen Ausbau entfernen."
+        },
+        "effects": {
+          "loseUpgrade": true
+        }
+      },
+      {
+        "condition": {
+          "en": "Most freight pods",
+          "de": "Meiste Frachtringe"
+        },
+        "effectSummary": {
+          "en": "Pioneering merchants honored: Players with the most freight pods each receive a medal piece from the council.",
+          "de": "Auszeichnung der Frachtpioniere: Die Spieler mit den meisten Frachtmodulen erhalten vom Rat je eine halbe Medaille."
+        },
+        "effects": {
+          "halfMedals": 1
+        }
+      },
+      {
+        "condition": {
+          "en": "In conclusion",
+          "de": "Zum Abschluss"
+        },
+        "effectSummary": {
+          "en": "In conclusion: The encounter deck is reshuffled and a new encounter is revealed.",
+          "de": "Zum Abschluss: Das Begegnungsdeck wird neu gemischt und eine neue Karte aufgedeckt."
+        },
+        "effects": {
+          "reshuffleDeck": true,
+          "redrawCard": true
+        }
+      }
+    ],
+    "interaction": "event",
+    "opponent": "none",
+    "comparison": "none",
+    "characterIndex": 0
+  }
+]

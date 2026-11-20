@@ -1,0 +1,1063 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20228f82dbb24a74846e540600c5e9f9, type: 3}
+  m_Name: EncounterCardCatalog
+  m_EditorClassIdentifier: 
+  CardAssets: []
+  InlineCards:
+  - Number: 1
+    Type: 0
+    CharacterIndex: 0
+    Title:
+      English: "Petition of the Elyron Convoy"
+      German: "Das Hilfegesuch des Elyron-Konvois"
+    Situation:
+      English: "A laden trade freighter of the Elyrian Consortium has suffered a reactor drop on its shipping corridor. The reptilian merchant hails your flagship requesting relief cargo (0 to 3 resources)."
+      German: "Ein beladener Handelsfrachter der Elyrier leidet unter Energieverlust auf seiner Versorgungsroute. Der reisende Kaufmann bittet dein Flaggschiff um dringend benötigte Hilfslieferungen (0 bis 3 Rohstoffe)."
+    PlayerChoice:
+      English: "How many cargo crates (0 to 3) will you transfer to the stranded freighter?"
+      German: "Wie viele Rohstoffeinheiten (0 bis 3) stellst du dem Frachter zur Verfügung?"
+    Outcomes:
+    - Condition:
+        English: "Offer 0"
+        German: "Spende 0"
+      EffectSummary:
+        English: "Assistance refused: Word of your selfishness spreads (-2 medal pieces). However, the other players must each surrender 1 resource to you."
+        German: "Hilfe verweigert: Dein Egoismus spricht sich im Sektor herum (-2 halbe Medaillen). Die Mitspieler müssen dir jedoch je einen Rohstoff abtreten."
+    - Condition:
+        English: "Offer 1"
+        German: "Spende 1"
+      EffectSummary:
+        English: "Token gesture: You provide 1 resource and receive Food in return, but the Consortium views you as tightfisted (-1 medal piece)."
+        German: "Kleine Geste: Du spendest 1 Rohstoff und erhältst Nahrung, wirst im Konsortium aber als knauserig eingestuft (-1 halbe Medaille)."
+    - Condition:
+        English: "Offer 2"
+        German: "Spende 2"
+      EffectSummary:
+        English: "Sincere aid: You provide 2 resources. The grateful merchant rewards you with 1 resource of your choice and awards a fame medal piece."
+        German: "Echtes Entgegenkommen: Du spendest 2 Rohstoffe. Der dankbare Kaufmann belohnt dich mit 1 Rohstoff deiner Wahl und einer halben Medaille."
+    - Condition:
+        English: "Offer 3"
+        German: "Spende 3"
+      EffectSummary:
+        English: "Magnanimous relief: You provide 3 resources. Deeply impressed, the Consortium honors you with 2 resources of choice and a fame medal piece."
+        German: "Großherzige Rettungsfracht: Du spendest 3 Rohstoffe. Tief beeindruckt gewährt dir das Konsortium 2 Rohstoffe deiner Wahl und eine halbe Medaille."
+  - Number: 2
+    Type: 0
+    CharacterIndex: 0
+    Title:
+      English: "Sponsorship of the Elyron Expedition"
+      German: "Sponsorship für die Elyron-Expedition"
+    Situation:
+      English: "A high-ranking trade magnate from Elyron seeks sponsors for surveying newly discovered asteroid veins and asks for a contribution to the fleet treasury."
+      German: "Ein hochrangiger Handelsmagnat aus Elyron sucht Sponsoren für die Erschließung neuer Asteroidenschürffelder und bittet um einen Beitrag zur Flottenkasse."
+    PlayerChoice:
+      English: "Determine your investment contribution (0 to 3 resources)."
+      German: "Bestimme deinen Investitionsbeitrag (0 bis 3 Rohstoffe)."
+    Outcomes:
+    - Condition:
+        English: "Offer 0"
+        German: "Spende 0"
+      EffectSummary:
+        English: "Investment declined: You lose standing with the Consortium (-1 medal piece)."
+        German: "Investition abgelehnt: Du verlierst Ansehen beim Konsortium (-1 halbe Medaille)."
+    - Condition:
+        English: "Offer 1"
+        German: "Spende 1"
+      EffectSummary:
+        English: "Modest venture: You receive 1 resource of your choice from the expedition's reserves."
+        German: "Geringer Beitrag: Du erhältst 1 Rohstoff deiner Wahl aus den Expeditionsrücklagen."
+    - Condition:
+        English: "Offer 2"
+        German: "Spende 2"
+      EffectSummary:
+        English: "Solid partnership: The Consortium rewards your backing with 1 resource of choice and a fame medal piece."
+        German: "Solide Partnerschaft: Das Konsortium belohnt deine Unterstützung mit 1 Rohstoff nach Wahl und einer halben Medaille."
+    - Condition:
+        English: "Offer 3"
+        German: "Spende 3"
+      EffectSummary:
+        English: "Exclusive patron: Your generous funding is rewarded with a full flagship upgrade and a fame medal piece."
+        German: "Exklusiv-Patron: Deine großzügige Finanzierung wird mit einem vollwertigen Flaggschiff-Ausbau und einer halben Medaille geehrt."
+  - Number: 3
+    Type: 0
+    CharacterIndex: 2
+    Title:
+      English: "The Elyrian Customs Depot"
+      German: "Die Zollstation von Elyron"
+    Situation:
+      English: "At an orbital frontier station, an Elyrian customs magistrate requests a voluntary navigational security fee to maintain the warp buoys."
+      German: "An einer orbitalen Grenzstation erbittet ein elyrianischer Zollmeister eine freiwillige Sicherheitsabgabe zur Instandhaltung der Navigationsbojen."
+    PlayerChoice:
+      English: "How much will you deposit into the navigational beacon fund (0 to 3 resources)?"
+      German: "Wie viel möchtest du in den Navigationsfonds einzahlen (0 bis 3 Rohstoffe)?"
+    Outcomes:
+    - Condition:
+        English: "Offer 0"
+        German: "Spende 0"
+      EffectSummary:
+        English: "Refusal to pay: The customs officer logs your lack of cooperation with the interstellar authorities (-1 medal piece)."
+        German: "Zahlungsverweigerung: Der Zollmeister meldet deine mangelnde Kooperation den Sternenvölkern (-1 halbe Medaille)."
+    - Condition:
+        English: "Offer 1"
+        German: "Spende 1"
+      EffectSummary:
+        English: "Minimal fee: The customs bureau files your payment coldly without returning any favours."
+        German: "Minimale Abgabe: Die Behörde registriert die Zahlung kühl und ohne Gegenleistung."
+    - Condition:
+        English: "Offer 2"
+        German: "Spende 2"
+      EffectSummary:
+        English: "Official recognition: The customs depot issues an official commendation seal (+1 medal piece)."
+        German: "Offizielle Anerkennung: Die Station stellt dir ein offizielles Belobigungssiegel aus (+1 halbe Medaille)."
+    - Condition:
+        English: "Offer 3"
+        German: "Spende 3"
+      EffectSummary:
+        English: "Generous patron: For your substantial aid you receive valuable Trade Goods and a fame medal piece."
+        German: "Großzügiger Förderer: Für deine substanzielle Hilfe erhältst du edle Handelswaren und eine halbe Medaille."
+  - Number: 4
+    Type: 0
+    CharacterIndex: 1
+    Title:
+      English: "Stranded Merchant in Distress"
+      German: "Gefallener Händler in Raumnot"
+    Situation:
+      English: "A small merchant vessel is drifting helplessly with damaged engines. The desperate trader hopes for a vital resource donation from your holds."
+      German: "Ein kleiner Frachter treibt mit Triebwerksschaden im Vakuum. Der verzweifelte Händler hofft auf eine rettende Rohstoffspende aus deinen Vorräten."
+    PlayerChoice:
+      English: "Choose your relief offering to the stranded merchant (0 to 3 resources)."
+      German: "Wähle deine Spende an den havarierten Frachter (0 bis 3 Rohstoffe)."
+    Outcomes:
+    - Condition:
+        English: "Offer 0"
+        German: "Spende 0"
+      EffectSummary:
+        English: "Callous stance: You provide nothing; the disappointed trader departs empty-handed."
+        German: "Harte Haltung: Du gibst nichts ab; der enttäuschte Händler zieht ohne Austausch ab."
+    - Condition:
+        English: "Offer 1"
+        German: "Spende 1"
+      EffectSummary:
+        English: "Solidarity shown: The merchant thanks you warmly and hands you a fame medal piece."
+        German: "Geste der Solidarität: Der Händler dankt dir herzlich und überreicht dir eine halbe Medaille."
+    - Condition:
+        English: "Offer 2"
+        German: "Spende 2"
+      EffectSummary:
+        English: "Effective emergency aid: The freighter can make repairs. You receive Trade Goods and a fame medal piece."
+        German: "Wirksame Nothilfe: Der Frachter kann repariert werden. Du erhältst Handelswaren und eine halbe Medaille."
+    - Condition:
+        English: "Offer 3"
+        German: "Spende 3"
+      EffectSummary:
+        English: "Suspicious generosity: Suspecting hidden ulterior motives behind the lavish gift, the merchant politely returns it (donation refunded)."
+        German: "Überbordende Gabe: Der Händler schöpft Verdacht vor verdeckten Absichten und gibt dein Geschenk dankend zurück."
+  - Number: 5
+    Type: 0
+    CharacterIndex: 1
+    Title:
+      English: "Endowment for the Temple of Elyron"
+      German: "Stiftung für den Elyron-Tempel"
+    Situation:
+      English: "A delegation of Elyrian temple wardens seeks offerings to maintain the Great Sclera Shrine on their homeworld."
+      German: "Eine Gesandtschaft elyrianischer Glaubenshüter bittet um Weihgaben für den Großen Schuppentempel auf der Heimatwelt."
+    PlayerChoice:
+      English: "Determine your consecrated tribute to the temple delegation (0 to 3 resources)."
+      German: "Bestimme deine Gabe an die Glaubenshüter (0 bis 3 Rohstoffe)."
+    Outcomes:
+    - Condition:
+        English: "Offer 0"
+        German: "Spende 0"
+      EffectSummary:
+        English: "Sacrilegious denial: The priests curse your fleet. One of your ships is sabotaged (blocked this turn) and you lose a medal piece."
+        German: "Entweihung durch Verweigerung: Die Priester verfluchen deine Flotte. Ein Schiff wird sabotiert (diese Runde blockiert) und du verlierst eine halbe Medaille."
+    - Condition:
+        English: "Offer 1"
+        German: "Spende 1"
+      EffectSummary:
+        English: "Paltry offering: The priests take offense at your meager gift (-1 medal piece)."
+        German: "Mageres Opfer: Die Gesandtschaft empfindet die Gabe als Beleidigung (-1 halbe Medaille)."
+    - Condition:
+        English: "Offer 2"
+        German: "Spende 2"
+      EffectSummary:
+        English: "Worthy tribute: You receive 1 resource of your choice and a fame medal piece."
+        German: "Würdige Opfergabe: Du erhältst 1 Rohstoff nach Wahl und eine halbe Medaille."
+    - Condition:
+        English: "Offer 3"
+        German: "Spende 3"
+      EffectSummary:
+        English: "High blessing: The delegation blesses your enterprise and endows you with a complete Trade Ship."
+        German: "Hohe Weihe: Die Gesandtschaft segnet dein Vorhaben und stiftet dir ein komplettes Handelsschiff."
+  - Number: 6
+    Type: 0
+    CharacterIndex: 1
+    Title:
+      English: "Elyrian Guild Gala"
+      German: "Elyron-Zunftfeier auf Sternenbasis"
+    Situation:
+      English: "A splendid banquet vessel of the Merchant Guild invites you to a charity auction supporting underdeveloped rim colonies."
+      German: "Ein prunkvolles Bankettschiff der Handelsgilde lädt zu einer Wohltätigkeitsauktion zugunsten verarmter Außenwelten ein."
+    PlayerChoice:
+      English: "Contribute to the guild foundation with 0 to 3 resources."
+      German: "Beteilige dich an der Zunftstiftung mit 0 bis 3 Rohstoffen."
+    Outcomes:
+    - Condition:
+        English: "Offer 0"
+        German: "Spende 0"
+      EffectSummary:
+        English: "Scandal at the gala: Flouting guild tradition causes one of your ships to be impounded (blocked this turn) and costs you 1 medal piece."
+        German: "Eklat auf dem Bankett: Deine Missachtung der Gildentradition führt zur Festsetzung eines deiner Schiffe (blockiert) und dem Verlust einer halben Medaille."
+    - Condition:
+        English: "Offer 1"
+        German: "Spende 1"
+      EffectSummary:
+        English: "Begrudging coin: The guild looks down on your parsimony (-1 medal piece)."
+        German: "Pflichtbeitrag: Die Gilde rümpft die Nase über deinen Geiz (-1 halbe Medaille)."
+    - Condition:
+        English: "Offer 2"
+        German: "Spende 2"
+      EffectSummary:
+        English: "Respected attendee: You are welcomed warmly, receiving 1 resource of choice and a fame medal piece."
+        German: "Gesehener Gast: Du wirst wohlwollend erwähnt, erhältst 1 Rohstoff deiner Wahl und eine halbe Medaille."
+    - Condition:
+        English: "Offer 3"
+        German: "Spende 3"
+      EffectSummary:
+        English: "Honorary Guild Member: In gratitude for your munificence, the guild gifts you a brand new Trade Ship."
+        German: "Ehrenmitglied der Gilde: Für deine Stiftung überlässt dir die Gilde ein fabrikneues Handelsschiff."
+  - Number: 7
+    Type: 1
+    CharacterIndex: 0
+    Title:
+      English: "Deception under Merchant Veil"
+      German: "Täuschung im Händlerschleier"
+    Situation:
+      English: "A purported Elyrian trader gratefully receives your cargo. Once transferred, the vessel switches transponders: It is a disguised Void Corsair fleeing with your goods!"
+      German: "Ein angeblicher Elyrier-Frachter nimmt deine Fracht dankend entgegen. Kaum transferiert, sendet das Schiff eine feindliche Signatur: Es sind getarnte Void-Korsaren, die mit der Beute davonjagen wollen!"
+    PlayerChoice:
+      English: "Attack the fleeing corsair with your flagship cannons or let them get away."
+      German: "Greife den fliehenden Void-Korsaren mit deinen Bordgeschützen an oder lass ihn mit der Beute ziehen."
+    Outcomes:
+    - Condition:
+        English: "Do not attack"
+        German: "Du greifst nicht an"
+      EffectSummary:
+        English: "Escape: The corsairs jump away with your transferred resources."
+        German: "Fliehen lassen: Der Void-Korsar entkommt mit den ergaunerten Rohstoffen."
+    - Condition:
+        English: "Victory in combat"
+        German: "Sieg im Kampf"
+      EffectSummary:
+        English: "Salvo hits home: You cripple the raider, reclaim all donated resources, and earn a fame medal piece."
+        German: "Sieg im Feuergefecht: Du zwingst das Korsarenschiff in die Knie, holst deine Rohstoffe zurück und gewinnst eine halbe Medaille."
+    - Condition:
+        English: "Defeat in combat"
+        German: "Niederlage im Kampf"
+      EffectSummary:
+        English: "Counterfire: The corsair keeps the loot and damages one of your ships (blocked this turn)."
+        German: "Gegenfeuer: Der Void-Korsar behält die Beute; eines deiner Schiffe darf diese Runde nicht fliegen."
+  - Number: 8
+    Type: 1
+    CharacterIndex: 0
+    Title:
+      English: "Ambush of the False Consul"
+      German: "Hinterhalt des falschen Konsuls"
+    Situation:
+      English: "The polite merchant envoy turns out to be a Void Corsair operative. After boarding your cargo bay, hidden laser batteries unveil and power up!"
+      German: "Der Händler entpuppt sich als Spion der Void-Korsaren. Nach Übergabe der Fracht entblößen sie getarnte Laserlafetten und leiten die Fluchtsequenz ein."
+    PlayerChoice:
+      English: "Open fire on the treacherous raider or yield to their escape."
+      German: "Eröffne das Feuer auf die Verräter oder lass sie entkommen."
+    Outcomes:
+    - Condition:
+        English: "Do not attack"
+        German: "Du greifst nicht an"
+      EffectSummary:
+        English: "Withdrawal: The corsairs slip into the void with your cargo."
+        German: "Rückzug: Die Korsaren entwischen mit deiner Fracht."
+    - Condition:
+        English: "Victory in combat"
+        German: "Sieg im Kampf"
+      EffectSummary:
+        English: "Pirate disabled: Your cannon broadside overwhelms their shields. You recover your resources and gain a medal piece."
+        German: "Kaperung erfolgreich: Deine Geschütze zersieben die Schilde. Du forderst deine Fracht zurück und erhältst eine halbe Medaille."
+    - Condition:
+        English: "Defeat in combat"
+        German: "Niederlage im Kampf"
+      EffectSummary:
+        English: "Hull breach: The corsair retains the loot and leaves one of your ships incapacitated for this turn."
+        German: "Treffer eingesteckt: Eines deiner Schiffe wird für diese Runde manövrierunfähig geschossen; die Beute ist verloren."
+  - Number: 9
+    Type: 2
+    CharacterIndex: 3
+    Title:
+      English: "Void Corsair Tollway"
+      German: "Wegelagerei der Void-Korsaren"
+    Situation:
+      English: "A heavily armed corsair cruiser cuts across your vector and brazenly demands extortion tribute: two resources of your choice."
+      German: "Ein schwer bewaffneter Korsaren-Kreuzer schneidet deinen Kurs und fordert unverblümt Schutzgeld: Zwei Rohstoffe deiner Wahl."
+    PlayerChoice:
+      English: "Pay the extortion demand (2 resources) or engage the raider in cannon combat."
+      German: "Zahle das Lösegeld (2 Rohstoffe) oder nimm den Kampf gegen die Korsaren auf."
+    Outcomes:
+    - Condition:
+        English: "Surrender resources"
+        German: "Du gibst die Rohstoffe ab"
+      EffectSummary:
+        English: "Tribute paid: You hand over 2 resources; the corsair lets you proceed unmolested."
+        German: "Tribut gezahlt: Du übergibst 2 Rohstoffe; der Void-Korsar lässt dich unbehelligt weiterfliegen."
+    - Condition:
+        English: "Victory in combat"
+        German: "Sieg im Kampf"
+      EffectSummary:
+        English: "Glorious triumph: You blast the corsair to scrap and salvage an operational Trade Ship from their hangar!"
+        German: "Glorreicher Sieg: Du vernichtest die Korsaren und erbeutest ein intaktes Handelsschiff zum späteren Einsatz!"
+    - Condition:
+        English: "Defeat in combat"
+        German: "Niederlage im Kampf"
+      EffectSummary:
+        English: "Crushing hit: The corsairs blow off one of your flagship upgrades. You earn a medal piece for your valor."
+        German: "Schwere Treffer: Die Korsaren schießen einen deiner Flaggschiff-Ausbauten ab. Für deinen tapferen Widerstand erhältst du eine halbe Medaille."
+  - Number: 10
+    Type: 2
+    CharacterIndex: 0
+    Title:
+      English: "Blackmail in the Asteroid Belt"
+      German: "Erpressung im Asteroidengürtel"
+    Situation:
+      English: "Two corsair gunboats box in your flagship among the tumbling rocks and demand two resource shipments for safe passage."
+      German: "Zwei Korsaren-Kanonenboote nehmen dein Schiff im Asteroidengürtel in die Zange und fordern zwei Ressourcenladungen für sicheres Geleit."
+    PlayerChoice:
+      English: "Surrender the demanded resources or engage the extortionists in combat."
+      German: "Gib die geforderten Rohstoffe ab oder kämpfe gegen die Erpresser."
+    Outcomes:
+    - Condition:
+        English: "Surrender resources"
+        German: "Du gibst die Rohstoffe ab"
+      EffectSummary:
+        English: "Extortion conceded: You surrender 2 resources and lose reputation (-1 medal piece)."
+        German: "Erpressung nachgegeben: Du übergibst 2 Rohstoffe und verlierst eine halbe Medaille an Ansehen."
+    - Condition:
+        English: "Victory in combat"
+        German: "Sieg im Kampf"
+      EffectSummary:
+        English: "Bandits routed: You drive off the gunboats, seize 2 Carbon from their stash, and earn a medal piece."
+        German: "Erpresser abgewehrt: Du vertreibst die Banditen, erbeutest zwei Einheiten Carbon und erhältst eine halbe Medaille."
+    - Condition:
+        English: "Defeat in combat"
+        German: "Niederlage im Kampf"
+      EffectSummary:
+        English: "Drive disabled: One of your ships is immobilized for this turn; you receive a medal piece for fighting back."
+        German: "Antriebsschaden: Eines deiner Schiffe wird lahmgelegt (blockiert); für den Kampfgeist erhältst du eine halbe Medaille."
+  - Number: 11
+    Type: 2
+    CharacterIndex: 0
+    Title:
+      English: "The Corsair Captain's Ultimatum"
+      German: "Das Ultimatum des Korsaren-Kapitäns"
+    Situation:
+      English: "A scarred Void Corsair warlord barks through your comms, demanding two resource crates as 'transit duty' through his claimed sector."
+      German: "Ein verwegener Korsaren-Kapitän verlangt autoritär zwei Rohstoffladungen als 'Passierzoll' für den Durchflug seines Territoriums."
+    PlayerChoice:
+      English: "Pay the transit duty (2 resources) or power up your combat weapons."
+      German: "Zahle den Passierzoll (2 Rohstoffe) oder aktiviere deine Waffensysteme."
+    Outcomes:
+    - Condition:
+        English: "Surrender resources"
+        German: "Du gibst die Rohstoffe ab"
+      EffectSummary:
+        English: "Duty paid: You give up 2 resources and lose a fame medal piece."
+        German: "Passierzoll entrichtet: Die Korsaren gewähren Durchflug, doch du verlierst eine halbe Medaille."
+    - Condition:
+        English: "Victory in combat"
+        German: "Sieg im Kampf"
+      EffectSummary:
+        English: "Warlord repelled: You rout the pirate warband, earn a medal piece, and loot 1 resource of your choice."
+        German: "Kapitän überwältigt: Du schlägst die Korsaren in die Flucht, rettest dein Ansehen (+1 Medaille) und erbeutest einen Rohstoff deiner Wahl."
+    - Condition:
+        English: "Defeat in combat"
+        German: "Niederlage im Kampf"
+      EffectSummary:
+        English: "Cannons crushed: The corsairs destroy one of your flagship upgrades; you receive a medal piece for your courage."
+        German: "Feuergefecht verloren: Die Korsaren zerstören einen deiner Flaggschiff-Ausbauten; du erhältst eine halbe Medaille für deinen Mut."
+  - Number: 12
+    Type: 3
+    CharacterIndex: 0
+    Title:
+      English: "Shadow Market Barter"
+      German: "Schwarzmarkt-Tausch im Schatten"
+    Situation:
+      English: "A shady corsair fence glides alongside with throttled reactors. He offers an enticing bargain: give him 1 resource to receive 2 units of refined Carbon."
+      German: "Ein zwielichtiger Korsaren-Hehler nähert sich mit gedrosseltem Reaktor. Er bietet dir ein verlockendes Geschäft: Gib 1 Rohstoff und erhalte 2 Einheiten Carbon."
+    PlayerChoice:
+      English: "Accept the shadow market trade or target the smuggler with your cannons."
+      German: "Nimm den Schwarzmarkt-Handel an oder greife das Hehlerschiff mit Bordwaffen an."
+    Outcomes:
+    - Condition:
+        English: "Decline trade"
+        German: "Tausch abgelehnt"
+      EffectSummary:
+        English: "Trade declined: You decline the contraband deal and fly on unharmed."
+        German: "Tausch abgelehnt: Du lehnst den Schmuggel ab und fliegst unbehelligt weiter."
+    - Condition:
+        English: "Accept trade"
+        German: "Du nimmst den Tausch an"
+      EffectSummary:
+        English: "Deal struck: You trade 1 resource for 2 Carbon; the civilized galaxy frowns upon your contraband dealings (-1 medal piece)."
+        German: "Deal besiegelt: Du tauschst 1 Rohstoff gegen 2 Einheiten Carbon; die Mitwelt blickt argwöhnisch auf dich (-1 halbe Medaille)."
+    - Condition:
+        English: "Victory in combat"
+        German: "Sieg im Kampf"
+      EffectSummary:
+        English: "Fence impounded: You capture the smuggler, seize 1 resource of choice, and earn a medal piece."
+        German: "Überraschungsangriff gewonnen: Du kaperst den Hehler, erbeutest 1 Rohstoff nach Wahl und gewinnst eine halbe Medaille."
+    - Condition:
+        English: "Defeat in combat"
+        German: "Niederlage im Kampf"
+      EffectSummary:
+        English: "Smuggler retaliates: The fence scores a critical hit, destroying one flagship upgrade. You gain a medal piece."
+        German: "Gegenfeuer eingesteckt: Der Hehler schlägt zurück; ein Flaggschiff-Ausbau wird vernichtet. Du erhältst eine halbe Medaille."
+  - Number: 13
+    Type: 3
+    CharacterIndex: 1
+    Title:
+      English: "Corsair Grey-Market Exchange"
+      German: "Grauzonen-Tausch der Korsaren"
+    Situation:
+      English: "A rogue corsair freighter offers 2 units of Ore (Fuel) in exchange for 1 of your resources."
+      German: "Ein Schmugglerschiff der Void-Korsaren bietet dir 2 Einheiten Erz im Tausch gegen 1 deiner Rohstoffe an."
+    PlayerChoice:
+      English: "Agree to the trade or strike the corsairs down with heavy weapons."
+      German: "Tausche ein oder eröffne das Feuer auf die Korsaren-Schmuggler."
+    Outcomes:
+    - Condition:
+        English: "Decline trade"
+        German: "Tausch abgelehnt"
+      EffectSummary:
+        English: "Trade declined: You decline the contraband deal and fly on unharmed."
+        German: "Tausch abgelehnt: Du lehnst den Schmuggel ab und fliegst unbehelligt weiter."
+    - Condition:
+        English: "Accept trade"
+        German: "Du nimmst den Tausch an"
+      EffectSummary:
+        English: "Trade concluded: You gain 2 Ore for 1 resource, but forfeit a fame medal piece due to illicit trade."
+        German: "Handel abgeschlossen: Du erhältst 2 Einheiten Erz gegen 1 Rohstoff, verlierst jedoch eine halbe Medaille an Ansehen."
+    - Condition:
+        English: "Victory in combat"
+        German: "Sieg im Kampf"
+      EffectSummary:
+        English: "Smuggler vanquished: You destroy the pirate ship, secure 2 resources of choice, and gain a medal piece."
+        German: "Schmuggler zerschlagen: Du besiegst die Korsaren, nimmst 2 Rohstoffe deiner Wahl an dich und erhältst eine halbe Medaille."
+    - Condition:
+        English: "Defeat in combat"
+        German: "Niederlage im Kampf"
+      EffectSummary:
+        English: "Drive damaged: The pirate hits your thrusters; one of your ships is blocked this turn (you gain a medal piece)."
+        German: "Schiffsbeschädigung: Der Schmuggler trifft deine Triebwerke; eines deiner Schiffe ist diese Runde blockiert (du erhältst eine halbe Medaille)."
+  - Number: 14
+    Type: 4
+    CharacterIndex: 1
+    Title:
+      English: "Privateering Offer from the Void Corsairs"
+      German: "Das Kaperangebot der Void-Korsaren"
+    Situation:
+      English: "A corsair corsair warlord offers a sinister pact: Pay him 1 resource, and his raiding wing will pillage the trade lanes of your rivals."
+      German: "Ein Korsarenfürst bietet dir einen finsteren Pakt an: Wenn du ihm 1 Rohstoff zahlst, plündert sein Geschwader die Handelsrouten deiner Rivalen."
+    PlayerChoice:
+      English: "Accept the privateering raid, reject it, or engage the corsair fleet in honorable combat."
+      German: "Pakt annehmen (Korsaren anheuern), Pakt ablehnen oder die Korsaren angreifen."
+    Outcomes:
+    - Condition:
+        English: "Decline raid offer"
+        German: "Pakt abgelehnt"
+      EffectSummary:
+        English: "Offer rejected: You refuse the corsair pact and fly on safely."
+        German: "Pakt abgelehnt: Du weigerst dich, Piraten anzuheuern, und setzt deinen Flug unbehelligt fort."
+    - Condition:
+        English: "Accept raid offer"
+        German: "Du nimmst das Angebot an"
+      EffectSummary:
+        English: "Pact sealed: You pay 1 resource. The corsairs raid 1 resource from each opponent for you. Your diplomatic reputation plummets (-2 medal pieces)."
+        German: "Korsarenpakt geschmiedet: Du zahlst 1 Rohstoff. Die Korsaren rauben jedem Mitspieler 1 Rohstoff für dich. Dein Ansehen sinkt drastisch (-2 halbe Medaillen)."
+    - Condition:
+        English: "Victory in combat"
+        German: "Sieg im Kampf"
+      EffectSummary:
+        English: "Justice served: You reject piracy, crush the raiders in battle, and are honored with a medal piece."
+        German: "Recht und Ordnung verteidigt: Du attackierst die Schurken und siegst! Du erhältst eine halbe Medaille."
+    - Condition:
+        English: "Defeat in combat"
+        German: "Niederlage im Kampf"
+      EffectSummary:
+        English: "Ambushed: One of your ships is heavily damaged and cannot fly this turn."
+        German: "Gefecht verloren: Eines deiner Schiffe wird schwer getroffen und darf diese Runde nicht fliegen."
+  - Number: 15
+    Type: 4
+    CharacterIndex: 0
+    Title:
+      English: "Mercenary Raid Contract"
+      German: "Söldnerüberfall im Auftrag"
+    Situation:
+      English: "Corsair gunships offer to launch a surprise raid on your competitors for a 'bounty' of 1 resource."
+      German: "Korsaren-Kanonenboote bieten dir an, für die 'Besoldung' von 1 Rohstoff einen Überraschungsangriff auf deine Konkurrenten zu fliegen."
+    PlayerChoice:
+      English: "Hire the mercenaries, refuse, or attack the cutthroats for their predatory proposal."
+      German: "Besoldung zahlen und Angriff befehlen – oder die Söldner für ihr schändliches Angebot attackieren."
+    Outcomes:
+    - Condition:
+        English: "Decline raid offer"
+        German: "Pakt abgelehnt"
+      EffectSummary:
+        English: "Offer rejected: You refuse the corsair pact and fly on safely."
+        German: "Pakt abgelehnt: Du weigerst dich, Söldner anzuheuern, und setzt deinen Flug unbehelligt fort."
+    - Condition:
+        English: "Accept raid offer"
+        German: "Du nimmst das Angebot an"
+      EffectSummary:
+        English: "Mercenaries unleashed: You pay 1 resource; the raiders plunder 1 resource from every other player for you (-2 medal pieces)."
+        German: "Söldner beauftragt: Du zahlst 1 Rohstoff; die Korsaren plündern je 1 Rohstoff von allen Mitspielern für dich (-2 halbe Medaillen)."
+    - Condition:
+        English: "Victory in combat"
+        German: "Sieg im Kampf"
+      EffectSummary:
+        English: "Honorable victory: You defeat the corsair squadron and earn a fame medal piece."
+        German: "Ehrenvoller Sieg: Du bezwingst das Söldnergeschwader und wirst mit einer halben Medaille belohnt."
+    - Condition:
+        English: "Defeat in combat"
+        German: "Niederlage im Kampf"
+      EffectSummary:
+        English: "Repelled: One of your ships is crippled and prohibited from moving this turn."
+        German: "Rückschlag im Kampf: Eines deiner Schiffe wird für diese Runde lahmgelegt."
+        German: "Du ziehst je einen Rohstoff von den Mitspielern und erhältst eine halbe Medaille."
+  - Number: 16
+    Type: 5
+    CharacterIndex: 1
+    Title:
+      English: "Ambush in the Debris Field"
+      German: "Hinterhalt im Trümmerfeld"
+    Situation:
+      English: "A heavily armored Void Corsair interdictor leaps out of hyperspace directly ahead of your bow and opens fire!"
+      German: "Ein schwer gepanzerter Abfangkreuzer der Void-Korsaren springt aus dem Hyperraum direkt vor deinen Bug und eröffnet sofort das Feuer!"
+    PlayerChoice:
+      English: "Fight the corsair interdictor or fire emergency boosters to flee."
+      German: "Kämpfe gegen den Korsaren oder zünde die Notfall-Triebwerke zur Flucht."
+    Outcomes:
+    - Condition:
+        English: "Escape"
+        German: "Flucht"
+      EffectSummary:
+        English: "Evasive flight: Your flight thrusters outrun the pursuers; you escape unharmed."
+        German: "Erfolgreiche Flucht: Deine Triebwerke hängen die Piraten ab; die Flucht gelingt unbeschadet."
+    - Condition:
+        English: "Victory in combat"
+        German: "Sieg im Kampf"
+      EffectSummary:
+        English: "Triumph over the corsairs: You smash the warship, salvage 1 resource of your choice, and gain a medal piece."
+        German: "Triumph über die Korsaren: Du zerschlägst das Korsarenschiff! Du erbeutest 1 Rohstoff nach Wahl und erhältst eine halbe Medaille."
+    - Condition:
+        English: "Defeat in combat"
+        German: "Niederlage im Kampf"
+      EffectSummary:
+        English: "Overwhelmed: Corsair fire destroys one of your flagship upgrades. You gain a medal piece for standing your ground."
+        German: "Geschlagen im Raumkampf: Das Korsarenfeuer zerschmettert einen deiner Flaggschiff-Ausbauten. Für deinen Widerstand erhältst du eine halbe Medaille."
+  - Number: 17
+    Type: 5
+    CharacterIndex: 3
+    Title:
+      English: "War Cry of the Void Corsairs"
+      German: "Schlachtruf der Void-Korsaren"
+    Situation:
+      English: "A ruthless corsair battlecruiser ambushes your expedition to crack open your cargo pods."
+      German: "Ein Korsaren-Schlachtschiff greift deine Flotte an, um deine Frachtmodule aufzubrechen."
+    PlayerChoice:
+      English: "Stand and fight for your fleet, or punch out and flee."
+      German: "Kämpfe um deine Ehre oder ergreife die Flucht."
+    Outcomes:
+    - Condition:
+        English: "Escape"
+        German: "Flucht"
+      EffectSummary:
+        English: "Safe retreat: You duck into an asteroid's shadow and escape safely."
+        German: "Entkommen: Du entfliehst in den Schatten eines Asteroiden."
+    - Condition:
+        English: "Victory in combat"
+        German: "Sieg im Kampf"
+      EffectSummary:
+        English: "Resounding triumph: You disable the enemy vessel, loot 1 Ore, and gain a fame medal piece."
+        German: "Überwältigender Sieg: Du setzt das feindliche Schiff außer Gefecht, erbeutest 1 Erz und eine halbe Medaille."
+    - Condition:
+        English: "Defeat in combat"
+        German: "Niederlage im Kampf"
+      EffectSummary:
+        English: "Battle loss: The corsairs strip one upgrade from your flagship; you receive a medal piece."
+        German: "Niederlage: Die Korsaren plündern ein Flaggschiff-Upgrade. Du erhältst eine halbe Medaille."
+  - Number: 18
+    Type: 5
+    CharacterIndex: 1
+    Title:
+      English: "Corsair Pincer in the Null Sector"
+      German: "Korsaren-Korsett im Nullsektor"
+    Situation:
+      English: "A swarm of agile corsair strike-craft pins down your flagship in a deadly crossfire."
+      German: "Korsaren-Jäger eröffnen ein vernichtendes Sperrfeuer auf dein Flaggschiff."
+    PlayerChoice:
+      English: "Engage the swarming strike-craft or execute high-speed evasion to flee."
+      German: "Kämpfe gegen die Jäger oder versuche einen Fluchtwinkel zu finden."
+    Outcomes:
+    - Condition:
+        English: "Escape"
+        German: "Flucht"
+      EffectSummary:
+        English: "Maneuver out: You outwit their formation and escape unharmed."
+        German: "Fluchtversuch: Du weichst den Jägern aus und entkommst."
+    - Condition:
+        English: "Victory in combat"
+        German: "Sieg im Kampf"
+      EffectSummary:
+        English: "Dogfight won: You swat the raiders from the stars, salvage 1 Carbon, and earn a medal piece."
+        German: "Sieg im Jägerduell: Du holst die Angreifer vom Sternenhimmel, erbeutest 1 Carbon und gewinnst eine halbe Medaille."
+    - Condition:
+        English: "Defeat in combat"
+        German: "Niederlage im Kampf"
+      EffectSummary:
+        English: "Hull battered: A flagship upgrade is lost in the firefight; you receive a medal piece."
+        German: "Niederlage: Ein Flaggschiff-Ausbau geht in den Trümmern verloren; du erhältst eine halbe Medaille."
+  - Number: 19
+    Type: 6
+    CharacterIndex: 3
+    Title:
+      English: "Gravity Trap of the White Dwarf"
+      German: "Schwerkraftfalle des Weißen Zwergs"
+    Situation:
+      English: "A civilian science vessel with extinguished fusion thrusters is spiraling into the gravity well of a White Dwarf star. Hull temperatures are surging!"
+      German: "Ein ziviles Forschungsschiff mit ausgefallenem Fusionsantrieb taumelt in den Gravitationsstrudel eines Weißen Zwergsterns. Die Hitze steigt rapide!"
+    PlayerChoice:
+      English: "Decide whether to attempt the rescue mission or break away."
+      German: "Entscheide, ob du die Rettungsmission wagst oder abdrehst."
+    Outcomes:
+    - Condition:
+        English: "Do not help"
+        German: "Du hilfst nicht"
+      EffectSummary:
+        English: "Abandoned: You refuse to risk your flagship; news of your neglect costs you a medal piece."
+        German: "Aufgegeben: Du riskierst dein Schiff nicht; die Nachricht über dein Versäumnis kostet dich eine halbe Medaille."
+    - Condition:
+        English: "At least as fast"
+        German: "Du bist mindestens so schnell"
+      EffectSummary:
+        English: "Heroic salvage: Your drives hold! You rescue the scholars of the Synapse of Xylos, mount an awarded flagship upgrade, and earn a medal piece."
+        German: "Heldenhafte Bergung: Deine Triebwerke halten stand! Du rettest die Wissenschaftler der Synapse von Xylos, montierst ein geborgenes Flaggschiff-Upgrade und erhältst eine halbe Medaille."
+    - Condition:
+        English: "Slower"
+        German: "Du bist langsamer"
+      EffectSummary:
+        English: "Scorched retreat: Gravitational shear forces you back; your flagship loses an upgrade in the pull."
+        German: "Verpasste Rettung: Die Gezeitenkräfte zwingen dich zum Abbruch; dein Flaggschiff verliert einen Ausbau."
+  - Number: 20
+    Type: 6
+    CharacterIndex: 2
+    Title:
+      English: "Peril in the Plasma Wake"
+      German: "Gefahr im Plasmaschweif"
+    Situation:
+      English: "A disabled ore freighter is caught in a violent coronal mass ejection. An urgent distress beacon pulses across all sub-ether channels."
+      German: "Ein antriebsloser Erzfrachter wird von einer koronalen Sonneneruption erfasst. Ein Notruf erreicht deine Funkkonsole."
+    PlayerChoice:
+      English: "Attempt a high-speed emergency tow or break away to protect your own vessel."
+      German: "Wage das riskante Hochgeschwindigkeitsmanöver oder drehe ab."
+    Outcomes:
+    - Condition:
+        English: "Do not help"
+        German: "Du hilfst nicht"
+      EffectSummary:
+        English: "Veered away: You safeguard your flagship, but your caution costs you a fame medal piece."
+        German: "Abgedreht: Du rettest dein eigenes Schiff, verlierst aber Ansehen (-1 halbe Medaille)."
+    - Condition:
+        English: "At least as fast"
+        German: "Du bist mindestens so schnell"
+      EffectSummary:
+        English: "Flawless tow: You haul the freighter out just in time! In reward, each rival player must give you 1 resource and you gain a medal piece."
+        German: "Erfolgreicher Schleppvorgang: Du erreichst den Frachter rechtzeitig! Zur Belohnung erhältst du je 1 Rohstoff von allen Mitspielern und eine halbe Medaille."
+    - Condition:
+        English: "Slower"
+        German: "Du bist langsamer"
+      EffectSummary:
+        English: "Plasma burn: The maneuver falters; extreme heat burns out one flagship upgrade (you gain a medal piece)."
+        German: "Zu spät: Das Manöver schlägt fehl; die Hitze fordert einen Flaggschiff-Ausbau (du erhältst eine halbe Medaille)."
+  - Number: 21
+    Type: 6
+    CharacterIndex: 0
+    Title:
+      English: "Derelict on Solar Collision Course"
+      German: "Havarist vor dem Sternenabsturz"
+    Situation:
+      English: "The escape capsule of a Xylos scholar is tumbling toward a blistering solar flare. Every microsecond counts."
+      German: "Die Kapsel eines Xylos-Gelehrten droht in die Korona einer Sonne zu stürzen. Jede Sekunde zählt."
+    PlayerChoice:
+      English: "Ignite emergency afterburners to snatch the capsule before orbital decay."
+      German: "Aktiviere deine Nachbrenner, um die Kapsel vor dem Absturz einzufangen."
+    Outcomes:
+    - Condition:
+        English: "Do not help"
+        German: "Du hilfst nicht"
+      EffectSummary:
+        English: "Stood by: You did not dare the rescue (-1 medal piece)."
+        German: "Untätig geblieben: Du wagst die Rettung nicht (-1 halbe Medaille)."
+    - Condition:
+        English: "At least as fast"
+        German: "Du bist mindestens so schnell"
+      EffectSummary:
+        English: "Scholar secured: The Xylos researcher provides advanced flagship schematics (+1 upgrade) and awards a medal piece."
+        German: "Gelehrter gerettet: Der Xylos-Forscher übergibt dir fortschrittliche Flaggschiff-Baupläne (+1 Ausbau) und ehrt dich mit einer halben Medaille."
+    - Condition:
+        English: "Slower"
+        German: "Du bist langsamer"
+      EffectSummary:
+        English: "Thermal fatigue: Engine strain destroys one flagship upgrade."
+        German: "Triebwerksüberhitzung: Dein Schiff erleidet Strukturschäden (-1 Flaggschiff-Ausbau)."
+  - Number: 22
+    Type: 6
+    CharacterIndex: 1
+    Title:
+      English: "Raid on the Elyrian Convoy"
+      German: "Angriff auf den Elyron-Konvoi"
+    Situation:
+      English: "Void Corsairs have surrounded a merchant carrier of the Elyrian Consortium and are battering its collapsing kinetic shields."
+      German: "Void-Korsaren haben einen Kaufmannsfrachter des Konsortiums von Elyron umstellt und feuern auf die Schutzschilde."
+    PlayerChoice:
+      English: "Intervene with cannons to repel the pirates or proceed along your flight plan."
+      German: "Greife in das Gefecht ein und attackiere die Korsaren, oder setze deinen Kurs fort."
+    Outcomes:
+    - Condition:
+        English: "Do not help"
+        German: "Du hilfst nicht"
+      EffectSummary:
+        English: "Course held: You leave the carrier to its fate (no direct consequence)."
+        German: "Nicht eingegriffen: Du überlässt den Frachter seinem Schicksal (ohne direkte Folgen)."
+    - Condition:
+        English: "Victory in combat"
+        German: "Sieg im Kampf"
+      EffectSummary:
+        English: "Pirates scattered: You save the merchant! The Consortium rewards you with 2 Trade Goods and a medal piece."
+        German: "Korsaren in die Flucht geschlagen: Du rettest den Händler! Das Konsortium belohnt dich mit 2 Einheiten Handelswaren und einer halben Medaille."
+    - Condition:
+        English: "Defeat in combat"
+        German: "Niederlage im Kampf"
+      EffectSummary:
+        English: "Repelled: Your intervention fails; one of your ships is disabled for this turn."
+        German: "Abgewehrt: Dein Rettungsversuch scheitert; eines deiner Schiffe wird für diese Runde manövrierunfähig geschossen."
+  - Number: 23
+    Type: 6
+    CharacterIndex: 3
+    Title:
+      English: "Desperate Mayday from the Merchant Fleet"
+      German: "Verzweifelter Notruf der Handelsflotte"
+    Situation:
+      English: "An Elyrian trade vessel is besieged by corsair swarm fighters. The shields are on the verge of collapsing!"
+      German: "Ein elyrianisches Handelsschiff wird von Korsaren-Schwarmjägern attackiert. Die Schilde brechen gleich zusammen!"
+    PlayerChoice:
+      English: "Launch a counter-assault against the pirate fighters or disengage."
+      German: "Starte den Gegenangriff gegen die Korsaren oder ziehe dich zurück."
+    Outcomes:
+    - Condition:
+        English: "Do not help"
+        German: "Du hilfst nicht"
+      EffectSummary:
+        English: "Fled the scene: Your refusal to assist is noted with disgrace (-1 medal piece)."
+        German: "Flucht: Deine Weigerung spricht sich herum (-1 halbe Medaille)."
+    - Condition:
+        English: "Victory in combat"
+        German: "Sieg im Kampf"
+      EffectSummary:
+        English: "Swarm destroyed: The relieved trader rewards you with 2 Trade Goods and a fame medal piece."
+        German: "Korsaren zersiebt: Der gerettete Frachter bedankt sich mit 2 Einheiten Handelswaren und einer halben Medaille."
+    - Condition:
+        English: "Defeat in combat"
+        German: "Niederlage im Kampf"
+      EffectSummary:
+        English: "Damaged in fray: One of your ships takes hull damage and cannot fly this turn."
+        German: "Zurückgeschlagen: Eines deiner Schiffe wird beschädigt und darf diese Runde nicht fliegen."
+  - Number: 24
+    Type: 6
+    CharacterIndex: 2
+    Title:
+      English: "Assault on the Veda Biosphere Ark"
+      German: "Angriff auf das Veda-Biosphärenschiff"
+    Situation:
+      English: "Void Corsairs are attempting to board a sacred green biosphere ark belonging to the Terra-Symbionts of Veda."
+      German: "Void-Korsaren versuchen ein grünes Biosphärenschiff der Terra-Symbionten von Veda zu entern."
+    PlayerChoice:
+      English: "Fight alongside the bio-ark to repel the corsair boarding pods."
+      German: "Kämpfe zur Verteidigung des Bioschiffs gegen die Piraten."
+    Outcomes:
+    - Condition:
+        English: "Do not help"
+        German: "Du hilfst nicht"
+      EffectSummary:
+        English: "Cowardice in the dark: The Veda arborists condemn your retreat (-1 medal piece)."
+        German: "Feigheit im All: Dein Rückzug wird von den Veda-Gärtnern verurteilt (-1 halbe Medaille)."
+    - Condition:
+        English: "Victory in combat"
+        German: "Sieg im Kampf"
+      EffectSummary:
+        English: "Ark protected: The grateful bio-sage grants you 2 resources of choice and a medal piece."
+        German: "Biosphäre gerettet: Der dankbare Bio-Weise schenkt dir 2 Rohstoffe deiner Wahl und verleiht dir eine halbe Medaille."
+    - Condition:
+        English: "Defeat in combat"
+        German: "Niederlage im Kampf"
+      EffectSummary:
+        English: "Combat loss: The corsairs blast away one of your flagship upgrades; you receive a medal piece."
+        German: "Gefechtsschaden: Die Korsaren beschädigen einen deiner Flaggschiff-Ausbauten; für deinen Heldenmut erhältst du eine halbe Medaille."
+  - Number: 25
+    Type: 6
+    CharacterIndex: 2
+    Title:
+      English: "Corsair Raid on the Star Drifters"
+      German: "Korsarenüberfall auf die Sternen-Drifter"
+    Situation:
+      English: "A patched generation ship of the nomadic Star Drifters is besieged by marauding space raiders."
+      German: "Ein zusammengeschweißtes Habitat-Schiff der wandernden Sternen-Drifter wird von Raumpiraten belagert."
+    PlayerChoice:
+      English: "Intervene with heavy weaponry to defend the drifter folk."
+      German: "Greife mit Bordwaffen ein, um den Driftern beizustehen."
+    Outcomes:
+    - Condition:
+        English: "Do not help"
+        German: "Du hilfst nicht"
+      EffectSummary:
+        English: "Passive watcher: You avoid conflict and stay on course."
+        German: "Untätig: Du meidest den Konflikt und fliegst weiter."
+    - Condition:
+        English: "Victory in combat"
+        German: "Sieg im Kampf"
+      EffectSummary:
+        English: "Drifters liberated: In gratitude, the drifters transmit secret jump coordinates: Execute an immediate space jump with one ship (+1 medal piece)."
+        German: "Drifter befreit: Aus Dankbarkeit teilen die Drifter geheime Raumkoordinaten mit dir: Du führst mit einem Schiff einen Raumsprung aus (+1 halbe Medaille)."
+    - Condition:
+        English: "Defeat in combat"
+        German: "Niederlage im Kampf"
+      EffectSummary:
+        English: "Fended off: One of your ships is blocked this turn; you receive a medal piece for your bravery."
+        German: "Niederlage: Dein Eingreifen misslingt; eines deiner Schiffe wird blockiert (du erhältst eine halbe Medaille)."
+  - Number: 26
+    Type: 7
+    CharacterIndex: 1
+    Title:
+      English: "Tachyon Vortex in the Vacuum"
+      German: "Tachyonen-Wirbel im Vakuum"
+    Situation:
+      English: "Sensors blare a warning of a spinning tachyon anomaly. Intense gravitational shearing tugs violently at your hulls."
+      German: "Sensoren warnen vor einer rotierenden Raumzerrung. Das Gravitationsfeld zerrt an der Hülle deines Schiffes."
+    PlayerChoice:
+      English: "Attempt to ride the spacetime distortion for a tactical space jump, or steer clear."
+      German: "Versuche, die Raumkrümmung für einen kalkulierten Raumsprung zu nutzen, oder umfliege die Anomalie."
+    Outcomes:
+    - Condition:
+        English: "Do not jump"
+        German: "Du versuchst keinen Sprung"
+      EffectSummary:
+        English: "Anomaly bypassed: You steer clear around the gravitational hazard."
+        German: "Anomalie gemieden: Du nimmst Kurs um das Gravitationsfeld."
+    - Condition:
+        English: "At least as fast"
+        German: "Du bist mindestens so schnell"
+      EffectSummary:
+        English: "Jump executed: You ride the wave, executing an instant space jump with a ship of your choice!"
+        German: "Sprung gelungen: Du reitest die Tachyonen-Welle und führst einen sofortigen Raumsprung mit einem Schiff deiner Wahl aus!"
+    - Condition:
+        English: "Slower"
+        German: "Du bist langsamer"
+      EffectSummary:
+        English: "Subspace shock: The turbulence disrupts your impulse coils; one of your ships is paralyzed this turn."
+        German: "Subraum-Schock: Die Gravitation überlastet deine Impulsantriebe; ein Schiff ist für diese Runde lahmgelegt."
+  - Number: 27
+    Type: 7
+    CharacterIndex: 1
+    Title:
+      English: "Subspace Rift Fluctuation"
+      German: "Fluktuation des Subraum-Risses"
+    Situation:
+      English: "A flickering corridor through hyperspace flashes directly across your sensors. A rare, fleeting window for rapid transit!"
+      German: "Ein flackernder Korridor durch den Hyperraum öffnet sich direkt vor deinen Sensoren. Eine seltene Chance zur Schnellreise!"
+    PlayerChoice:
+      English: "Spool drives and punch through the rift, or keep a safe distance."
+      German: "Triebwerke beschleunigen und den Raumsprung wagen, oder sicheren Abstand halten."
+    Outcomes:
+    - Condition:
+        English: "Do not jump"
+        German: "Du versuchst keinen Sprung"
+      EffectSummary:
+        English: "Prudent retreat: You let the unstable portal collapse safely."
+        German: "Abstand gewahrt: Du lässt das instabile Portal kollabieren."
+    - Condition:
+        English: "At least as fast"
+        German: "Du bist mindestens so schnell"
+      EffectSummary:
+        English: "Precision transit: Your engines punch through smoothly; execute a space jump with one of your ships."
+        German: "Präzisionssprung: Deine Antriebe halten dem Druck stand; du führst mit einem Schiff einen Raumsprung aus."
+    - Condition:
+        English: "Slower"
+        German: "Du bist langsamer"
+      EffectSummary:
+        English: "Field collapse: The shockwave clips your thrusters; one ship cannot fly this turn."
+        German: "Feldkollaps: Das Schiff gerät ins Trudeln; die Antriebe eines Schiffs fallen für diese Runde aus."
+  - Number: 28
+    Type: 7
+    CharacterIndex: 2
+    Title:
+      English: "The Unstable Chrono Wormhole"
+      German: "Das instabile Chrono-Wurmloch"
+    Situation:
+      English: "A massive spatial curvature twists light and timeline metrics around your flagship."
+      German: "Eine gewaltige Raumzerrung verzerrt Licht und Zeit um dein Flaggschiff."
+    PlayerChoice:
+      English: "Will you risk jumping into the vortex or back out of the event horizon?"
+      German: "Wagst du den Sprung durch das Phänomen?"
+    Outcomes:
+    - Condition:
+        English: "Do not jump"
+        German: "Du versuchst keinen Sprung"
+      EffectSummary:
+        English: "Veered away: Backing away from the anomaly reveals an entirely new encounter (new card drawn)."
+        German: "Rückzug aus dem Ereignishorizont: Eine neue kosmische Begegnung entfaltet sich (neue Karte wird aufgedeckt)."
+    - Condition:
+        English: "At least as fast"
+        German: "Du bist mindestens so schnell"
+      EffectSummary:
+        English: "Wormhole traversed: Your vessel re-emerges across distant interstellar coordinates (space jump)."
+        German: "Sprung geglückt: Dein Schiff taucht an fernen Sternenkoordinaten wieder auf (Raumsprung)."
+    - Condition:
+        English: "Slower"
+        German: "Du bist langsamer"
+      EffectSummary:
+        English: "Structural fracture: Gravitational tidal forces shear off one of your flagship upgrades."
+        German: "Hüllenfraktur: Ein Ausbau deines Flaggschiffs wird von den Gezeitenkräften abgerissen."
+  - Number: 29
+    Type: 8
+    CharacterIndex: 0
+    Title:
+      English: "Encounter with the Oakhaven Drifters"
+      German: "Begegnung mit den Oakhaven-Driftern"
+    Situation:
+      English: "A welded modular ark of the Star Drifters crosses your wake. The nomads request a small cargo donation (0 to 3 resources) for their life-support filters."
+      German: "Ein zusammengeschweißtes Generationenschiff der Sternen-Drifter kreuzt deinen Weg. Die Nomaden bitten um eine kleine Frachtspende (0 bis 3 Rohstoffe) für ihre Lebenserhaltungssysteme."
+    PlayerChoice:
+      English: "Choose how many resources (0 to 3) to donate to the Drifters."
+      German: "Bestimme deine Spendenmenge (0 bis 3 Rohstoffe)."
+    Outcomes:
+    - Condition:
+        English: "Donate nothing"
+        German: "Du spendest nichts"
+      EffectSummary:
+        English: "Nothing given: The drifters drift past peacefully; your parsimony has no consequences."
+        German: "Nichts gegeben: Die Drifter ziehen friedlich weiter; dein Geiz bleibt folgenlos."
+    - Condition:
+        English: "Donate"
+        German: "Du spendest"
+      EffectSummary:
+        English: "Grateful nomads: The Drifters thank you deeply and award a fame medal piece."
+        German: "Hilfe geleistet: Die Drifter danken dir herzlich und verleihen dir eine halbe Medaille."
+    - Condition:
+        English: "Generous donation"
+        German: "Besonders großzügige Spende"
+      EffectSummary:
+        English: "Generous bequest: Awed by your kindness, the Drifters gift you parts and blueprints for a complete Trade Ship!"
+        German: "Großzügige Stiftung: Beeindruckt von deiner Hilfe überlassen dir die Drifter die Bauteile für ein vollständiges Handelsschiff!"
+  - Number: 30
+    Type: 8
+    CharacterIndex: 0
+    Title:
+      English: "Vagabonds of the Starways"
+      German: "Die Vagabunden der Sternenstraßen"
+    Situation:
+      English: "Nomadic scrap scavengers of the Star Drifters request resources (0 to 3) to maintain their aged sub-light reactors."
+      German: "Nomadische Schrottsammler der Sternen-Drifter bitten um Rohstoffe (0 bis 3), um ihre alten Schiffsreaktoren zu warten."
+    PlayerChoice:
+      English: "Select your donation amount to the vagabonds (0 to 3 resources)."
+      German: "Wähle deine Spende an die Vagabunden (0 bis 3 Rohstoffe)."
+    Outcomes:
+    - Condition:
+        English: "Donate nothing"
+        German: "Du spendest nichts"
+      EffectSummary:
+        English: "Cold dismissal: The drifters warn others of your lack of warmth (-1 medal piece)."
+        German: "Kalt abgewiesen: Die Drifter warnen andere Wanderer vor deiner Härte (-1 halbe Medaille)."
+    - Condition:
+        English: "Donate"
+        German: "Du spendest"
+      EffectSummary:
+        English: "Warm gratitude: The drifters salute your generosity (+1 medal piece)."
+        German: "Spende übergeben: Die Drifter sprechen dir ihren Dank aus (+1 halbe Medaille)."
+    - Condition:
+        English: "Generous donation"
+        German: "Besonders großzügige Spende"
+      EffectSummary:
+        English: "Friend of the Drifters: The nomads guide your fleet through forgotten corridors (space jump + 1 medal piece)."
+        German: "Freund der Drifter: Als Dank navigieren dich die Nomaden durch geheime Raumrouten (Raumsprung + 1 halbe Medaille)."
+  - Number: 31
+    Type: 9
+    CharacterIndex: 3
+    Title:
+      English: "Ravages of Deep Space"
+      German: "Zahn der Zeit im Tiefraum"
+    Situation:
+      English: "Cosmic radiation and micrometeorite showers corrode outer hulls across over-fitted vessels."
+      German: "Kosmische Strahlung und mikroskopische Mikrometeoriten nagen an den Außenhüllen überrüsteter Schiffe."
+    PlayerChoice:
+      English: "The galactic events take effect; the encounter deck is then reshuffled."
+      German: "Die galaktischen Ereignisse treten ein; danach wird das Begegnungsdeck neu gemischt."
+    Outcomes:
+    - Condition:
+        English: "Flagship with more than 8 upgrades"
+        German: "Flaggschiff mit mehr als acht Ausbauten"
+      EffectSummary:
+        English: "Overburdened hull (> 8 upgrades): Extreme wear forces the owner to dismantle one flagship upgrade."
+        German: "Überdimensionierte Flaggschiffe (> 8 Ausbauten): Materialermüdung zwingt den Eigner, einen beliebigen Flaggschiff-Ausbau zu entfernen."
+    - Condition:
+        English: "In conclusion"
+        German: "Zum Abschluss"
+      EffectSummary:
+        English: "Deck reshuffle: The encounter deck is reshuffled and a fresh encounter is drawn."
+        German: "Deck-Regeneration: Das gesamte Begegnungsdeck wird neu gemischt und eine neue Karte aufgedeckt."
+  - Number: 32
+    Type: 9
+    CharacterIndex: 0
+    Title:
+      English: "Conclave of the Galactic Council"
+      German: "Konklave des Galaktischen Rates"
+    Situation:
+      English: "The Galactic Council convenes while deep-space wear tests all fleets in the sector."
+      German: "Der Galaktische Rat tritt zusammen, während Weltraumverschleiß die Schiffe belastet."
+    PlayerChoice:
+      English: "The galactic events take effect; the encounter deck is then reshuffled."
+      German: "Die galaktischen Ereignisse treten ein; danach wird das Begegnungsdeck neu gemischt."
+    Outcomes:
+    - Condition:
+        English: "Flagship with more than 6 upgrades"
+        German: "Flaggschiff mit mehr als sechs Ausbauten"
+      EffectSummary:
+        English: "Vessel strain (> 6 upgrades): Owners with more than 6 upgrades must dismantle one upgrade."
+        German: "Schiffsverschleiß (> 6 Ausbauten): Eigner mit mehr als 6 Ausbauten müssen einen Ausbau entfernen."
+    - Condition:
+        English: "Most freight pods"
+        German: "Meiste Frachtringe"
+      EffectSummary:
+        English: "Pioneering merchants honored: Players with the most freight pods each receive a medal piece from the council."
+        German: "Auszeichnung der Frachtpioniere: Die Spieler mit den meisten Frachtmodulen erhalten vom Rat je eine halbe Medaille."
+    - Condition:
+        English: "In conclusion"
+        German: "Zum Abschluss"
+      EffectSummary:
+        English: "In conclusion: The encounter deck is reshuffled and a new encounter is revealed."
+        German: "Zum Abschluss: Das Begegnungsdeck wird neu gemischt und eine neue Karte aufgedeckt."
