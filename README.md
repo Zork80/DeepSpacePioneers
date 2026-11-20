@@ -653,27 +653,25 @@ Deep Space Pioneers features distinct alien civilizations and cosmic entities, e
 
 ---
 
+## Completed Milestones
+
+- **[Completed] Original Sci-Fi Identity & IP Independence:**
+  - **Trademark & Brand Decoupling:** Fully decoupled from proprietary third-party trademarks, logos, and branded assets. The project stands completely on its own as *Deep Space Pioneers*.
+  - **Codebase & Identifier Consistency:** Original sci-fi space exploration terminology established across all C# classes, comments, UI strings, and bridge protocols.
+  - **3D Game Pieces & Asset Pipeline (OpenSCAD & 3D Print Pipeline):**
+    All 5 game pieces are designed as clean, parametric CAD models in [OpenSCAD](Assets/Models/OpenSCAD/):
+    - **Colony Settlement (Kolonie):** Central geodesic biosphere dome with 3 radial airlock wings and an integrated solar sensor array, sitting flush on the board grid.
+    - **Spaceport (Raumhafen):** True modular expansion of the base colony with extended habitat pods on all 3 wings, a floating gantry launch ring with clear vertical sightlines, and a deep-space communications dish.
+    - **Trade Station (Handelsstation):** Orbit-docking outpost with a high comms beacon spire, 3 outward docking clamps, and hexagonal solar collector wings.
+    - **Colony Ship (Kolonieschiff):** Fast aerodynamic explorer carrying a colonization pod between twin atmospheric rudders and twin thrusters.
+    - **Trade Ship (Handelsschiff):** Heavy catamaran-hulled industrial transport with 4 external modular freight containers and twin engine cowlings.
+    - **Export & Prefab Pipeline:** Parametric source files located in `Assets/Models/OpenSCAD/`. `export_pieces.py` exports dual binary `.stl` and Unity-converted `.obj` formats into `Assets/Models/Pieces/`. Prefabs are automatically assembled and scaled via `SetupOpenSCADPieces.cs`. Legacy Kenney models and transitional setup scripts have been completely removed.
+
+---
+
 ## Open Tasks & Backlog (TODO)
 
-1. **Original Sci-Fi Identity & IP Independence**:
-   - **Trademark & Brand Decoupling:** Maintain complete independence from proprietary third-party trademarks, logos, and branded assets.
-   - **Codebase & Identifier Consistency:** Maintain clean, original space-exploration sci-fi terminology across all internal C# classes, comments, and bridge protocols.
-   - **3D Game Pieces & Asset Pipeline (OpenSCAD & 3D Print Pipeline):**
-     All 5 game pieces are designed as clean, parametric CAD models in [OpenSCAD](Assets/Models/OpenSCAD/):
-     - **Colony Settlement (Kolonie):** Central geodesic biosphere dome with 3 radial airlock wings and an integrated solar sensor array, sitting flush on the board grid.
-     - **Spaceport (Raumhafen):** True modular expansion of the base colony with extended habitat pods on all 3 wings, a floating gantry launch ring with clear vertical sightlines, and a deep-space communications dish.
-     - **Trade Station (Handelsstation):** Orbit-docking outpost with a high comms beacon spire, 3 outward docking clamps, and hexagonal solar collector wings.
-     - **Colony Ship (Kolonieschiff):** Fast aerodynamic explorer carrying a colonization pod between twin atmospheric rudders and twin thrusters.
-     - **Trade Ship (Handelsschiff):** Heavy catamaran-hulled industrial transport with 4 external modular freight containers and twin engine cowlings.
-
-     **Export & 3D Print Pipeline:**
-     - Parametric source files located in `Assets/Models/OpenSCAD/` (`colony.scad`, `spaceport.scad`, `trade_station.scad`, `colony_ship.scad`, `trade_ship.scad`).
-     - CLI Exporter `export_pieces.py`: Exports dual formats—high-precision binary `.stl` for slicers (e.g. OrcaSlicer) and converted `.obj` models (mapped from OpenSCAD Z-up/Y-forward to Unity Y-up/Z-forward) into `Assets/Models/Pieces/`.
-     - Automatic prefab assembly and scaling via `SetupOpenSCADPieces.cs` in the Unity Editor.
-
-   - **Standalone IP Independence:** Ensure the project can stand completely on its own as an original space colonization, trading, and exploration game without infringing upon proprietary board game trademarks.
-
-2. **Investigation Status: Sidebar Player Data Display (AI vs. Local Human Player)**:
+1. **Investigation Status: Sidebar Player Data Display (AI vs. Local Human Player)**:
    - **Context & User Report:**
      - The user launched the game directly from the Unity Editor in single-player mode against 3 AI opponents (Spieler 1 is human, Spieler 2–4 are AI).
      - Opponent stats—specifically transport ships (`ActiveTransportShips`: colony and trade ships) and other mothership/flagship inventory values—were still visible in the left sidebar (`SidebarViewUI`) during AI turns, despite the initial routing in commit `e39586f`.
