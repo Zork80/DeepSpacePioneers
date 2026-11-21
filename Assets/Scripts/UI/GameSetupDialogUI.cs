@@ -15,11 +15,21 @@ public class GameSetupDialogUI : MonoBehaviour
 {
     private static readonly Color[] PlayerColors = new Color[]
     {
-        new Color(0.9f, 0.25f, 0.25f, 1f), // Player 1: Red
-        new Color(0.95f, 0.85f, 0.25f, 1f), // Player 2: Yellow
-        new Color(0.25f, 0.6f, 0.95f, 1f),  // Player 3: Blue
-        new Color(0.25f, 0.85f, 0.45f, 1f)  // Player 4: Green
+        new Color(0f, 0.05884123f, 1f, 1f),      // Color 0: Blue (Player1Material)
+        new Color(0.00787749f, 0.7735849f, 0f, 1f), // Color 1: Green (Player2Material)
+        new Color(1f, 1f, 0f, 1f),               // Color 2: Yellow (Player3Material)
+        new Color(1f, 0f, 0f, 1f)                // Color 3: Red (Player4Material)
     };
+
+    private Color GetPlayerColor(int colorIndex)
+    {
+        int idx = Mathf.Clamp(colorIndex, 0, PlayerColors.Length - 1);
+        if (_triMap != null && _triMap.PlayerMaterials != null && idx < _triMap.PlayerMaterials.Length && _triMap.PlayerMaterials[idx] != null)
+        {
+            return _triMap.PlayerMaterials[idx].color;
+        }
+        return PlayerColors[idx];
+    }
 
     public enum SetupMode
     {
@@ -317,7 +327,7 @@ public class GameSetupDialogUI : MonoBehaviour
             // Clickable Color Swatch Button
             GameObject swatch = UIFactory.CreateElement("ColorSwatch", row.transform, typeof(CanvasRenderer), typeof(Image), typeof(Button), typeof(LayoutElement));
             Image swatchImg = swatch.GetComponent<Image>();
-            swatchImg.color = PlayerColors[i];
+            swatchImg.color = GetPlayerColor(i);
             Button colorBtn = swatch.GetComponent<Button>();
             colorBtn.targetGraphic = swatchImg;
             colorBtn.onClick.AddListener(() => CycleLocalSlotColor(slotIdx));
@@ -736,7 +746,7 @@ public class GameSetupDialogUI : MonoBehaviour
             // Clickable Swatch in Lobby
             GameObject swatch = UIFactory.CreateElement("ColorSwatch", row.transform, typeof(CanvasRenderer), typeof(Image), typeof(Button), typeof(LayoutElement));
             _lobbySlotSwatches[i] = swatch.GetComponent<Image>();
-            _lobbySlotSwatches[i].color = PlayerColors[i];
+            _lobbySlotSwatches[i].color = GetPlayerColor(i);
             _lobbySlotColorBtns[i] = swatch.GetComponent<Button>();
             _lobbySlotColorBtns[i].targetGraphic = _lobbySlotSwatches[i];
             _lobbySlotColorBtns[i].onClick.AddListener(() => CycleLobbySlotColor(slotIdx));
@@ -959,8 +969,7 @@ public class GameSetupDialogUI : MonoBehaviour
 
             if (_lobbySlotSwatches[i] != null)
             {
-                int cIdx = Mathf.Clamp(slot.colorIndex, 0, PlayerColors.Length - 1);
-                _lobbySlotSwatches[i].color = PlayerColors[cIdx];
+                _lobbySlotSwatches[i].color = GetPlayerColor(slot.colorIndex);
             }
             if (_lobbySlotColorBtns[i] != null)
             {
@@ -1390,7 +1399,7 @@ public class GameSetupDialogUI : MonoBehaviour
         slot.DiffButtonImage.color = GetDifficultyColor(slot.CurrentDifficulty);
         if (slot.ColorSwatch != null)
         {
-            slot.ColorSwatch.color = PlayerColors[Mathf.Clamp(slot.ColorIndex, 0, PlayerColors.Length - 1)];
+            slot.ColorSwatch.color = GetPlayerColor(slot.ColorIndex);
         }
     }
 
