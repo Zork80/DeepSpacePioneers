@@ -6437,7 +6437,7 @@ public class TriMap : MonoBehaviour, IQPathWorld
             DebugSettings = new GameDebugSettings();
         }
         GameDebugSettings.Active = DebugSettings;
-        LocalizationManager.SetLanguage(DebugSettings.Language);
+        LocalizationManager.SetLanguage(DebugSettings.Language, persist: false);
 
         if (!DebugSettings.HighlightPlanetDiscoveryPoints)
         {

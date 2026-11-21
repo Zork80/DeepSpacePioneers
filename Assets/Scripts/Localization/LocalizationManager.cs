@@ -10,6 +10,15 @@ public static class LocalizationManager
     private const string LanguagePrefKey = "DeepSpacePioneers_Language";
     private static GameLanguage currentLanguage = GameLanguage.German;
 
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    private static void InitializeOnLoad()
+    {
+        if (HasSavedLanguage())
+        {
+            currentLanguage = LoadSavedLanguage(currentLanguage);
+        }
+    }
+
     public static GameLanguage CurrentLanguage
     {
         get => currentLanguage;
@@ -34,15 +43,18 @@ public static class LocalizationManager
         return Enum.IsDefined(typeof(GameLanguage), saved) ? (GameLanguage)saved : fallback;
     }
 
-    public static void SetLanguage(GameLanguage language)
+    public static void SetLanguage(GameLanguage language, bool persist = true)
     {
         if (GameDebugSettings.Active != null)
         {
             GameDebugSettings.Active.Language = language;
         }
 
-        PlayerPrefs.SetInt(LanguagePrefKey, (int)language);
-        PlayerPrefs.Save();
+        if (persist)
+        {
+            PlayerPrefs.SetInt(LanguagePrefKey, (int)language);
+            PlayerPrefs.Save();
+        }
 
         if (currentLanguage != language)
         {
