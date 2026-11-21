@@ -983,7 +983,7 @@ public class PlayerHandler : MonoBehaviour
             return;
         }
 
-        _friendshipCardDialog.Show(civ, availableCards, card =>
+        _friendshipCardDialog.Show(player, civ, availableCards, card =>
         {
             if (Networking.NetworkManager.Instance != null &&
                 Networking.NetworkManager.Instance.IsClientConnected &&

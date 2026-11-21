@@ -1195,6 +1195,21 @@ public static class UIStrings
 
     public static readonly LocalizedString LobbyStartButton =
         new LocalizedString("Start LAN Game", "LAN-Spiel starten");
+
+    public static readonly LocalizedString FriendshipViewBoardButton =
+        new LocalizedString("View Board", "Brett ansehen");
+
+    public static readonly LocalizedString FriendshipBackToSelectionButton =
+        new LocalizedString("Back to Selection", "Zurück zur Auswahl");
+
+    public static readonly LocalizedString FriendshipProductionSummaryHeader =
+        new LocalizedString("Your colony production numbers:", "Deine Kolonie-Ertragszahlen:");
+
+    public static readonly LocalizedString FriendshipCardProductionMatchFormat =
+        new LocalizedString("Your production: {0} ({1}x)", "Deine Erträge: {0} ({1}x)");
+
+    public static readonly LocalizedString FriendshipCardProductionNone =
+        new LocalizedString("Your production: none", "Deine Erträge: keine");
 }
 
 
