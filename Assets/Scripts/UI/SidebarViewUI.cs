@@ -92,16 +92,16 @@ public class SidebarViewUI : MonoBehaviour
 
     private void EnsureHierarchy(ActionPanelUI.Callbacks actionCallbacks)
     {
-        // Configure left sidebar width and positioning
+        // Configure right sidebar width and positioning
         if (transform.name == "LeftBar")
         {
             RectTransform selfRect = transform as RectTransform;
             if (selfRect != null)
             {
-                selfRect.anchorMin = new Vector2(0f, 0f);
-                selfRect.anchorMax = new Vector2(0f, 1f);
+                selfRect.anchorMin = new Vector2(1f, 0f);
+                selfRect.anchorMax = new Vector2(1f, 1f);
                 selfRect.pivot = new Vector2(0.5f, 0.5f);
-                selfRect.anchoredPosition = new Vector2(130f, 0f);
+                selfRect.anchoredPosition = new Vector2(-130f, 0f);
                 selfRect.sizeDelta = new Vector2(260f, 0f);
             }
         }
@@ -110,8 +110,10 @@ public class SidebarViewUI : MonoBehaviour
             RectTransform sidebarRect = transform.parent as RectTransform;
             if (sidebarRect != null)
             {
+                sidebarRect.anchorMin = new Vector2(1f, 0f);
+                sidebarRect.anchorMax = new Vector2(1f, 1f);
                 sidebarRect.sizeDelta = new Vector2(260f, sidebarRect.sizeDelta.y);
-                sidebarRect.anchoredPosition = new Vector2(130f, sidebarRect.anchoredPosition.y);
+                sidebarRect.anchoredPosition = new Vector2(-130f, sidebarRect.anchoredPosition.y);
             }
 
             RectTransform panelRect = transform as RectTransform;

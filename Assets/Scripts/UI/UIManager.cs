@@ -87,8 +87,8 @@ public static class UIManager
     {
         if (IsAnyOverlayActive) return true;
 
-        // Persistent LeftBar sidebar check: LeftBar occupies the left 260px of the screen
-        if (screenPoint.x >= 0f && screenPoint.x <= 260f)
+        // Persistent sidebar check: sidebar occupies the right 260px of the screen
+        if (screenPoint.x >= Screen.width - 260f && screenPoint.x <= Screen.width)
         {
             return true;
         }

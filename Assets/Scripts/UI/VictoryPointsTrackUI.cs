@@ -31,7 +31,7 @@ public class VictoryPointsTrackUI : MonoBehaviour
         rect.anchorMin = new Vector2(0f, 0f);
         rect.anchorMax = new Vector2(0f, 0f);
         rect.pivot = new Vector2(0f, 0f);
-        rect.anchoredPosition = new Vector2(275f, 10f);
+        rect.anchoredPosition = new Vector2(15f, 10f);
         rect.sizeDelta = new Vector2(810f, 88f);
 
         UIManager.RegisterHudElement(rect);

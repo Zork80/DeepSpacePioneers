@@ -338,9 +338,9 @@ public class PlanetTooltipUI : MonoBehaviour
                     targetPos.y = localPoint.y - tooltipH - 25f;
                 }
 
-                // Never overlap the left sidebar (260px wide from left screen edge)
-                float minX = -halfWidth + 260f + halfTooltipW + 12f;
-                float maxX = halfWidth - halfTooltipW - 12f;
+                // Never overlap the right sidebar (260px wide from right screen edge)
+                float minX = -halfWidth + halfTooltipW + 12f;
+                float maxX = halfWidth - 260f - halfTooltipW - 12f;
                 targetPos.x = Mathf.Clamp(targetPos.x, minX, maxX);
 
                 // Never overlap the bottom HUD (e.g. VP track bar, roughly bottom 105px)
