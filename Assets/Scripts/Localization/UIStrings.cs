@@ -1080,6 +1080,18 @@ public static class UIStrings
         new LocalizedString("AI takes over your turn in {0}s", "KI übernimmt deinen Zug in {0}s");
     public static readonly LocalizedString AiTakeoverCancelButton =
         new LocalizedString("I'm still here! (Cancel)", "Ich bin noch da! (Abbrechen)");
+
+    // --- Language Switcher ---
+    public static readonly LocalizedString LanguageButton =
+        new LocalizedString("🌐 Language: English", "🌐 Sprache: Deutsch");
+    public static readonly LocalizedString LanguageShortButton =
+        new LocalizedString("🌐 EN", "🌐 DE");
+    public static readonly LocalizedString GameSetupTabLocal =
+        new LocalizedString("👥 Local Game", "👥 Lokales Spiel");
+    public static readonly LocalizedString GameSetupTabBrowser =
+        new LocalizedString("🌐 Find Server (LAN)", "🌐 Server suchen (LAN)");
+    public static readonly LocalizedString GameSetupTabHost =
+        new LocalizedString("🚀 Host LAN", "🚀 LAN hosten");
 }
 
 

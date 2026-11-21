@@ -202,6 +202,7 @@ public class TriMap : MonoBehaviour, IQPathWorld
         }
         GameDebugSettings.Active = DebugSettings;
         LocalizationManager.OnLanguageChanged += HandleLanguageChanged;
+        DebugSettings.Language = LocalizationManager.LoadSavedLanguage(DebugSettings.Language);
         LocalizationManager.SetLanguage(DebugSettings.Language);
 
         string[] cliArgs = System.Environment.GetCommandLineArgs();

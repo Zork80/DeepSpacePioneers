@@ -34,6 +34,18 @@ public class GameSetupDialogUI : MonoBehaviour
     private Action _onGameStarted;
     private SetupMode _currentMode = SetupMode.Local;
 
+    // Header & Bottom Bar Localized Texts
+    private Text _titleText;
+    private Text _subtitleText;
+    private Text _languageBtnText;
+    private Text _headerQuitBtnText;
+    private Text _playersHeadingText;
+    private Text _seedHeadingText;
+    private Text _bottomQuitBtnText;
+    private Text _resetBtnText;
+    private Text _launchBtnText;
+    private Text _rerollBtnText;
+
     // Top Navigation Tabs
     private GameObject _tabBar;
     private Button _tabLocalBtn;
@@ -155,15 +167,21 @@ public class GameSetupDialogUI : MonoBehaviour
         titleCol.GetComponent<LayoutElement>().flexibleWidth = 1f;
         UIFactory.AddVerticalLayout(titleCol, 2f, 0);
 
-        Text title = UIFactory.CreateText(titleCol.transform, _font, UIStrings.GameSetupTitle.GetText(),
+        _titleText = UIFactory.CreateText(titleCol.transform, _font, UIStrings.GameSetupTitle.GetText(),
             18, new Color(1f, 0.85f, 0.35f), TextAnchor.MiddleLeft, FontStyle.Bold);
 
-        Text subtitle = UIFactory.CreateText(titleCol.transform, _font, UIStrings.GameSetupSubtitle.GetText(),
+        _subtitleText = UIFactory.CreateText(titleCol.transform, _font, UIStrings.GameSetupSubtitle.GetText(),
             11, new Color(0.7f, 0.88f, 1f), TextAnchor.MiddleLeft);
+
+        Button langBtn = UIFactory.CreateButton(header.transform, _font, UIStrings.LanguageShortButton.GetText(),
+            () => LocalizationManager.ToggleLanguage(), new Color(0.14f, 0.28f, 0.44f, 0.95f), 11, 32f);
+        langBtn.GetComponent<LayoutElement>().preferredWidth = 72f;
+        _languageBtnText = langBtn.GetComponentInChildren<Text>();
 
         Button quitBtn = UIFactory.CreateButton(header.transform, _font, "✕ " + UIStrings.Quit.GetText(),
             ConfirmQuitDialogUI.QuitApplication, new Color(0.55f, 0.18f, 0.18f, 0.95f), 11, 32f);
         quitBtn.GetComponent<LayoutElement>().preferredWidth = 95f;
+        _headerQuitBtnText = quitBtn.GetComponentInChildren<Text>();
     }
 
     private void BuildModeTabBar(Transform parent)
@@ -174,15 +192,15 @@ public class GameSetupDialogUI : MonoBehaviour
         barLayout.minHeight = 36f;
         UIFactory.AddHorizontalLayout(_tabBar, 8f, 0);
 
-        _tabLocalBtn = UIFactory.CreateButton(_tabBar.transform, _font, "👥 Lokales Spiel",
+        _tabLocalBtn = UIFactory.CreateButton(_tabBar.transform, _font, UIStrings.GameSetupTabLocal.GetText(),
             () => SetSetupMode(SetupMode.Local), new Color(0.15f, 0.35f, 0.55f, 1f), 12, 34f);
         _tabLocalBtnText = _tabLocalBtn.GetComponentInChildren<Text>();
 
-        _tabBrowserBtn = UIFactory.CreateButton(_tabBar.transform, _font, "🌐 Server suchen (LAN)",
+        _tabBrowserBtn = UIFactory.CreateButton(_tabBar.transform, _font, UIStrings.GameSetupTabBrowser.GetText(),
             () => SetSetupMode(SetupMode.ServerBrowser), new Color(0.08f, 0.2f, 0.3f, 1f), 12, 34f);
         _tabBrowserBtnText = _tabBrowserBtn.GetComponentInChildren<Text>();
 
-        _tabHostBtn = UIFactory.CreateButton(_tabBar.transform, _font, "🚀 LAN hosten",
+        _tabHostBtn = UIFactory.CreateButton(_tabBar.transform, _font, UIStrings.GameSetupTabHost.GetText(),
             () => SetSetupMode(SetupMode.HostLAN), new Color(0.08f, 0.2f, 0.3f, 1f), 12, 34f);
         _tabHostBtnText = _tabHostBtn.GetComponentInChildren<Text>();
     }
@@ -246,7 +264,7 @@ public class GameSetupDialogUI : MonoBehaviour
         GameObject section = UIFactory.CreateElement("PlayersSection", parent);
         UIFactory.AddVerticalLayout(section, 6f, 4);
 
-        Text secTitle = UIFactory.CreateText(section.transform, _font, UIStrings.GameSetupPlayersHeading.GetText(),
+        _playersHeadingText = UIFactory.CreateText(section.transform, _font, UIStrings.GameSetupPlayersHeading.GetText(),
             12, new Color(0.35f, 0.85f, 1f), TextAnchor.MiddleLeft, FontStyle.Bold);
 
         for (int i = 0; i < 4; i++)
@@ -318,7 +336,7 @@ public class GameSetupDialogUI : MonoBehaviour
         GameObject section = UIFactory.CreateElement("SeedSection", parent);
         UIFactory.AddVerticalLayout(section, 6f, 4);
 
-        Text secTitle = UIFactory.CreateText(section.transform, _font, UIStrings.GameSetupSeedHeading.GetText(),
+        _seedHeadingText = UIFactory.CreateText(section.transform, _font, UIStrings.GameSetupSeedHeading.GetText(),
             12, new Color(0.35f, 0.85f, 1f), TextAnchor.MiddleLeft, FontStyle.Bold);
 
         GameObject row = UIFactory.CreateElement("SeedRow", section.transform, typeof(CanvasRenderer), typeof(Image), typeof(LayoutElement));
@@ -359,6 +377,7 @@ public class GameSetupDialogUI : MonoBehaviour
             RerollSeed, new Color(0.18f, 0.42f, 0.3f, 1f), 11, 32f);
         LayoutElement rerollLay = _rerollBtn.GetComponent<LayoutElement>();
         rerollLay.preferredWidth = 120f;
+        _rerollBtnText = _rerollBtn.GetComponentInChildren<Text>();
     }
 
     private void BuildBottomActionBar(Transform parent)
@@ -374,12 +393,14 @@ public class GameSetupDialogUI : MonoBehaviour
             ConfirmQuitDialogUI.QuitApplication, new Color(0.55f, 0.18f, 0.18f, 0.95f), 12, 40f);
         LayoutElement quitLay = quitBtn.GetComponent<LayoutElement>();
         quitLay.preferredWidth = 95f;
+        _bottomQuitBtnText = quitBtn.GetComponentInChildren<Text>();
 
         // Reset button
         Button resetBtn = UIFactory.CreateButton(bar.transform, _font, UIStrings.GameSetupResetButton.GetText(),
             ResetToDefaults, new Color(0.35f, 0.2f, 0.2f, 0.9f), 11, 40f);
         LayoutElement resetLay = resetBtn.GetComponent<LayoutElement>();
         resetLay.preferredWidth = 110f;
+        _resetBtnText = resetBtn.GetComponentInChildren<Text>();
 
         // Quadrant Debug Labels Toggle button
         _debugLabelsBtn = UIFactory.CreateButton(bar.transform, _font,
@@ -396,8 +417,8 @@ public class GameSetupDialogUI : MonoBehaviour
         launchLay.preferredWidth = 220f;
         launchLay.flexibleWidth = 1f;
 
-        Text launchText = launchBtn.GetComponentInChildren<Text>();
-        if (launchText != null) launchText.fontStyle = FontStyle.Bold;
+        _launchBtnText = launchBtn.GetComponentInChildren<Text>();
+        if (_launchBtnText != null) _launchBtnText.fontStyle = FontStyle.Bold;
     }
 
     // =========================================================================
@@ -1226,6 +1247,56 @@ public class GameSetupDialogUI : MonoBehaviour
         {
             LaunchGame();
         }
+    }
+
+    private void OnEnable()
+    {
+        LocalizationManager.OnLanguageChanged += HandleLanguageChanged;
+        RefreshLanguage();
+    }
+
+    private void OnDisable()
+    {
+        LocalizationManager.OnLanguageChanged -= HandleLanguageChanged;
+    }
+
+    private void HandleLanguageChanged(GameLanguage language)
+    {
+        RefreshLanguage();
+    }
+
+    public void RefreshLanguage()
+    {
+        if (_titleText != null) _titleText.text = UIStrings.GameSetupTitle.GetText();
+        if (_subtitleText != null) _subtitleText.text = UIStrings.GameSetupSubtitle.GetText();
+        if (_languageBtnText != null) _languageBtnText.text = UIStrings.LanguageShortButton.GetText();
+        if (_headerQuitBtnText != null) _headerQuitBtnText.text = "✕ " + UIStrings.Quit.GetText();
+
+        if (_tabLocalBtnText != null) _tabLocalBtnText.text = UIStrings.GameSetupTabLocal.GetText();
+        if (_tabBrowserBtnText != null) _tabBrowserBtnText.text = UIStrings.GameSetupTabBrowser.GetText();
+        if (_tabHostBtnText != null) _tabHostBtnText.text = UIStrings.GameSetupTabHost.GetText();
+
+        if (_playersHeadingText != null) _playersHeadingText.text = UIStrings.GameSetupPlayersHeading.GetText();
+        if (_seedHeadingText != null) _seedHeadingText.text = UIStrings.GameSetupSeedHeading.GetText();
+        if (_rerollBtnText != null) _rerollBtnText.text = UIStrings.GameSetupRerollSeed.GetText();
+        if (_bottomQuitBtnText != null) _bottomQuitBtnText.text = UIStrings.Quit.GetText();
+        if (_resetBtnText != null) _resetBtnText.text = UIStrings.GameSetupResetButton.GetText();
+        if (_launchBtnText != null) _launchBtnText.text = UIStrings.GameSetupStartButton.GetText();
+
+        for (int i = 0; i < _slots.Length; i++)
+        {
+            if (_slots[i] != null)
+            {
+                if (_slots[i].NameText != null)
+                {
+                    _slots[i].NameText.text = string.Format(UIStrings.DefaultPlayerName.GetText(), i + 1);
+                }
+                UpdateSlotUI(_slots[i]);
+            }
+        }
+
+        UpdateSeedUI();
+        UpdateDebugLabelsBtnUI();
     }
 
     private void OnDestroy()
