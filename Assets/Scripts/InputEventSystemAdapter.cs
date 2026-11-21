@@ -48,7 +48,7 @@ public static class InputEventSystemAdapter
 
             if (standalone != null)
             {
-                standalone.enabled = false;
+                Object.Destroy(standalone);
             }
 
             es.UpdateModules();
