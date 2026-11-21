@@ -8,6 +8,43 @@ Unity project for **Deep Space Pioneers**, an original digital space-exploration
 
 ---
 
+## Prerequisites & Building the Project
+
+### Requirements
+- **Unity Editor:** `6000.3.26f1` (Unity 6) — see [`ProjectSettings/ProjectVersion.txt`](ProjectSettings/ProjectVersion.txt).
+- **Unity Hub Build Modules** (depending on your target):
+  - *Linux Build Support (Mono)* and *Linux Dedicated Server Build Support (Mono)*
+  - *Windows Build Support (Mono)* (for Windows client builds)
+- **Packages & Input Backend** (automatically resolved via [`Packages/manifest.json`](Packages/manifest.json)):
+  - `com.unity.inputsystem` (`1.20.0`) with **Active Input Handling** set to *Input System Package (New)* (`activeInputHandler: 1`).
+  - `com.unity.ugui` (`2.0.0`), `com.unity.ai.navigation` (`2.0.15`), `com.unity.timeline` (`1.8.13`).
+- **Optional (CLI C# Check):** `msbuild` (Mono) for fast compilation checks of `Assembly-CSharp.csproj` and `Assembly-CSharp-Editor.csproj`.
+
+### Building via Unity Editor Menu
+The editor script [`Assets/Editor/BuildProfilesSetup.cs`](Assets/Editor/BuildProfilesSetup.cs) provides preconfigured one-click build targets in the top menu bar (all outputs go into `Builds/`, which is excluded in `.gitignore`):
+- **Linux Client:** `Build > 1. Build Linux Client (to Builds/Linux_Client/)` → `Builds/Linux_Client/DeepSpacePioneers.x86_64`
+- **Linux Dedicated Server:** `Build > 2. Build Linux Dedicated Server (to Builds/Linux_DedicatedServer/)` → `Builds/Linux_DedicatedServer/DeepSpacePioneers_Server.x86_64`
+- **Windows Client:** `Build > 3. Build Windows Client (to Builds/Windows_Client/)` → `Builds/Windows_Client/DeepSpacePioneers.exe`
+
+### Building via Command Line (Headless / CI)
+```bash
+# Build Linux Client
+Unity -batchmode -quit -projectPath . -executeMethod EditorTools.BuildProfilesSetup.BuildLinuxClient
+
+# Build Linux Dedicated Server
+Unity -batchmode -quit -projectPath . -executeMethod EditorTools.BuildProfilesSetup.BuildLinuxServer
+
+# Build Windows Client
+Unity -batchmode -quit -projectPath . -executeMethod EditorTools.BuildProfilesSetup.BuildWindowsClient
+```
+
+### Quick C# Compilation Check
+```bash
+msbuild Assembly-CSharp.csproj && msbuild Assembly-CSharp-Editor.csproj
+```
+
+---
+
 ## English – German Terminology Reference
 
 The following table provides the bilingual terminology mapping between the English and German language versions of Deep Space Pioneers:
