@@ -8,52 +8,52 @@ Unity project for **Deep Space Pioneers**, an original digital space-exploration
 
 ---
 
-## German – English Terminology Reference
+## English – German Terminology Reference
 
-The following table provides the bilingual terminology mapping between the German and English language versions of Deep Space Pioneers:
+The following table provides the bilingual terminology mapping between the English and German language versions of Deep Space Pioneers:
 
-| German Term (DE) | English Term (EN) | Description / Context |
+| English Term (EN) | German Term (DE) | Description / Context |
 |---|---|---|
-| **Raumpunkt** | **Intersection** | Vertex on the space hex grid; waypoint for ship movement. |
-| **Koloniebauplatz** | **Colony Site** | Special intersection situated between two planets of a system where a colony can be established. |
-| **Kolonie** | **Colony** | Settlement established on a colony site using a colony ship. |
-| **Raumhafen** | **Spaceport** | Upgraded colony featuring shipyards to launch new ships. |
-| **Raumhafenpunkt** | **Spaceport Site** | The two intersections directly adjacent to a spaceport where ships are launched. |
-| **Raumquadrant** | **Sector** | 3-hex tile piece placed on the board; can contain planetary systems, outposts, or empty space. |
-| **Planetensystem** | **Planetary System** | A sector containing 3 planets and 3 colony sites. |
-| **Außenposten** | **Outpost** | Station belonging to an alien civilization with docking points. |
-| **Handelsstation** | **Trade Station** | Player station established on a docking point at an alien outpost using a trade ship. |
-| **Dock / Dockplatz** | **Docking Point** | Landing intersection situated at an outpost. |
-| **Zahlenchip** | **Number Disc** | Token placed on a planet indicating its resource production number. |
-| **Reserve-Zahlenchip** | **Reserve Number Disc** | Replacement number disc drawn from the reserve pile after defeating pirates or terraforming. |
-| **Eisplanet** | **Ice Planet** | Planetary system obstacle requiring freight pods and terraforming to utilize. |
-| **Piratenstützpunkt** | **Pirate Base** | Planetary obstacle requiring combat cannons to defeat before use. |
-| **Entdecken** | **Discover** | Flipping face-down sectors over upon a ship reaching an adjacent intersection. |
-| **Erkunden** | **Explore** | Revealing face-down planet number discs upon a ship reaching an adjacent intersection. |
-| **Rohstoffe** | **Resources** | The five card types produced by planets: |
-| - *Erz* | - **Ore** | Production resource. |
-| - *Treibstoff* | - **Fuel** | Production resource. |
-| - *Carbon* | - **Carbon** | Production resource. |
-| - *Nahrung* | - **Food** | Production resource. |
-| **Flaggschiff** (*ehem. Mutterschiff*) | **Flagship** (*formerly Mothership*) | The player's primary command vessel; upgrades determine fleet speed, combat strength, and cargo capacity. |
-| **Antrieb** | **Booster** | Flagship drive upgrade increasing ship speed. |
-| **Bordkanone** | **Cannon** | Flagship armament upgrade increasing combat strength. |
-| **Frachtmodul** | **Freight Pod** | Flagship cargo pod upgrade increasing trade station capacity and ice planet terraforming ability. |
-| **Kolonieschiff** | **Colony Ship** | Transport ship carrying a colony. |
-| **Handelsschiff** | **Trade Ship** | Transport ship carrying a trade station. |
-| **Transportschiff** | **Transport Ship** | Generic category encompassing colony ships and trade ships. |
-| **Impuls-Kern** | **Flight Impulse Core** | Core power result (Black, Blue, Yellow, Red) determining sub-light impulse speed or encounters. |
-| **Halbe Medaille / Ruhmesmedaille** | **Fame Medal Piece / Fame Medal** | Awarded during encounters/tasks; two pieces combine into 1 Victory Point. |
-| **Ertragsphase** | **Production Phase** | Turn phase where dice are rolled to determine resource yields. |
-| **Handels- und Bauphase** | **Trade & Build Phase** | Turn phase for trading resources and building ships/upgrades. |
-| **Flugphase / Bewegungsphase** | **Flight Phase** | Turn phase where flight drives are engaged and player moves ships across intersections. |
-| **Gründungsphase** | **Set-up Phase (Variable Set-up)** | 4-round initial placement procedure prior to the first regular turn. |
-| **Begegnung / Begegnungskarte** | **Encounter / Encounter Card** | Event triggered when a black impulse core is drawn during flight drive engagement. |
-| **Freundschaftskarte** | **Friendship Card** | Reward card granted by alien civilizations for establishing trade stations. |
-| **Freundschaftsmarkierung** | **Friendship Marker** | Marker tracking relations on alien civilization tracks. |
-| **Siegpunkte** | **Victory Points** | Victory threshold (15 VPs to win). |
-| **Raumsprung** | **Space Jump** | Instantaneous spatial transition through hyperspace or wormholes. |
-| **Wurmloch** | **Wormhole** | Board anomaly connecting distant space regions. |
+| **Intersection** | **Raumpunkt** | Vertex on the space hex grid; waypoint for ship movement. |
+| **Colony Site** | **Koloniebauplatz** | Special intersection situated between two planets of a system where a colony can be established. |
+| **Colony** | **Kolonie** | Settlement established on a colony site using a colony ship. |
+| **Spaceport** | **Raumhafen** | Upgraded colony featuring shipyards to launch new ships. |
+| **Spaceport Site** | **Raumhafenpunkt** | The two intersections directly adjacent to a spaceport where ships are launched. |
+| **Sector** | **Raumquadrant** | 3-hex tile piece placed on the board; can contain planetary systems, outposts, or empty space. |
+| **Planetary System** | **Planetensystem** | A sector containing 3 planets and 3 colony sites. |
+| **Outpost** | **Außenposten** | Station belonging to an alien civilization with docking points. |
+| **Trade Station** | **Handelsstation** | Player station established on a docking point at an alien outpost using a trade ship. |
+| **Docking Point** | **Dock / Dockplatz** | Landing intersection situated at an outpost. |
+| **Number Disc** | **Zahlenchip** | Token placed on a planet indicating its resource production number. |
+| **Reserve Number Disc** | **Reserve-Zahlenchip** | Replacement number disc drawn from the reserve pile after defeating pirates or terraforming. |
+| **Ice Planet** | **Eisplanet** | Planetary system obstacle requiring freight pods and terraforming to utilize. |
+| **Pirate Base** | **Piratenstützpunkt** | Planetary obstacle requiring combat cannons to defeat before use. |
+| **Discover** | **Entdecken** | Flipping face-down sectors over upon a ship reaching an adjacent intersection. |
+| **Explore** | **Erkunden** | Revealing face-down planet number discs upon a ship reaching an adjacent intersection. |
+| **Resources** | **Rohstoffe** | The five card types produced by planets: |
+| - **Ore** | - *Erz* | Production resource. |
+| - **Fuel** | - *Treibstoff* | Production resource. |
+| - **Carbon** | - *Carbon* | Production resource. |
+| - **Food** | - *Nahrung* | Production resource. |
+| **Flagship** (*formerly Mothership*) | **Flaggschiff** (*ehem. Mutterschiff*) | The player's primary command vessel; upgrades determine fleet speed, combat strength, and cargo capacity. |
+| **Booster** | **Antrieb** | Flagship drive upgrade increasing ship speed. |
+| **Cannon** | **Bordkanone** | Flagship armament upgrade increasing combat strength. |
+| **Freight Pod** | **Frachtmodul** | Flagship cargo pod upgrade increasing trade station capacity and ice planet terraforming ability. |
+| **Colony Ship** | **Kolonieschiff** | Transport ship carrying a colony. |
+| **Trade Ship** | **Handelsschiff** | Transport ship carrying a trade station. |
+| **Transport Ship** | **Transportschiff** | Generic category encompassing colony ships and trade ships. |
+| **Flight Impulse Core** | **Impuls-Kern** | Core power result (Black, Blue, Yellow, Red) determining sub-light impulse speed or encounters. |
+| **Fame Medal Piece / Fame Medal** | **Halbe Medaille / Ruhmesmedaille** | Awarded during encounters/tasks; two pieces combine into 1 Victory Point. |
+| **Production Phase** | **Ertragsphase** | Turn phase where dice are rolled to determine resource yields. |
+| **Trade & Build Phase** | **Handels- und Bauphase** | Turn phase for trading resources and building ships/upgrades. |
+| **Flight Phase** | **Flugphase / Bewegungsphase** | Turn phase where flight drives are engaged and player moves ships across intersections. |
+| **Set-up Phase (Variable Set-up)** | **Gründungsphase** | 4-round initial placement procedure prior to the first regular turn. |
+| **Encounter / Encounter Card** | **Begegnung / Begegnungskarte** | Event triggered when a black impulse core is drawn during flight drive engagement. |
+| **Friendship Card** | **Freundschaftskarte** | Reward card granted by alien civilizations for establishing trade stations. |
+| **Friendship Marker** | **Freundschaftsmarkierung** | Marker tracking relations on alien civilization tracks. |
+| **Victory Points** | **Siegpunkte** | Victory threshold (15 VPs to win). |
+| **Space Jump** | **Raumsprung** | Instantaneous spatial transition through hyperspace or wormholes. |
+| **Wormhole** | **Wurmloch** | Board anomaly connecting distant space regions. |
 
 ---
 
@@ -642,14 +642,14 @@ The 32 numbered encounter cards are implemented as localizable Unity assets rath
 
 Deep Space Pioneers features distinct alien civilizations and cosmic entities, each with unique lore, visual characteristics, gameplay benefits, and dedicated visual assets:
 
-| Role in Code (`Enum`) | Faction (DE / EN) | Species / Civilization | Visual Theme & Traits | Primary Gameplay Function / Bonus | Sprite Assets (`Multiple`, Single Portraits & Banner) |
+| Role in Code (`Enum`) | Faction (EN / DE) | Species / Civilization | Visual Theme & Traits | Primary Gameplay Function / Bonus | Sprite Assets (`Multiple`, Single Portraits & Banner) |
 |---|---|---|---|---|---|
-| `Drifter` | **Die Sternen-Drifter** *(Vagabunden von Oakhaven)* / **The Star Drifters** | Nomadic Humans | Rust-orange, copper, patched environment suits, tools, hoses | Random encounters, immediate aid, salvage, space jumps & temporary bonuses | [`Assets/Sprites/Factions/Drifters.png`](Assets/Sprites/Factions/Drifters.png), [`Assets/Resources/FolkImages/Drifters_0.png`](Assets/Resources/FolkImages/Drifters_0.png)..`_3.png`, [`Drifters.png`](Assets/Resources/FolkImages/Drifters.png) |
-| `Trader` | **Das Konsortium von Elyron** *(Die Elyrier)* / **The Consortium of Elyron** *(The Elyrians)* | Blue Saurian Merchants | Blue scales, ornate robes & armor accents, data-pads, trade ledgers | Favorable supply trade (2:1 resources, 1:1 trade goods), freight capacity | [`Assets/Sprites/Factions/Traders.png`](Assets/Sprites/Factions/Traders.png), [`Assets/Resources/FolkImages/Traders_0.png`](Assets/Resources/FolkImages/Traders_0.png)..`_3.png`, [`Traders.png`](Assets/Resources/FolkImages/Traders.png) |
-| `Diplomat` | **Das Konklave von Aurelia** *(Die Aurelianer)* / **The Conclave of Aurelia** *(The Aurelians)* | Aurelian Aristocrats | Royal blue, silver & gold, polished ceremonial armor, crests, capes | Half-medals, fame & victory points, diplomatic protection (tribute discount on 7) | [`Assets/Sprites/Factions/Diplomats.png`](Assets/Sprites/Factions/Diplomats.png), [`Assets/Resources/FolkImages/Diplomats_0.png`](Assets/Resources/FolkImages/Diplomats_0.png)..`_3.png`, [`Diplomats.png`](Assets/Resources/FolkImages/Diplomats.png) |
-| `Scientist` | **Die Synapse von Xylos** *(Die Xylos-Gelehrten)* / **The Synapse of Xylos** *(The Xylos Scholars)* | Avian Academics (*Aves-Humanoids*) | White, red & gold, pointed beaks, academic high-collared robes, visors, star charts | Faster drives (+Booster bonus), cannon combat & exploration advantages | [`Assets/Sprites/Factions/Scientists.png`](Assets/Sprites/Factions/Scientists.png), [`Assets/Resources/FolkImages/Scientists_0.png`](Assets/Resources/FolkImages/Scientists_0.png)..`_3.png`, [`Scientists.png`](Assets/Resources/FolkImages/Scientists.png) |
-| `Marauder` (`MarauderBase`) | **Die Void-Korsaren** *(Plünderer)* / **The Void Corsairs** *(Marauders)* | Void Corsair Raiders | Dark bronze, iron, fur collars, improvised cyber-eyes, heavy blasters | Combat challenges, ship interception, tribute demands, corsair bases | [`Assets/Sprites/Factions/Marauders.png`](Assets/Sprites/Factions/Marauders.png), [`Assets/Resources/FolkImages/Marauders_0.png`](Assets/Resources/FolkImages/Marauders_0.png)..`_3.png`, [`Marauders.png`](Assets/Resources/FolkImages/Marauders.png) |
-| `Cultivator` | **Die Terra-Symbionten von Veda** *(Die Vedaner)* / **The Terra-Symbionts of Veda** *(The Vedans)* | Insectoid-Plant Bio-Symbionts | Emerald green, moss, amber, chitin armor, antennae, glowing biosphere orbs & organic leaf cloaks | Colony growth, biosphere upgrades, planetary production bonuses (+1 resource on matching rolls) | [`Assets/Sprites/Factions/Cultivators.png`](Assets/Sprites/Factions/Cultivators.png), [`Assets/Resources/FolkImages/Cultivators_0.png`](Assets/Resources/FolkImages/Cultivators_0.png)..`_3.png`, [`Cultivators.png`](Assets/Resources/FolkImages/Cultivators.png) |
+| `Drifter` | **The Star Drifters** / **Die Sternen-Drifter** *(Vagabunden von Oakhaven)* | Nomadic Humans | Rust-orange, copper, patched environment suits, tools, hoses | Random encounters, immediate aid, salvage, space jumps & temporary bonuses | [`Assets/Sprites/Factions/Drifters.png`](Assets/Sprites/Factions/Drifters.png), [`Assets/Resources/FolkImages/Drifters_0.png`](Assets/Resources/FolkImages/Drifters_0.png)..`_3.png`, [`Drifters.png`](Assets/Resources/FolkImages/Drifters.png) |
+| `Trader` | **The Consortium of Elyron** *(The Elyrians)* / **Das Konsortium von Elyron** *(Die Elyrier)* | Blue Saurian Merchants | Blue scales, ornate robes & armor accents, data-pads, trade ledgers | Favorable supply trade (2:1 resources, 1:1 trade goods), freight capacity | [`Assets/Sprites/Factions/Traders.png`](Assets/Sprites/Factions/Traders.png), [`Assets/Resources/FolkImages/Traders_0.png`](Assets/Resources/FolkImages/Traders_0.png)..`_3.png`, [`Traders.png`](Assets/Resources/FolkImages/Traders.png) |
+| `Diplomat` | **The Conclave of Aurelia** *(The Aurelians)* / **Das Konklave von Aurelia** *(Die Aurelianer)* | Aurelian Aristocrats | Royal blue, silver & gold, polished ceremonial armor, crests, capes | Half-medals, fame & victory points, diplomatic protection (tribute discount on 7) | [`Assets/Sprites/Factions/Diplomats.png`](Assets/Sprites/Factions/Diplomats.png), [`Assets/Resources/FolkImages/Diplomats_0.png`](Assets/Resources/FolkImages/Diplomats_0.png)..`_3.png`, [`Diplomats.png`](Assets/Resources/FolkImages/Diplomats.png) |
+| `Scientist` | **The Synapse of Xylos** *(The Xylos Scholars)* / **Die Synapse von Xylos** *(Die Xylos-Gelehrten)* | Avian Academics (*Aves-Humanoids*) | White, red & gold, pointed beaks, academic high-collared robes, visors, star charts | Faster drives (+Booster bonus), cannon combat & exploration advantages | [`Assets/Sprites/Factions/Scientists.png`](Assets/Sprites/Factions/Scientists.png), [`Assets/Resources/FolkImages/Scientists_0.png`](Assets/Resources/FolkImages/Scientists_0.png)..`_3.png`, [`Scientists.png`](Assets/Resources/FolkImages/Scientists.png) |
+| `Marauder` (`MarauderBase`) | **The Void Corsairs** *(Marauders)* / **Die Void-Korsaren** *(Plünderer)* | Void Corsair Raiders | Dark bronze, iron, fur collars, improvised cyber-eyes, heavy blasters | Combat challenges, ship interception, tribute demands, corsair bases | [`Assets/Sprites/Factions/Marauders.png`](Assets/Sprites/Factions/Marauders.png), [`Assets/Resources/FolkImages/Marauders_0.png`](Assets/Resources/FolkImages/Marauders_0.png)..`_3.png`, [`Marauders.png`](Assets/Resources/FolkImages/Marauders.png) |
+| `Cultivator` | **The Terra-Symbionts of Veda** *(The Vedans)* / **Die Terra-Symbionten von Veda** *(Die Vedaner)* | Insectoid-Plant Bio-Symbionts | Emerald green, moss, amber, chitin armor, antennae, glowing biosphere orbs & organic leaf cloaks | Colony growth, biosphere upgrades, planetary production bonuses (+1 resource on matching rolls) | [`Assets/Sprites/Factions/Cultivators.png`](Assets/Sprites/Factions/Cultivators.png), [`Assets/Resources/FolkImages/Cultivators_0.png`](Assets/Resources/FolkImages/Cultivators_0.png)..`_3.png`, [`Cultivators.png`](Assets/Resources/FolkImages/Cultivators.png) |
 
 ---
 
