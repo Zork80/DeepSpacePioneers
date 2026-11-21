@@ -56,9 +56,12 @@ msbuild Assembly-CSharp.csproj && msbuild Assembly-CSharp-Editor.csproj
 ### Automated GitHub Releases (CI/CD)
 The repository includes a GitHub Actions release pipeline in [`.github/workflows/release.yml`](.github/workflows/release.yml) using `game-ci/unity-builder@v4` (Unity `6000.3.26f1`) for **Linux Client**, **Linux Dedicated Server**, and **Windows Client**.
 
-1. **Configure Unity License Secret** in GitHub (`Settings → Secrets and variables → Actions`):
-   - **Unity Personal**: Add `UNITY_LICENSE` with the contents of your `.ulf` license file (e.g. `~/.local/share/unity3d/Unity/Unity_lic.ulf` on Linux, or generate an `.alf` via the manual [`Request Unity Activation File`](.github/workflows/unity-activation.yml) workflow and activate it at [license.unity3d.com](https://license.unity3d.com/)).
-   - **Unity Plus / Pro**: Alternatively set `UNITY_EMAIL`, `UNITY_PASSWORD`, and `UNITY_SERIAL`.
+1. **Configure Unity License Secrets** in GitHub (`Settings → Secrets and variables → Actions`):
+   - **Unity Personal**:
+     1. In **Unity Hub**, log in with your Unity account (email + password, no 2FA), open **Settings → Licenses → Add → Get a free personal license**.
+     2. Copy the contents of the generated license file (`~/.local/share/unity3d/Unity/Unity_lic.ulf` on Linux, `C:\ProgramData\Unity\Unity_lic.ulf` on Windows, `/Library/Application Support/Unity/Unity_lic.ulf` on macOS) into the GitHub Secret **`UNITY_LICENSE`**.
+     3. Also add **`UNITY_EMAIL`** and **`UNITY_PASSWORD`** for that same Unity account.
+   - **Unity Plus / Pro**: Set `UNITY_EMAIL`, `UNITY_PASSWORD`, and `UNITY_SERIAL`.
 2. **Trigger a Release**:
    ```bash
    git tag v0.1.0
