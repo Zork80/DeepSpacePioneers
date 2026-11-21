@@ -1276,42 +1276,43 @@ public class AiPlayerController : MonoBehaviour
                 continue;
             }
 
-            Tri target = FindBestDestinationForUnit(unit, ai);
-            if (target != null && target != unit.Tri)
+            List<Tri> candidates = FindRankedDestinationsForUnit(unit, ai);
+            foreach (Tri target in candidates)
             {
+                if (target == null || target == unit.Tri) continue;
+
                 Tri[] fullPath = _triMap.FindShipPath(unit, target);
-                if (fullPath != null && fullPath.Length >= 2)
+                if (fullPath == null || fullPath.Length < 2) continue;
+
+                Tri[] legalSubPath = GetLegalSubPath(unit, fullPath);
+                if (legalSubPath == null || legalSubPath.Length < 2 || !_triMap.CanMoveShipAlongPath(unit, legalSubPath)) continue;
+
+                Debug.Log(string.Format("[AI] {0} ({1}) moves {2} from ({3},{4}) towards ({5},{6}) [{7} steps].",
+                    ai.PlayerName, ai.Difficulty, unit.ShipType, unit.Tri.Q, unit.Tri.R, target.Q, target.R, legalSubPath.Length - 1));
+
+                unit.SetTriPath(legalSubPath);
+                yield return _triMap.DoUnitMoves(unit);
+                yield return new WaitForSeconds(delay);
+
+                // If ship arrived directly at target, immediately establish colony or trade station
+                if (unit.Tri == target)
                 {
-                    Tri[] legalSubPath = GetLegalSubPath(unit, fullPath);
-                    if (legalSubPath != null && legalSubPath.Length >= 2 && _triMap.CanMoveShipAlongPath(unit, legalSubPath))
+                    if (_triMap.CanFoundColonyWith(unit))
                     {
-                        Debug.Log(string.Format("[AI] {0} ({1}) moves {2} from ({3},{4}) towards ({5},{6}) [{7} steps].",
-                            ai.PlayerName, ai.Difficulty, unit.ShipType, unit.Tri.Q, unit.Tri.R, target.Q, target.R, legalSubPath.Length - 1));
-
-                        unit.SetTriPath(legalSubPath);
-                        yield return _triMap.DoUnitMoves(unit);
+                        Debug.Log(string.Format("[AI] {0} immediately founds colony upon arrival at ({1},{2}).",
+                            ai.PlayerName, unit.Tri.Q, unit.Tri.R));
+                        _triMap.TryFoundColonyAt(unit.Tri);
                         yield return new WaitForSeconds(delay);
-
-                        // If ship arrived directly at target, immediately establish colony or trade station
-                        if (unit.Tri == target)
-                        {
-                            if (_triMap.CanFoundColonyWith(unit))
-                            {
-                                Debug.Log(string.Format("[AI] {0} immediately founds colony upon arrival at ({1},{2}).",
-                                    ai.PlayerName, unit.Tri.Q, unit.Tri.R));
-                                _triMap.TryFoundColonyAt(unit.Tri);
-                                yield return new WaitForSeconds(delay);
-                            }
-                            else if (_triMap.CanEstablishTradeStationWith(unit))
-                            {
-                                Debug.Log(string.Format("[AI] {0} immediately establishes trade station upon arrival at ({1},{2}).",
-                                    ai.PlayerName, unit.Tri.Q, unit.Tri.R));
-                                _triMap.TryEstablishTradeStationAt(unit.Tri);
-                                yield return new WaitForSeconds(delay);
-                            }
-                        }
+                    }
+                    else if (_triMap.CanEstablishTradeStationWith(unit))
+                    {
+                        Debug.Log(string.Format("[AI] {0} immediately establishes trade station upon arrival at ({1},{2}).",
+                            ai.PlayerName, unit.Tri.Q, unit.Tri.R));
+                        _triMap.TryEstablishTradeStationAt(unit.Tri);
+                        yield return new WaitForSeconds(delay);
                     }
                 }
+                break;
             }
         }
     }
@@ -1332,7 +1333,7 @@ public class AiPlayerController : MonoBehaviour
         return null;
     }
 
-    private Tri FindBestDestinationForUnit(Unit unit, Player owner)
+    private List<Tri> FindRankedDestinationsForUnit(Unit unit, Player owner, int maxCandidates = 5)
     {
         if (owner == null) owner = _triMap.CurrentPlayer;
         Player.AiDifficulty difficulty = owner != null ? owner.Difficulty : Player.AiDifficulty.Normal;
@@ -1345,7 +1346,8 @@ public class AiPlayerController : MonoBehaviour
                 return _triMap.AllTris
                     .Where(t => t.IsColonyPoint && t.Colony == null && t.IsPassable && !_triMap.IsColonySiteBlockedByHazard(t))
                     .OrderBy(t => Distance(unit.Tri, t))
-                    .FirstOrDefault();
+                    .Take(maxCandidates)
+                    .ToList();
             }
             else if (difficulty == Player.AiDifficulty.Hard)
             {
@@ -1353,7 +1355,8 @@ public class AiPlayerController : MonoBehaviour
                 return _triMap.AllTris
                     .Where(t => t.IsColonyPoint && t.Colony == null && t.IsPassable)
                     .OrderByDescending(t => ScoreColonySiteForHardAi(t, unit, owner))
-                    .FirstOrDefault();
+                    .Take(maxCandidates)
+                    .ToList();
             }
             else // Normal
             {
@@ -1362,7 +1365,8 @@ public class AiPlayerController : MonoBehaviour
                     .Where(t => t.IsColonyPoint && t.Colony == null && t.IsPassable &&
                                 (!_triMap.IsColonySiteBlockedByHazard(t) || (owner != null && _triMap.CanPlayerResolveColonySiteHazards(owner, t))))
                     .OrderByDescending(t => ScoreColonySiteForNormalAi(t, unit, owner))
-                    .FirstOrDefault();
+                    .Take(maxCandidates)
+                    .ToList();
             }
         }
         else if (unit.ShipType == StarshipType.TradeShip)
@@ -1372,25 +1376,28 @@ public class AiPlayerController : MonoBehaviour
                 return _triMap.AllTris
                     .Where(t => t.IsTradePoint && t.SystemKind == SystemKind.Trade && t.IsPassable && t.TradeStations.Any(s => s == null))
                     .OrderBy(t => Distance(unit.Tri, t))
-                    .FirstOrDefault();
+                    .Take(maxCandidates)
+                    .ToList();
             }
             else if (difficulty == Player.AiDifficulty.Hard)
             {
                 return _triMap.AllTris
                     .Where(t => t.IsTradePoint && t.SystemKind == SystemKind.Trade && t.IsPassable && t.TradeStations.Any(s => s == null))
                     .OrderByDescending(t => ScoreTradeSiteForHardAi(t, unit, owner))
-                    .FirstOrDefault();
+                    .Take(maxCandidates)
+                    .ToList();
             }
             else // Normal
             {
                 return _triMap.AllTris
                     .Where(t => t.IsTradePoint && t.SystemKind == SystemKind.Trade && t.IsPassable && t.TradeStations.Any(s => s == null))
                     .OrderByDescending(t => ScoreTradeSiteForNormalAi(t, unit, owner))
-                    .FirstOrDefault();
+                    .Take(maxCandidates)
+                    .ToList();
             }
         }
 
-        return null;
+        return new List<Tri>();
     }
 
     private float ScoreColonySiteForHardAi(Tri tri, Unit unit, Player owner)
