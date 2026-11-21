@@ -502,6 +502,8 @@ public class SidebarViewUI : MonoBehaviour
 
     public void SetDisplayedPlayer(Player player)
     {
+        player = ResolvePlayerForView(player);
+
         if (_displayedPlayer != null)
         {
             _displayedPlayer.ResourcesChanged -= UpdateResourceInventory;
@@ -971,25 +973,57 @@ public class SidebarViewUI : MonoBehaviour
         UnsubscribeFromTriMap();
     }
 
-    private Player ResolvePlayerForView(Player incomingPlayer)
+    private Player GetLocalHumanPlayer(out bool hasAnyHuman)
     {
+        hasAnyHuman = false;
+        if (_triMap == null || _triMap.Players == null) return null;
+
         if (Networking.NetworkManager.Instance != null && Networking.NetworkManager.Instance.IsClientConnected)
         {
             int localIdx = Networking.NetworkManager.Instance.LocalPlayerIndex;
-            if (_triMap != null && _triMap.Players != null && localIdx >= 0 && localIdx < _triMap.Players.Length)
+            if (localIdx >= 0 && localIdx < _triMap.Players.Length && _triMap.Players[localIdx] != null)
             {
+                hasAnyHuman = true;
                 return _triMap.Players[localIdx];
             }
         }
 
-        // If the active player is not a local human player, prefer viewing the local human player's stats
-        if (incomingPlayer != null && incomingPlayer.Type != Player.PlayerType.LOCAL)
+        Player firstHuman = null;
+        int humanCount = 0;
+        for (int i = 0; i < _triMap.Players.Length; i++)
         {
+            Player p = _triMap.Players[i];
+            if (p != null && p.Type == Player.PlayerType.LOCAL)
+            {
+                if (firstHuman == null) firstHuman = p;
+                humanCount++;
+            }
+        }
+
+        hasAnyHuman = humanCount > 0;
+        // Single human player (or host): strictly lock the sidebar to that one human player
+        return humanCount == 1 ? firstHuman : null;
+    }
+
+    private Player ResolvePlayerForView(Player incomingPlayer)
+    {
+        Player lockedLocal = GetLocalHumanPlayer(out bool hasAnyHuman);
+        if (lockedLocal != null)
+        {
+            return lockedLocal;
+        }
+
+        // Hotseat mode (multiple local human players): track active human, never switch to AI
+        if (hasAnyHuman)
+        {
+            if (incomingPlayer != null && incomingPlayer.Type == Player.PlayerType.LOCAL)
+            {
+                return incomingPlayer;
+            }
             if (_displayedPlayer != null && _displayedPlayer.Type == Player.PlayerType.LOCAL)
             {
                 return _displayedPlayer;
             }
-
             if (_triMap != null && _triMap.Players != null)
             {
                 for (int i = 0; i < _triMap.Players.Length; i++)
@@ -1002,7 +1036,8 @@ public class SidebarViewUI : MonoBehaviour
             }
         }
 
-        return incomingPlayer;
+        // Pure spectator mode (0 human players, Bot vs. Bot): follow active player
+        return incomingPlayer != null ? incomingPlayer : (_triMap != null ? _triMap.CurrentPlayer : null);
     }
 
     private void OnPlayerChanged(Player player)

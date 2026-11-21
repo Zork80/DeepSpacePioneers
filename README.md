@@ -730,25 +730,14 @@ Deep Space Pioneers features distinct alien civilizations and cosmic entities, e
     - **Trade Ship:** Heavy catamaran-hulled industrial transport with 4 external modular freight containers and twin engine cowlings.
     - **Export & Prefab Pipeline:** Parametric source files located in `Assets/Models/OpenSCAD/`. `export_pieces.py` exports dual binary `.stl` and Unity-converted `.obj` formats into `Assets/Models/Pieces/`. Prefabs are automatically assembled and scaled via `SetupOpenSCADPieces.cs`. Legacy Kenney models and transitional setup scripts have been completely removed.
 
+- **[Completed] Sidebar Player Data Display Lock (AI vs. Local Human Player):**
+  - Implemented `GetLocalHumanPlayer()` and hardened `ResolvePlayerForView()` / `SetDisplayedPlayer()` in [`SidebarViewUI.cs`](Assets/Scripts/UI/SidebarViewUI.cs) so the right sidebar strictly and permanently locks to the local human player in singleplayer and networked client/host games, switching dynamically only in pure spectator (0-human Bot vs. Bot) matches.
+
 ---
 
 ## Open Tasks & Backlog (TODO)
 
-1. **Investigation Status: Sidebar Player Data Display (AI vs. Local Human Player)**:
-   - **Context & User Report:**
-     - The user launched the game directly from the Unity Editor in single-player mode against 3 AI opponents (Player 1 is human, Players 2–4 are AI).
-     - Opponent stats—specifically transport ships (`ActiveTransportShips`: colony and trade ships) and other mothership/flagship inventory values—were still visible in the left sidebar (`SidebarViewUI`) during AI turns, despite the initial routing in commit `e39586f`.
-   - **Root Cause & Architectural Assessment:**
-     - In `SidebarViewUI.cs`, `_displayedPlayer` controls both `UpdateResourceInventory()` and `UpdateFlagshipInventory()`. The flagship panel text includes boosters, cannons, freight pods, colonies, spaceports, trade stations, and active transport ships (`ActiveTransportShips`).
-     - `ResolvePlayerForView(Player incomingPlayer)` currently uses a conditional fallback (`if (incomingPlayer != null && incomingPlayer.Type != Player.PlayerType.LOCAL)`). In offline single-player (Unity Editor), `NetworkManager.IsClientConnected` is false.
-     - If `incomingPlayer` is evaluated during phase shifts (e.g. founding spaceport/ship rounds or turn changes), or if `_displayedPlayer` is ever rebound to an opponent, subsequent calls to `UpdateFlagshipInventory()` render the opponent's stats.
-     - The architecture requires a strict invariant: **Whenever a local human player exists (singleplayer or client/host), the sidebar panel must strictly and permanently lock to the local human player.** It should never track or switch to an opponent/AI player. Dynamic switching to `_triMap.CurrentPlayer` must only occur in spectator mode (Bot vs. Bot with 0 human players).
-   - **Planned Fix for Next Session:**
-     - Introduce a robust `GetLocalHumanPlayer()` method in `SidebarViewUI.cs`:
-       - If connected client: return `_triMap.Players[LocalPlayerIndex]`.
-       - If singleplayer / host: return the first human player (`p.Type == Player.PlayerType.LOCAL`).
-     - Make `ResolvePlayerForView(Player incomingPlayer)` unconditionally return `GetLocalHumanPlayer()` whenever one exists, preventing any event (`OnPlayerChanged`, `OnTurnPhaseChanged`, `OnFoundingPhaseChanged`, `Initialize`) from ever binding `_displayedPlayer` to an AI player.
-     - Verify clean compilation and validate in singleplayer against 3 bots.
+*No open tasks at this time.*
 
 ---
 
