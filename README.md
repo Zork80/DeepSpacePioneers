@@ -683,8 +683,8 @@ The 32 numbered encounter cards are implemented as localizable Unity assets rath
       - Automatic AI takeover whenever a connected human client disconnects or times out during an active match.
       - Dynamic host migration: when hosting on dedicated servers or if the host departs, room leader privileges automatically transfer to the lowest connected player slot index.
       - 180-second turn timeout countdown on server to prevent stalled matches.
-      - Inactivity warning countdown ([`AiTakeoverWarningDialogUI.cs`](Assets/Scripts/UI/AiTakeoverWarningDialogUI.cs)): after 90 seconds of inactivity (half of the 180s timeout), a modal countdown dialog appears for the active player. The player can cancel the takeover countdown with 1 click (`[Ich bin noch da! (Abbrechen)]`) or any interaction to continue playing.
-      - Added `ForceAiTakeover` action allowing room hosts to accelerate stalled opponent turns with 1 click (`[⏩ An KI übergeben]`).
+      - Inactivity warning countdown ([`AiTakeoverWarningDialogUI.cs`](Assets/Scripts/UI/AiTakeoverWarningDialogUI.cs)): after 90 seconds of inactivity (half of the 180s timeout), a modal countdown dialog appears for the active player. The player can cancel the takeover countdown with 1 click (`[I'm still here! (Cancel)]`) or any interaction to continue playing.
+      - Added `ForceAiTakeover` action allowing room hosts to accelerate stalled opponent turns with 1 click (`[⏩ Hand over to AI]`).
       - Client disconnect modal dialog ([`DisconnectDialogUI.cs`](Assets/Scripts/UI/DisconnectDialogUI.cs)) with clean 1-click return to main menu upon connection drop.
     - **Multi-Client Agent Bridge Isolation:**
       - Added `-bridge-dir:<path>` CLI override in [`ExternalAgentBridge.cs`](Assets/Scripts/AgentBridge/ExternalAgentBridge.cs) and `--dir <path>` in [`autonomous_player.py`](agent_bridge/autonomous_player.py) and [`test_agent.py`](agent_bridge/test_agent.py) to run multiple clients on the same machine without file collisions.
