@@ -8,6 +8,16 @@ Unity project for **Deep Space Pioneers**, an original digital space-exploration
 
 ---
 
+## Screenshots
+
+### Game Setup & Lobby Dialog
+![Game Setup & Mission Briefing](docs/screenshots/setup-dialog.png)
+
+### Active Gameplay, 3D Space Grid & HUD
+![Deep Space Pioneers Gameplay](docs/screenshots/gameplay-board.png)
+
+---
+
 ## Prerequisites & Building the Project
 
 ### Requirements
