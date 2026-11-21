@@ -75,23 +75,36 @@ public class GameSetupDialogUI : MonoBehaviour
     private readonly SlotUI[] _slots = new SlotUI[4];
 
     // Server Browser Controls
+    private Text _browserTitleText;
     private Text _discoveryStatusText;
     private GameObject _serverListContent;
     private InputField _manualIpInput;
     private InputField _manualPortInput;
     private InputField _clientPlayerNameInput;
+    private Text _manualPlayerLabel;
+    private Text _manualConnectBtnText;
+    private Text _manualSpectateBtnText;
 
     // Host Controls
+    private Text _hostTitleText;
+    private Text _hostServerNameLabel;
+    private Text _hostPlayerNameLabel;
     private InputField _hostServerNameInput;
     private InputField _hostPortInput;
     private InputField _hostPlayerNameInput;
     private Text _hostIpInfoText;
+    private Text _hostQuitBtnText;
+    private Text _hostStartBtnText;
 
     // Lobby Controls
     private Text _lobbyTitleText;
     private Text _lobbyStatusText;
+    private Text _lobbyMyNameLabel;
+    private Text _lobbySpectatorModeLabel;
     private Button _lobbyStartBtn;
+    private Text _lobbyStartBtnText;
     private Button _lobbyLeaveBtn;
+    private Text _lobbyLeaveBtnText;
     private Button _lobbySpectatorModeBtn;
     private Text _lobbySpectatorModeText;
     private Text _lobbySpectatorCountText;
@@ -446,10 +459,10 @@ public class GameSetupDialogUI : MonoBehaviour
         _browserContainer = UIFactory.CreateElement("BrowserContainer", parent);
         UIFactory.AddVerticalLayout(_browserContainer, 8f, 4);
 
-        Text secTitle = UIFactory.CreateText(_browserContainer.transform, _font, "Gefundene Server im lokalen Netzwerk (LAN):",
+        _browserTitleText = UIFactory.CreateText(_browserContainer.transform, _font, UIStrings.LanBrowserTitle.GetText(),
             13, new Color(0.35f, 0.85f, 1f), TextAnchor.MiddleLeft, FontStyle.Bold);
 
-        _discoveryStatusText = UIFactory.CreateText(_browserContainer.transform, _font, "Suche nach Server-Announcements im LAN...",
+        _discoveryStatusText = UIFactory.CreateText(_browserContainer.transform, _font, UIStrings.LanBrowserSearching.GetText(),
             11, new Color(0.75f, 0.85f, 0.95f), TextAnchor.MiddleLeft);
 
         // Server list container
@@ -466,8 +479,8 @@ public class GameSetupDialogUI : MonoBehaviour
         manualLayout.preferredHeight = 46f;
         UIFactory.AddHorizontalLayout(manualBox, 8f, 6);
 
-        UIFactory.CreateText(manualBox.transform, _font, "Spieler:", 11, Color.white, TextAnchor.MiddleRight);
-        _clientPlayerNameInput = UIFactory.CreateInputField(manualBox.transform, _font, "Spieler 2", null, null,
+        _manualPlayerLabel = UIFactory.CreateText(manualBox.transform, _font, UIStrings.LanPlayerLabel.GetText(), 11, Color.white, TextAnchor.MiddleRight);
+        _clientPlayerNameInput = UIFactory.CreateInputField(manualBox.transform, _font, "Player 2", null, null,
             new Color(0.02f, 0.05f, 0.09f, 1f), Color.white, 11, 30f, 16, "Name");
         _clientPlayerNameInput.GetComponent<LayoutElement>().preferredWidth = 110f;
 
@@ -481,13 +494,15 @@ public class GameSetupDialogUI : MonoBehaviour
             new Color(0.02f, 0.05f, 0.09f, 1f), Color.white, 11, 30f, 6, "7777");
         _manualPortInput.GetComponent<LayoutElement>().preferredWidth = 65f;
 
-        Button manualConnectBtn = UIFactory.CreateButton(manualBox.transform, _font, "Verbinden",
+        Button manualConnectBtn = UIFactory.CreateButton(manualBox.transform, _font, UIStrings.LanConnectButton.GetText(),
             () => OnManualConnectClicked(false), new Color(0.12f, 0.55f, 0.35f, 1f), 11, 32f);
         manualConnectBtn.GetComponent<LayoutElement>().preferredWidth = 95f;
+        _manualConnectBtnText = manualConnectBtn.GetComponentInChildren<Text>();
 
-        Button manualSpectateBtn = UIFactory.CreateButton(manualBox.transform, _font, "Zuschauen",
+        Button manualSpectateBtn = UIFactory.CreateButton(manualBox.transform, _font, UIStrings.LanSpectateButton.GetText(),
             () => OnManualConnectClicked(true), new Color(0.15f, 0.38f, 0.62f, 1f), 11, 32f);
         manualSpectateBtn.GetComponent<LayoutElement>().preferredWidth = 95f;
+        _manualSpectateBtnText = manualSpectateBtn.GetComponentInChildren<Text>();
 
         _browserContainer.SetActive(false);
     }
@@ -506,14 +521,14 @@ public class GameSetupDialogUI : MonoBehaviour
         {
             if (_discoveryStatusText != null)
             {
-                _discoveryStatusText.text = "Keine Server im LAN gefunden. Starte einen eigenen Server oder nutze die Direktverbindung unten.";
+                _discoveryStatusText.text = UIStrings.LanBrowserNoServers.GetText();
             }
             return;
         }
 
         if (_discoveryStatusText != null)
         {
-            _discoveryStatusText.text = $"{servers.Count} aktive(r) Server im lokalen Netzwerk gefunden:";
+            _discoveryStatusText.text = string.Format(UIStrings.LanBrowserServersFound.GetText(), servers.Count);
         }
 
         for (int i = 0; i < servers.Count; i++)
@@ -535,16 +550,16 @@ public class GameSetupDialogUI : MonoBehaviour
             epText.gameObject.AddComponent<LayoutElement>().preferredWidth = 160f;
 
             // Players & State
-            string info = $"{server.Announcement.CurrentPlayers}/{server.Announcement.MaxPlayers} Spieler ({server.Announcement.State})";
+            string info = string.Format(UIStrings.LanPlayersStateFormat.GetText(), server.Announcement.CurrentPlayers, server.Announcement.MaxPlayers, server.Announcement.State);
             Text infoText = UIFactory.CreateText(row.transform, _font, info, 11, new Color(1f, 0.85f, 0.4f), TextAnchor.MiddleCenter);
             infoText.gameObject.AddComponent<LayoutElement>().preferredWidth = 140f;
 
             // Join & Spectate Buttons
-            Button joinBtn = UIFactory.CreateButton(row.transform, _font, "Beitreten",
+            Button joinBtn = UIFactory.CreateButton(row.transform, _font, UIStrings.LanJoinButton.GetText(),
                 () => ConnectToSelectedServer(server.RemoteIp, server.TcpPort, false), new Color(0.12f, 0.58f, 0.35f, 1f), 11, 32f);
             joinBtn.GetComponent<LayoutElement>().preferredWidth = 90f;
 
-            Button spectateBtn = UIFactory.CreateButton(row.transform, _font, "Zuschauen",
+            Button spectateBtn = UIFactory.CreateButton(row.transform, _font, UIStrings.LanSpectateButton.GetText(),
                 () => ConnectToSelectedServer(server.RemoteIp, server.TcpPort, true), new Color(0.15f, 0.38f, 0.62f, 1f), 11, 32f);
             spectateBtn.GetComponent<LayoutElement>().preferredWidth = 90f;
         }
@@ -614,26 +629,28 @@ public class GameSetupDialogUI : MonoBehaviour
         _hostContainer = UIFactory.CreateElement("HostContainer", parent);
         UIFactory.AddVerticalLayout(_hostContainer, 10f, 6);
 
-        Text secTitle = UIFactory.CreateText(_hostContainer.transform, _font, "Eigenen Server im lokalen Netzwerk starten:",
+        _hostTitleText = UIFactory.CreateText(_hostContainer.transform, _font, UIStrings.LanHostTitle.GetText(),
             13, new Color(0.35f, 0.85f, 1f), TextAnchor.MiddleLeft, FontStyle.Bold);
 
         string localIp = NetworkManager.GetLocalIPAddress();
-        _hostIpInfoText = UIFactory.CreateText(_hostContainer.transform, _font, $"Deine lokale IP-Adresse im Netzwerk: {localIp}",
+        _hostIpInfoText = UIFactory.CreateText(_hostContainer.transform, _font, string.Format(UIStrings.LanHostLocalIpFormat.GetText(), localIp),
             12, new Color(0.85f, 0.9f, 0.4f), TextAnchor.MiddleLeft);
 
         // Server Name Field
         GameObject nameRow = UIFactory.CreateElement("HostNameRow", _hostContainer.transform);
         UIFactory.AddHorizontalLayout(nameRow, 8f, 0);
-        UIFactory.CreateText(nameRow.transform, _font, "Server- / Raumname:", 12, Color.white, TextAnchor.MiddleLeft).gameObject.AddComponent<LayoutElement>().preferredWidth = 160f;
-        _hostServerNameInput = UIFactory.CreateInputField(nameRow.transform, _font, "Deep Space Pioneers Galaxie", null, null,
+        _hostServerNameLabel = UIFactory.CreateText(nameRow.transform, _font, UIStrings.LanHostServerNameLabel.GetText(), 12, Color.white, TextAnchor.MiddleLeft);
+        _hostServerNameLabel.gameObject.AddComponent<LayoutElement>().preferredWidth = 160f;
+        _hostServerNameInput = UIFactory.CreateInputField(nameRow.transform, _font, "Deep Space Pioneers Galaxy", null, null,
             new Color(0.02f, 0.05f, 0.09f, 1f), Color.white, 12, 34f, 32, "Servername");
         _hostServerNameInput.GetComponent<LayoutElement>().preferredWidth = 320f;
 
         // Player Name Field
         GameObject pRow = UIFactory.CreateElement("HostPlayerRow", _hostContainer.transform);
         UIFactory.AddHorizontalLayout(pRow, 8f, 0);
-        UIFactory.CreateText(pRow.transform, _font, "Dein Spielername (Host):", 12, Color.white, TextAnchor.MiddleLeft).gameObject.AddComponent<LayoutElement>().preferredWidth = 160f;
-        _hostPlayerNameInput = UIFactory.CreateInputField(pRow.transform, _font, "Spieler 1 (Host)", null, null,
+        _hostPlayerNameLabel = UIFactory.CreateText(pRow.transform, _font, UIStrings.LanHostPlayerNameLabel.GetText(), 12, Color.white, TextAnchor.MiddleLeft);
+        _hostPlayerNameLabel.gameObject.AddComponent<LayoutElement>().preferredWidth = 160f;
+        _hostPlayerNameInput = UIFactory.CreateInputField(pRow.transform, _font, "Player 1 (Host)", null, null,
             new Color(0.02f, 0.05f, 0.09f, 1f), Color.white, 12, 34f, 20, "Name");
         _hostPlayerNameInput.GetComponent<LayoutElement>().preferredWidth = 320f;
 
@@ -653,11 +670,13 @@ public class GameSetupDialogUI : MonoBehaviour
         Button hostQuitBtn = UIFactory.CreateButton(hostBar.transform, _font, UIStrings.Quit.GetText(),
             ConfirmQuitDialogUI.QuitApplication, new Color(0.55f, 0.18f, 0.18f, 0.95f), 12, 44f);
         hostQuitBtn.GetComponent<LayoutElement>().preferredWidth = 95f;
+        _hostQuitBtnText = hostQuitBtn.GetComponentInChildren<Text>();
 
-        Button startHostBtn = UIFactory.CreateButton(hostBar.transform, _font, "🚀 Server starten & Raum eröffnen",
+        Button startHostBtn = UIFactory.CreateButton(hostBar.transform, _font, UIStrings.LanHostStartButton.GetText(),
             OnStartHostClicked, new Color(0.12f, 0.58f, 0.35f, 1f), 13, 44f);
         startHostBtn.GetComponent<LayoutElement>().flexibleWidth = 1f;
-        startHostBtn.GetComponentInChildren<Text>().fontStyle = FontStyle.Bold;
+        _hostStartBtnText = startHostBtn.GetComponentInChildren<Text>();
+        _hostStartBtnText.fontStyle = FontStyle.Bold;
 
         _hostContainer.SetActive(false);
     }
@@ -692,10 +711,10 @@ public class GameSetupDialogUI : MonoBehaviour
         _lobbyContainer = UIFactory.CreateElement("LobbyContainer", parent);
         UIFactory.AddVerticalLayout(_lobbyContainer, 8f, 6);
 
-        _lobbyTitleText = UIFactory.CreateText(_lobbyContainer.transform, _font, "Lobby: Warteraum",
+        _lobbyTitleText = UIFactory.CreateText(_lobbyContainer.transform, _font, UIStrings.LobbyTitleDefault.GetText(),
             14, new Color(0.35f, 0.85f, 1f), TextAnchor.MiddleLeft, FontStyle.Bold);
 
-        _lobbyStatusText = UIFactory.CreateText(_lobbyContainer.transform, _font, "Verbindungsstatus...",
+        _lobbyStatusText = UIFactory.CreateText(_lobbyContainer.transform, _font, "...",
             11, new Color(0.75f, 0.85f, 0.95f), TextAnchor.MiddleLeft);
 
         // 4 Slots
@@ -716,12 +735,17 @@ public class GameSetupDialogUI : MonoBehaviour
             _lobbySlotColorBtns[i] = swatch.GetComponent<Button>();
             _lobbySlotColorBtns[i].targetGraphic = _lobbySlotSwatches[i];
             _lobbySlotColorBtns[i].onClick.AddListener(() => CycleLobbySlotColor(slotIdx));
-            swatch.GetComponent<LayoutElement>().preferredWidth = 26f;
-            swatch.GetComponent<LayoutElement>().preferredHeight = 30f;
+            LayoutElement lobbySwatchLay = swatch.GetComponent<LayoutElement>();
+            lobbySwatchLay.minWidth = 26f;
+            lobbySwatchLay.preferredWidth = 26f;
+            lobbySwatchLay.flexibleWidth = 0f;
+            lobbySwatchLay.preferredHeight = 30f;
 
             // Text
-            _lobbySlotTexts[i] = UIFactory.CreateText(row.transform, _font, $"Slot {i + 1}: Offen...", 12, Color.white, TextAnchor.MiddleLeft);
-            _lobbySlotTexts[i].gameObject.AddComponent<LayoutElement>().preferredWidth = 360f;
+            _lobbySlotTexts[i] = UIFactory.CreateText(row.transform, _font, $"Slot {i + 1}: ...", 12, Color.white, TextAnchor.MiddleLeft);
+            LayoutElement lobbySlotTxtLay = _lobbySlotTexts[i].gameObject.AddComponent<LayoutElement>();
+            lobbySlotTxtLay.preferredWidth = 360f;
+            lobbySlotTxtLay.flexibleWidth = 1f;
         }
 
         // Personal Name Edit Row in Lobby (for connected player's own slot)
@@ -730,10 +754,10 @@ public class GameSetupDialogUI : MonoBehaviour
         myNameRow.GetComponent<LayoutElement>().preferredHeight = 38f;
         UIFactory.AddHorizontalLayout(myNameRow, 10f, 6);
 
-        UIFactory.CreateText(myNameRow.transform, _font, "Dein Name:", 12, new Color(0.75f, 0.88f, 1f), TextAnchor.MiddleLeft, FontStyle.Bold)
-            .gameObject.AddComponent<LayoutElement>().preferredWidth = 100f;
+        _lobbyMyNameLabel = UIFactory.CreateText(myNameRow.transform, _font, UIStrings.LobbyYourNameLabel.GetText(), 12, new Color(0.75f, 0.88f, 1f), TextAnchor.MiddleLeft, FontStyle.Bold);
+        _lobbyMyNameLabel.gameObject.AddComponent<LayoutElement>().preferredWidth = 100f;
 
-        _lobbyMyNameInput = UIFactory.CreateInputField(myNameRow.transform, _font, "Spieler",
+        _lobbyMyNameInput = UIFactory.CreateInputField(myNameRow.transform, _font, "Player",
             null, OnLobbyMyNameEndEdit,
             new Color(0.02f, 0.06f, 0.11f, 0.95f), Color.white, 12, 28f, 18, "Name");
         _lobbyMyNameInput.GetComponent<LayoutElement>().preferredWidth = 220f;
@@ -744,29 +768,31 @@ public class GameSetupDialogUI : MonoBehaviour
         specRow.GetComponent<LayoutElement>().preferredHeight = 40f;
         UIFactory.AddHorizontalLayout(specRow, 10f, 6);
 
-        UIFactory.CreateText(specRow.transform, _font, "Spectator-Modus:", 12, new Color(0.75f, 0.88f, 1f), TextAnchor.MiddleLeft, FontStyle.Bold)
-            .gameObject.AddComponent<LayoutElement>().preferredWidth = 135f;
+        _lobbySpectatorModeLabel = UIFactory.CreateText(specRow.transform, _font, UIStrings.LobbySpectatorModeLabel.GetText(), 12, new Color(0.75f, 0.88f, 1f), TextAnchor.MiddleLeft, FontStyle.Bold);
+        _lobbySpectatorModeLabel.gameObject.AddComponent<LayoutElement>().preferredWidth = 135f;
 
-        _lobbySpectatorModeBtn = UIFactory.CreateButton(specRow.transform, _font, "Fair (Karten verdeckt)",
+        _lobbySpectatorModeBtn = UIFactory.CreateButton(specRow.transform, _font, UIStrings.LobbySpectatorFair.GetText(),
             OnToggleLobbySpectatorModeClicked, new Color(0.14f, 0.34f, 0.54f, 1f), 11, 30f);
         _lobbySpectatorModeBtn.GetComponent<LayoutElement>().preferredWidth = 220f;
         _lobbySpectatorModeText = _lobbySpectatorModeBtn.GetComponentInChildren<Text>();
 
-        _lobbySpectatorCountText = UIFactory.CreateText(specRow.transform, _font, "Zuschauer: 0", 11, new Color(0.7f, 0.85f, 0.95f), TextAnchor.MiddleRight);
+        _lobbySpectatorCountText = UIFactory.CreateText(specRow.transform, _font, string.Format(UIStrings.LobbySpectatorCountFormat.GetText(), 0), 11, new Color(0.7f, 0.85f, 0.95f), TextAnchor.MiddleRight);
         _lobbySpectatorCountText.gameObject.AddComponent<LayoutElement>().flexibleWidth = 1f;
 
         // Action Bar for Lobby
         GameObject lobbyActionBar = UIFactory.CreateElement("LobbyActionBar", _lobbyContainer.transform);
         UIFactory.AddHorizontalLayout(lobbyActionBar, 14f, 4);
 
-        _lobbyLeaveBtn = UIFactory.CreateButton(lobbyActionBar.transform, _font, "Verlassen",
+        _lobbyLeaveBtn = UIFactory.CreateButton(lobbyActionBar.transform, _font, UIStrings.LobbyLeaveButton.GetText(),
             OnLeaveLobbyClicked, new Color(0.45f, 0.2f, 0.2f, 1f), 12, 42f);
         _lobbyLeaveBtn.GetComponent<LayoutElement>().preferredWidth = 160f;
+        _lobbyLeaveBtnText = _lobbyLeaveBtn.GetComponentInChildren<Text>();
 
-        _lobbyStartBtn = UIFactory.CreateButton(lobbyActionBar.transform, _font, "LAN-Spiel starten",
+        _lobbyStartBtn = UIFactory.CreateButton(lobbyActionBar.transform, _font, UIStrings.LobbyStartButton.GetText(),
             OnStartNetworkGameClicked, new Color(0.12f, 0.58f, 0.35f, 1f), 13, 42f);
         _lobbyStartBtn.GetComponent<LayoutElement>().preferredWidth = 260f;
-        _lobbyStartBtn.GetComponentInChildren<Text>().fontStyle = FontStyle.Bold;
+        _lobbyStartBtnText = _lobbyStartBtn.GetComponentInChildren<Text>();
+        _lobbyStartBtnText.fontStyle = FontStyle.Bold;
 
         _lobbyContainer.SetActive(false);
     }
@@ -793,7 +819,7 @@ public class GameSetupDialogUI : MonoBehaviour
 
         if (_lobbyTitleText != null)
         {
-            _lobbyTitleText.text = $"Lobby: {lobby.serverName} (Seed: {lobby.seed})";
+            _lobbyTitleText.text = string.Format(UIStrings.LobbyTitleFormat.GetText(), lobby.serverName, lobby.seed);
         }
 
         bool isHost = NetworkManager.Instance != null && NetworkManager.Instance.IsHost;
@@ -809,13 +835,13 @@ public class GameSetupDialogUI : MonoBehaviour
         {
             if (isSpectator)
             {
-                _lobbyStatusText.text = $"Du schaust als Spectator zu (Modus: {lobby.spectatorMode}). Warten auf Spielstart...";
+                _lobbyStatusText.text = string.Format(UIStrings.LobbyStatusSpectator.GetText(), lobby.spectatorMode);
             }
             else
             {
                 _lobbyStatusText.text = isHost
-                    ? "Du bist der Host. Sobald alle Mitspieler bereit sind, kannst du starten."
-                    : "Warten auf Spielstart durch den Host...";
+                    ? UIStrings.LobbyStatusHost.GetText()
+                    : UIStrings.LobbyStatusClient.GetText();
             }
         }
 
@@ -826,12 +852,12 @@ public class GameSetupDialogUI : MonoBehaviour
         if (_lobbySpectatorModeText != null)
         {
             _lobbySpectatorModeText.text = lobby.spectatorMode == "Caster"
-                ? "Caster (Alle Infos sichtbar)"
-                : "Fair (Karten verdeckt)";
+                ? UIStrings.LobbySpectatorCaster.GetText()
+                : UIStrings.LobbySpectatorFair.GetText();
         }
         if (_lobbySpectatorCountText != null)
         {
-            _lobbySpectatorCountText.text = $"Zuschauer: {lobby.spectatorCount}";
+            _lobbySpectatorCountText.text = string.Format(UIStrings.LobbySpectatorCountFormat.GetText(), lobby.spectatorCount);
         }
 
         if (_lobbyStartBtn != null)
@@ -910,8 +936,8 @@ public class GameSetupDialogUI : MonoBehaviour
             if (_lobbySlotTexts[i] != null)
             {
                 string status = slot.isConnected
-                    ? (slot.isHost ? "★ Host (Mensch)" : "✓ Verbunden (Mensch)")
-                    : (slot.playerType == "AI" ? $"[KI: {slot.aiDifficulty}]" : "Wartet auf Spieler...");
+                    ? (slot.isHost ? UIStrings.LobbySlotHostHuman.GetText() : UIStrings.LobbySlotConnectedHuman.GetText())
+                    : (slot.playerType == "AI" ? string.Format(UIStrings.LobbySlotAiFormat.GetText(), slot.aiDifficulty) : UIStrings.LobbySlotWaiting.GetText());
 
                 _lobbySlotTexts[i].text = $"Slot {i + 1}: {slot.playerName} – {status}";
                 _lobbySlotTexts[i].color = slot.isConnected ? new Color(0.5f, 1f, 0.6f) : (slot.playerType == "AI" ? new Color(1f, 0.9f, 0.4f) : Color.gray);
@@ -1160,6 +1186,29 @@ public class GameSetupDialogUI : MonoBehaviour
 
         UpdateSeedUI();
         UpdateDebugLabelsBtnUI();
+
+        // Update LAN Browser, Host & Lobby strings
+        if (_browserTitleText != null) _browserTitleText.text = UIStrings.LanBrowserTitle.GetText();
+        if (_manualPlayerLabel != null) _manualPlayerLabel.text = UIStrings.LanPlayerLabel.GetText();
+        if (_manualConnectBtnText != null) _manualConnectBtnText.text = UIStrings.LanConnectButton.GetText();
+        if (_manualSpectateBtnText != null) _manualSpectateBtnText.text = UIStrings.LanSpectateButton.GetText();
+
+        if (_hostTitleText != null) _hostTitleText.text = UIStrings.LanHostTitle.GetText();
+        if (_hostIpInfoText != null) _hostIpInfoText.text = string.Format(UIStrings.LanHostLocalIpFormat.GetText(), NetworkManager.GetLocalIPAddress());
+        if (_hostServerNameLabel != null) _hostServerNameLabel.text = UIStrings.LanHostServerNameLabel.GetText();
+        if (_hostPlayerNameLabel != null) _hostPlayerNameLabel.text = UIStrings.LanHostPlayerNameLabel.GetText();
+        if (_hostQuitBtnText != null) _hostQuitBtnText.text = UIStrings.Quit.GetText();
+        if (_hostStartBtnText != null) _hostStartBtnText.text = UIStrings.LanHostStartButton.GetText();
+
+        if (_lobbyMyNameLabel != null) _lobbyMyNameLabel.text = UIStrings.LobbyYourNameLabel.GetText();
+        if (_lobbySpectatorModeLabel != null) _lobbySpectatorModeLabel.text = UIStrings.LobbySpectatorModeLabel.GetText();
+        if (_lobbyLeaveBtnText != null) _lobbyLeaveBtnText.text = UIStrings.LobbyLeaveButton.GetText();
+        if (_lobbyStartBtnText != null) _lobbyStartBtnText.text = UIStrings.LobbyStartButton.GetText();
+
+        if (_latestLobbyState != null)
+        {
+            HandleNetworkLobbyUpdated(_latestLobbyState);
+        }
     }
 
     private void CycleLocalSlotColor(int slotIndex)
@@ -1509,6 +1558,29 @@ public class GameSetupDialogUI : MonoBehaviour
 
         UpdateSeedUI();
         UpdateDebugLabelsBtnUI();
+
+        // Update LAN Browser, Host & Lobby strings
+        if (_browserTitleText != null) _browserTitleText.text = UIStrings.LanBrowserTitle.GetText();
+        if (_manualPlayerLabel != null) _manualPlayerLabel.text = UIStrings.LanPlayerLabel.GetText();
+        if (_manualConnectBtnText != null) _manualConnectBtnText.text = UIStrings.LanConnectButton.GetText();
+        if (_manualSpectateBtnText != null) _manualSpectateBtnText.text = UIStrings.LanSpectateButton.GetText();
+
+        if (_hostTitleText != null) _hostTitleText.text = UIStrings.LanHostTitle.GetText();
+        if (_hostIpInfoText != null) _hostIpInfoText.text = string.Format(UIStrings.LanHostLocalIpFormat.GetText(), NetworkManager.GetLocalIPAddress());
+        if (_hostServerNameLabel != null) _hostServerNameLabel.text = UIStrings.LanHostServerNameLabel.GetText();
+        if (_hostPlayerNameLabel != null) _hostPlayerNameLabel.text = UIStrings.LanHostPlayerNameLabel.GetText();
+        if (_hostQuitBtnText != null) _hostQuitBtnText.text = UIStrings.Quit.GetText();
+        if (_hostStartBtnText != null) _hostStartBtnText.text = UIStrings.LanHostStartButton.GetText();
+
+        if (_lobbyMyNameLabel != null) _lobbyMyNameLabel.text = UIStrings.LobbyYourNameLabel.GetText();
+        if (_lobbySpectatorModeLabel != null) _lobbySpectatorModeLabel.text = UIStrings.LobbySpectatorModeLabel.GetText();
+        if (_lobbyLeaveBtnText != null) _lobbyLeaveBtnText.text = UIStrings.LobbyLeaveButton.GetText();
+        if (_lobbyStartBtnText != null) _lobbyStartBtnText.text = UIStrings.LobbyStartButton.GetText();
+
+        if (_latestLobbyState != null)
+        {
+            HandleNetworkLobbyUpdated(_latestLobbyState);
+        }
     }
 
     private void OnDestroy()

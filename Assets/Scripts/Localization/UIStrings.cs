@@ -1104,6 +1104,97 @@ public static class UIStrings
         new LocalizedString("🌐 Find Server (LAN)", "🌐 Server suchen (LAN)");
     public static readonly LocalizedString GameSetupTabHost =
         new LocalizedString("🚀 Host LAN", "🚀 LAN hosten");
+
+    // --- LAN Browser, Host & Lobby ---
+    public static readonly LocalizedString LanBrowserTitle =
+        new LocalizedString("Discovered Servers on Local Network (LAN):", "Gefundene Server im lokalen Netzwerk (LAN):");
+
+    public static readonly LocalizedString LanBrowserSearching =
+        new LocalizedString("Searching for server announcements on LAN...", "Suche nach Server-Announcements im LAN...");
+
+    public static readonly LocalizedString LanBrowserNoServers =
+        new LocalizedString("No LAN servers found. Host your own server or use direct connect below.", "Keine Server im LAN gefunden. Starte einen eigenen Server oder nutze die Direktverbindung unten.");
+
+    public static readonly LocalizedString LanBrowserServersFound =
+        new LocalizedString("{0} active server(s) found on local network:", "{0} aktive(r) Server im lokalen Netzwerk gefunden:");
+
+    public static readonly LocalizedString LanPlayerLabel =
+        new LocalizedString("Player:", "Spieler:");
+
+    public static readonly LocalizedString LanConnectButton =
+        new LocalizedString("Connect", "Verbinden");
+
+    public static readonly LocalizedString LanJoinButton =
+        new LocalizedString("Join", "Beitreten");
+
+    public static readonly LocalizedString LanSpectateButton =
+        new LocalizedString("Spectate", "Zuschauen");
+
+    public static readonly LocalizedString LanPlayersStateFormat =
+        new LocalizedString("{0}/{1} Players ({2})", "{0}/{1} Spieler ({2})");
+
+    public static readonly LocalizedString LanHostTitle =
+        new LocalizedString("Start your own server on the local network:", "Eigenen Server im lokalen Netzwerk starten:");
+
+    public static readonly LocalizedString LanHostLocalIpFormat =
+        new LocalizedString("Your local network IP address: {0}", "Deine lokale IP-Adresse im Netzwerk: {0}");
+
+    public static readonly LocalizedString LanHostServerNameLabel =
+        new LocalizedString("Server / Room Name:", "Server- / Raumname:");
+
+    public static readonly LocalizedString LanHostPlayerNameLabel =
+        new LocalizedString("Your Player Name (Host):", "Dein Spielername (Host):");
+
+    public static readonly LocalizedString LanHostStartButton =
+        new LocalizedString("🚀 Start Server & Open Room", "🚀 Server starten & Raum eröffnen");
+
+    public static readonly LocalizedString LobbyTitleDefault =
+        new LocalizedString("Lobby: Waiting Room", "Lobby: Warteraum");
+
+    public static readonly LocalizedString LobbyTitleFormat =
+        new LocalizedString("Lobby: {0} (Seed: {1})", "Lobby: {0} (Seed: {1})");
+
+    public static readonly LocalizedString LobbyStatusHost =
+        new LocalizedString("You are the host. Once all players are ready, you can start.", "Du bist der Host. Sobald alle Mitspieler bereit sind, kannst du starten.");
+
+    public static readonly LocalizedString LobbyStatusClient =
+        new LocalizedString("Waiting for host to start the game...", "Warten auf Spielstart durch den Host...");
+
+    public static readonly LocalizedString LobbyStatusSpectator =
+        new LocalizedString("You are watching as a Spectator (Mode: {0}). Waiting for game start...", "Du schaust als Spectator zu (Modus: {0}). Warten auf Spielstart...");
+
+    public static readonly LocalizedString LobbySlotHostHuman =
+        new LocalizedString("★ Host (Human)", "★ Host (Mensch)");
+
+    public static readonly LocalizedString LobbySlotConnectedHuman =
+        new LocalizedString("✓ Connected (Human)", "✓ Verbunden (Mensch)");
+
+    public static readonly LocalizedString LobbySlotAiFormat =
+        new LocalizedString("[AI: {0}]", "[KI: {0}]");
+
+    public static readonly LocalizedString LobbySlotWaiting =
+        new LocalizedString("Waiting for player...", "Wartet auf Spieler...");
+
+    public static readonly LocalizedString LobbyYourNameLabel =
+        new LocalizedString("Your Name:", "Dein Name:");
+
+    public static readonly LocalizedString LobbySpectatorModeLabel =
+        new LocalizedString("Spectator Mode:", "Spectator-Modus:");
+
+    public static readonly LocalizedString LobbySpectatorFair =
+        new LocalizedString("Fair (Cards Hidden)", "Fair (Karten verdeckt)");
+
+    public static readonly LocalizedString LobbySpectatorCaster =
+        new LocalizedString("Caster (All Info Visible)", "Caster (Alle Infos sichtbar)");
+
+    public static readonly LocalizedString LobbySpectatorCountFormat =
+        new LocalizedString("Spectators: {0}", "Zuschauer: {0}");
+
+    public static readonly LocalizedString LobbyLeaveButton =
+        new LocalizedString("Leave", "Verlassen");
+
+    public static readonly LocalizedString LobbyStartButton =
+        new LocalizedString("Start LAN Game", "LAN-Spiel starten");
 }
 
 
