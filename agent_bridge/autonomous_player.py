@@ -98,6 +98,9 @@ def read_state(timeout=5.0):
             time.sleep(0.05)
     return None
 
+_FAILED_SHIP_MOVES = set()
+_FAILED_MOVES_TURN_KEY = None
+
 def send_action(action_dict, timeout=8.0):
     if action_dict.get("action") == "MoveShip":
         timeout = max(timeout, 15.0)
@@ -1050,11 +1053,20 @@ def decide_and_act(state, step_delay=0.6):
             return True
 
     if "MoveShip" in legal:
+        global _FAILED_MOVES_TURN_KEY
+        turn_key = (state.get("turnNumber"), state.get("currentPlayerIndex"))
+        if _FAILED_MOVES_TURN_KEY != turn_key:
+            _FAILED_SHIP_MOVES.clear()
+            _FAILED_MOVES_TURN_KEY = turn_key
+
         units = current_player.get("units", []) if current_player else []
         movable = [u for u in units if u.get("canMove") and u.get("movementRemaining", 0) > 0]
         occupied_friendly_positions = {(u["q"], u["r"]) for u in units}
         moved = False
         for ship in movable:
+            ship_move_key = (ship.get("id"), ship["q"], ship["r"], ship.get("movementRemaining"))
+            if ship_move_key in _FAILED_SHIP_MOVES:
+                continue
             if ship.get("shipType") == "ColonyShip":
                 targets = get_free_colony_sites(state)
             elif ship.get("shipType") == "TradeShip":
@@ -1115,6 +1127,7 @@ def decide_and_act(state, step_delay=0.6):
                         continue
             if moved:
                 break
+            _FAILED_SHIP_MOVES.add(ship_move_key)
         if moved:
             time.sleep(step_delay)
             return True
