@@ -230,6 +230,13 @@ public class GameSetupDialogUI : MonoBehaviour
 
     public void SetSetupMode(SetupMode mode)
     {
+        if (mode != SetupMode.Lobby &&
+            NetworkManager.Instance != null &&
+            (NetworkManager.Instance.IsServerRunning || NetworkManager.Instance.IsClientConnected))
+        {
+            NetworkManager.Instance.DisconnectAll();
+        }
+
         _currentMode = mode;
 
         if (_localContainer != null) _localContainer.SetActive(mode == SetupMode.Local);

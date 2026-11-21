@@ -163,6 +163,7 @@ public static class UIFactory
         group.childControlHeight = controlHeight;
         group.childForceExpandWidth = true;
         group.childForceExpandHeight = false;
+        group.childAlignment = TextAnchor.MiddleLeft;
         return group;
     }
 
@@ -176,6 +177,7 @@ public static class UIFactory
         group.childControlHeight = controlHeight;
         group.childForceExpandWidth = true;
         group.childForceExpandHeight = false;
+        group.childAlignment = TextAnchor.MiddleLeft;
         return group;
     }
 
