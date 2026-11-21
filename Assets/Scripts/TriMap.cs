@@ -215,7 +215,18 @@ public class TriMap : MonoBehaviour, IQPathWorld
                 DebugSettings.FixedBoardSeed = cliSeed;
                 GameSetupConfig.UseFixedSeed = true;
                 GameSetupConfig.Seed = cliSeed;
-                break;
+            }
+            else if (a.Equals("-language:en", System.StringComparison.OrdinalIgnoreCase) ||
+                     a.Equals("--language:en", System.StringComparison.OrdinalIgnoreCase))
+            {
+                DebugSettings.Language = GameLanguage.English;
+                LocalizationManager.SetLanguage(GameLanguage.English, persist: false);
+            }
+            else if (a.Equals("-language:de", System.StringComparison.OrdinalIgnoreCase) ||
+                     a.Equals("--language:de", System.StringComparison.OrdinalIgnoreCase))
+            {
+                DebugSettings.Language = GameLanguage.German;
+                LocalizationManager.SetLanguage(GameLanguage.German, persist: false);
             }
         }
 
