@@ -34,6 +34,10 @@ public class SelectionController : MonoBehaviour {
             triMap = FindFirstObjectByType<TriMap>();
         }
         SubscribeToMapEvents();
+        if (SelectionIndicator != null && SelectionIndicator.GetComponent<SelectionIndicatorVisual>() == null)
+        {
+            SelectionIndicator.AddComponent<SelectionIndicatorVisual>();
+        }
 	}
 
     void OnDestroy()
