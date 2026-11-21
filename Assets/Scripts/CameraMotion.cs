@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CameraMotion : MonoBehaviour
 {
-    public static readonly Vector3 DefaultPosition = new Vector3(10.8f, 20f, 3.5f);
+    public static readonly Vector3 DefaultPosition = new Vector3(17.6f, 20f, 3.5f);
     public static readonly Vector3 DefaultRotation = new Vector3(75f, 0f, 0f);
 
     Vector3 oldPosition;
@@ -13,8 +13,10 @@ public class CameraMotion : MonoBehaviour
     void Start()
     {
         map = FindFirstObjectByType<TriMap>();
-        // If the scene camera was saved at older off-center positions, reset to the centered overview (acf08f0)
-        if (Mathf.Approximately(transform.position.x, 21f) || Mathf.Approximately(transform.position.x, 14.2f))
+        // If the scene camera was saved at older off-center positions, reset to the centered overview
+        if (Mathf.Approximately(transform.position.x, 21f) ||
+            Mathf.Approximately(transform.position.x, 14.2f) ||
+            Mathf.Approximately(transform.position.x, 10.8f))
         {
             ResetToOverview();
         }
