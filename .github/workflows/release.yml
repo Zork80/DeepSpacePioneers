@@ -1,0 +1,120 @@
+name: Build & Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: 'Optional release tag when triggered manually (leave empty to skip GitHub Release creation)'
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build (${{ matrix.name }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: linux-client
+            targetPlatform: StandaloneLinux64
+            buildName: DeepSpacePioneers
+            subtarget: ''
+            archiveName: DeepSpacePioneers-Linux-Client.tar.gz
+          - name: linux-server
+            targetPlatform: StandaloneLinux64
+            buildName: DeepSpacePioneersServer
+            subtarget: '-standaloneBuildSubtarget Server'
+            archiveName: DeepSpacePioneers-Linux-Server.tar.gz
+          - name: windows-client
+            targetPlatform: StandaloneWindows64
+            buildName: DeepSpacePioneers
+            subtarget: ''
+            archiveName: DeepSpacePioneers-Windows-Client.zip
+
+    steps:
+      - name: Free disk space on runner
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL || true
+          df -h
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Cache Unity Library (${{ matrix.name }})
+        uses: actions/cache@v4
+        with:
+          path: Library
+          key: Library-${{ matrix.targetPlatform }}-${{ matrix.name }}-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: |
+            Library-${{ matrix.targetPlatform }}-${{ matrix.name }}-
+            Library-${{ matrix.targetPlatform }}-
+
+      - name: Build Unity project (${{ matrix.name }})
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          unityVersion: 6000.3.26f1
+          targetPlatform: ${{ matrix.targetPlatform }}
+          buildName: ${{ matrix.buildName }}
+          customParameters: ${{ matrix.subtarget }}
+
+      - name: Package build archive
+        run: |
+          mkdir -p dist
+          BUILD_DIR="build/${{ matrix.targetPlatform }}"
+          if [[ "${{ matrix.archiveName }}" == *.tar.gz ]]; then
+            tar -czf "dist/${{ matrix.archiveName }}" -C "$BUILD_DIR" .
+          else
+            (cd "$BUILD_DIR" && zip -r "../../dist/${{ matrix.archiveName }}" .)
+          fi
+          ls -lh dist/
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.name }}
+          path: dist/${{ matrix.archiveName }}
+          retention-days: 14
+
+  release:
+    name: Create GitHub Release
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v') || github.event.inputs.release_tag != ''
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-multiple: true
+
+      - name: Determine release tag
+        id: tag
+        run: |
+          if [[ "${{ github.ref }}" == refs/tags/* ]]; then
+            echo "name=${GITHUB_REF_NAME}" >> "$GITHUB_OUTPUT"
+          else
+            echo "name=${{ github.event.inputs.release_tag }}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.tag.outputs.name }}
+          name: Deep Space Pioneers ${{ steps.tag.outputs.name }}
+          generate_release_notes: true
+          files: |
+            artifacts/*.zip
+            artifacts/*.tar.gz
