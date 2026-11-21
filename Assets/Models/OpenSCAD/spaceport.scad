@@ -33,17 +33,17 @@ module spaceport_piece(
         rotate([0, 0, ang]) {
             translate([dome_r + airlock_len * 0.55, 0, 2.5]) {
                 // Habitation Blister Dome
-                color(COLOR_DOME)
+                part("dome", COLOR_DOME)
                     difference() {
                         sphere(r=2.0);
                         translate([0, 0, -2.0])
                             cube([5.0, 5.0, 4.0], center=true);
                     }
                 // Collar Ring
-                color(COLOR_HULL_MAIN)
+                part("hull_main", COLOR_HULL_MAIN)
                     cylinder(r=2.1, h=0.5);
                 // Observation Port Window Trim
-                color(COLOR_GLOW)
+                part("glow", COLOR_GLOW)
                     translate([0, 0, 1.8])
                         sphere(r=0.4);
             }
@@ -58,30 +58,30 @@ module spaceport_piece(
         rotate([0, 0, ang]) {
             translate([gantry_r, 0, 0]) {
                 // Tower Footing / Anchor Mount
-                color(COLOR_HULL_DARK)
+                part("hull_dark", COLOR_HULL_DARK)
                     cylinder(r1=1.8, r2=1.3, h=1.5);
 
                 // Angled Support Buttress from inner foundation
-                color(COLOR_HULL_DARK) {
+                part("hull_dark", COLOR_HULL_DARK) {
                     translate([-2.0, -0.6, 0])
                         cube([2.0, 1.2, 1.4]);
                 }
 
                 // Vertical Gantry Column (Open structural beam)
-                color(COLOR_HULL_MAIN) {
+                part("hull_main", COLOR_HULL_MAIN) {
                     translate([-tower_w*0.5, -tower_w*0.5, 1.2])
                         cube([tower_w, tower_w, gantry_h - 1.2]);
                 }
 
                 // Inset Energy / Conduit Channel
-                color(COLOR_ACCENT) {
+                part("accent", COLOR_ACCENT) {
                     translate([-tower_w*0.5 - 0.15, -tower_w*0.25, 2.0])
                         cube([0.3, tower_w*0.5, gantry_h - 3.5]);
                 }
 
                 // Tower Top Beacon
                 translate([0, 0, gantry_h])
-                    color(COLOR_GLOW)
+                    part("glow", COLOR_GLOW)
                         sphere(r=0.55);
             }
         }
@@ -93,7 +93,7 @@ module spaceport_piece(
     // ----------------------------------------------------------------
     translate([0, 0, gantry_h - 1.2]) {
         // Hollow Ring Frame
-        color(COLOR_HULL_MAIN) {
+        part("hull_main", COLOR_HULL_MAIN) {
             difference() {
                 cylinder(r=gantry_r + tower_w*0.6, h=1.4);
                 // Large hollow aperture: dome is visible below!
@@ -105,9 +105,9 @@ module spaceport_piece(
         for (a = [0:60:300]) {
             rotate([0, 0, a]) {
                 translate([gantry_r - tower_w*0.5, 0, 0.4]) {
-                    color(COLOR_ACCENT)
+                    part("accent", COLOR_ACCENT)
                         cube([1.2, 1.2, 1.2], center=true);
-                    color(COLOR_GLOW)
+                    part("glow", COLOR_GLOW)
                         translate([-0.6, 0, 0.5])
                             sphere(r=0.35);
                 }
@@ -117,7 +117,7 @@ module spaceport_piece(
         // Refueling / Cargo Crane Arm extending over the dock
         rotate([0, 0, 120]) {
             translate([gantry_r * 0.45, 0, 0.8]) {
-                color(COLOR_CARGO) {
+                part("cargo", COLOR_CARGO) {
                     // Crane beam
                     cube([gantry_r * 0.7, 1.1, 1.1], center=true);
                     // Vertical fuel hose nozzle
@@ -134,7 +134,7 @@ module spaceport_piece(
     rotate([0, 0, 60]) {
         translate([gantry_r, 0, gantry_h]) {
             // Mast
-            color(COLOR_HULL_DARK)
+            part("hull_dark", COLOR_HULL_DARK)
                 cylinder(r=0.7, h=3.0);
             // Angled Tracking Dish
             translate([0, 0, 3.0])

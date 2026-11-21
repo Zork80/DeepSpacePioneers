@@ -15,7 +15,7 @@ module ship_hull_chassis(
     height = 5.5
 ) {
     // 1. Main Fuselage (Wedge Body)
-    color(COLOR_HULL_MAIN) {
+    part("hull_main", COLOR_HULL_MAIN) {
         hull() {
             // Nose tip
             translate([0, length*0.5, height*0.3])
@@ -30,7 +30,7 @@ module ship_hull_chassis(
     }
 
     // 2. Cockpit Canopy & Forward Sensors
-    color(COLOR_GLOW) {
+    part("glow", COLOR_GLOW) {
         translate([0, length*0.25, height*0.65]) {
             rotate([25, 0, 0])
                 scale([1.0, 1.8, 0.7])
@@ -42,7 +42,7 @@ module ship_hull_chassis(
     for (side = [-1, 1]) {
         translate([side * width * 0.42, -length*0.05, height*0.35]) {
             // Pylon connecting wing to fuselage
-            color(COLOR_HULL_DARK) {
+            part("hull_dark", COLOR_HULL_DARK) {
                 hull() {
                     translate([-side * width*0.15, -length*0.2, 0])
                         cube([width*0.15, length*0.4, 1.2]);
@@ -52,7 +52,7 @@ module ship_hull_chassis(
             }
 
             // Nacelle Pod
-            color(COLOR_HULL_MAIN) {
+            part("hull_main", COLOR_HULL_MAIN) {
                 hull() {
                     // Forward Bussard Collector
                     translate([0, length*0.32, 0])
@@ -64,19 +64,19 @@ module ship_hull_chassis(
             }
 
             // Nacelle Glowing Field Grille
-            color(COLOR_ACCENT) {
+            part("accent", COLOR_ACCENT) {
                 translate([side * 1.5, 0, 0])
                     cube([0.5, length*0.4, 1.4], center=true);
             }
 
             // Front Glow Collector
-            color(COLOR_GLOW) {
+            part("glow", COLOR_GLOW) {
                 translate([0, length*0.33, 0])
                     sphere(r=1.1);
             }
 
             // Stabilizer Vertical Winglet
-            color(COLOR_HULL_DARK) {
+            part("hull_dark", COLOR_HULL_DARK) {
                 translate([side * 1.6, -length*0.25, 1.2])
                     hull() {
                         cube([0.8, length*0.2, 0.5]);
@@ -96,7 +96,7 @@ module ship_hull_chassis(
     }
 
     // 5. Ventral Landing / Board Stand Skids
-    color(COLOR_HULL_DARK) {
+    part("hull_dark", COLOR_HULL_DARK) {
         for (side = [-1, 1]) {
             translate([side * width*0.22, 0, -0.6])
                 cube([1.2, length*0.6, 0.8], center=true);
@@ -110,11 +110,11 @@ module ship_hull_chassis(
 module colony_payload() {
     translate([0, -1.0, 3.8]) {
         // Retaining Cradle
-        color(COLOR_HULL_DARK)
+        part("hull_dark", COLOR_HULL_DARK)
             cylinder(r=4.2, h=1.0);
 
         // Biome Settlement Module (Miniature Colony Dome)
-        color(COLOR_DOME)
+        part("dome", COLOR_DOME)
             difference() {
                 sphere(r=3.8);
                 translate([0, 0, -4.0])
@@ -122,7 +122,7 @@ module colony_payload() {
             }
 
         // Module Locking Arches
-        color(COLOR_ACCENT) {
+        part("accent", COLOR_ACCENT) {
             rotate([0, 0, 45])
                 difference() {
                     sphere(r=4.0);
@@ -134,7 +134,7 @@ module colony_payload() {
         }
 
         // Top Spire / Atmospheric Snorkel
-        color(COLOR_HULL_MAIN)
+        part("hull_main", COLOR_HULL_MAIN)
             translate([0, 0, 3.5])
                 cylinder(r1=0.8, r2=0.4, h=1.5);
     }
@@ -146,7 +146,7 @@ module colony_payload() {
 module trade_payload() {
     translate([0, -1.2, 3.8]) {
         // Cargo Spine / Magnetic Rail
-        color(COLOR_HULL_DARK)
+        part("hull_dark", COLOR_HULL_DARK)
             translate([-1.0, -5.0, 0])
                 cube([2.0, 10.0, 1.2]);
 
@@ -154,12 +154,12 @@ module trade_payload() {
         for (y = [-3.0, 0.2, 3.4]) {
             translate([0, y, 1.8]) {
                 // Main Container Body
-                color(COLOR_CARGO)
+                part("cargo", COLOR_CARGO)
                     rotate([0, 90, 0])
                         cylinder(r=2.2, h=5.6, center=true, $fn=6);
 
                 // Container End Caps & Magnetic Locks
-                color(COLOR_HULL_DARK) {
+                part("hull_dark", COLOR_HULL_DARK) {
                     for (side = [-2.85, 2.85]) {
                         translate([side, 0, 0])
                             rotate([0, 90, 0])
@@ -168,7 +168,7 @@ module trade_payload() {
                 }
 
                 // Status Indicator Trim
-                color(COLOR_ACCENT)
+                part("accent", COLOR_ACCENT)
                     translate([0, 0, 2.1])
                         cube([4.0, 0.8, 0.4], center=true);
             }

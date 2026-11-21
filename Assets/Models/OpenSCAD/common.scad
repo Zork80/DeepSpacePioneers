@@ -6,6 +6,17 @@
 // Rendering Quality ($fn)
 $fn = $preview ? 32 : 64;
 
+// Optional export filter: "all" (default), or a specific material tag
+// ("hull_main", "hull_dark", "accent", "glow", "dome", "solar", "cargo")
+$export_part = "all";
+
+module part(tag, preview_color) {
+    if ($export_part == "all" || $export_part == tag) {
+        color(preview_color)
+            children();
+    }
+}
+
 // Standard Dimensions (in mm, scaled ~1:1 with Unity 1 unit = 10mm or direct 3D print)
 BASE_HEIGHT = 1.5;
 SLOT_TOLERANCE = 0.25;
@@ -48,11 +59,11 @@ module rounded_box(size=[10, 10, 5], r=1) {
 
 // Subspace dish with central feed horn
 module sensor_dish(dish_r=6, depth=2, stem_h=4) {
-    color(COLOR_HULL_DARK)
+    part("hull_dark", COLOR_HULL_DARK)
         cylinder(r=1.2, h=stem_h);
     
     translate([0, 0, stem_h]) {
-        color(COLOR_HULL_MAIN)
+        part("hull_main", COLOR_HULL_MAIN)
             difference() {
                 sphere(r=dish_r);
                 sphere(r=dish_r - 0.8);
@@ -61,7 +72,7 @@ module sensor_dish(dish_r=6, depth=2, stem_h=4) {
             }
         
         // Feed horn & subreflector
-        color(COLOR_ACCENT) {
+        part("accent", COLOR_ACCENT) {
             cylinder(r=0.6, h=depth + 1);
             translate([0, 0, depth + 1])
                 sphere(r=1.0);
@@ -71,7 +82,7 @@ module sensor_dish(dish_r=6, depth=2, stem_h=4) {
 
 // Photovoltaic solar array wing
 module solar_panel(w=8, l=14, thickness=0.8) {
-    color(COLOR_HULL_DARK) {
+    part("hull_dark", COLOR_HULL_DARK) {
         // Frame
         cube([w, l, thickness], center=true);
         // Mount pivot
@@ -80,20 +91,20 @@ module solar_panel(w=8, l=14, thickness=0.8) {
                 cylinder(r=0.9, h=w*0.6, center=true);
     }
     // Solar cell face
-    color(COLOR_SOLAR)
+    part("solar", COLOR_SOLAR)
         translate([0, 0, thickness*0.4])
             cube([w - 1.2, l - 1.5, thickness*0.5], center=true);
 }
 
 // Engine thruster nozzle with interior glow
 module thruster_nozzle(r_outer=3, r_inner=2.2, len=5) {
-    color(COLOR_HULL_DARK)
+    part("hull_dark", COLOR_HULL_DARK)
         difference() {
             cylinder(r1=r_outer*0.8, r2=r_outer, h=len);
             translate([0, 0, 0.8])
                 cylinder(r1=r_inner*0.5, r2=r_inner, h=len);
         }
-    color(COLOR_GLOW)
+    part("glow", COLOR_GLOW)
         translate([0, 0, 0.4])
             cylinder(r=r_inner*0.5, h=1);
 }

@@ -352,11 +352,16 @@ namespace EditorTools
                 _isBuilding = true;
                 try
                 {
+                    string triggerText = File.ReadAllText(triggerPath);
                     File.Delete(triggerPath);
                     string donePath = Path.Combine(Directory.GetCurrentDirectory(), "Temp", "build_done.txt");
                     if (File.Exists(donePath)) File.Delete(donePath);
 
                     AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
+                    if (triggerText.Contains("setup_pieces"))
+                    {
+                        SetupOpenSCADPieces.ExecuteSetup();
+                    }
                     BuildProfilesSetup.UpgradeEventSystemInScene();
                     Debug.Log("[BuildTriggerWatcher] Trigger file detected! Initiating BuildLinuxClient()...");
                     bool ok = BuildProfilesSetup.BuildLinuxClient();

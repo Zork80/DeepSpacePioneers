@@ -7,7 +7,8 @@ namespace EditorTools
     public static class SetupOpenSCADPieces
     {
         private const string PREFAB_SETUP_VERSION_KEY = "SetupOpenSCADPieces_Version";
-        private const string CURRENT_VERSION = "1.4_OpenSCAD_UpgradedColonySpaceport";
+        // Version bumped to 1.7 to re-import multi-material submesh slots
+        private const string CURRENT_VERSION = "1.7_OpenSCAD_SingleMeshSubmeshes";
 
         [InitializeOnLoadMethod]
         private static void OnEditorLoad()
