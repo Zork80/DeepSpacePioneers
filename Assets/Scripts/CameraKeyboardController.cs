@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class CameraKeyboardController : MonoBehaviour
 {
-    float moveSpeed = 25f;
+    [SerializeField] private float moveSpeed = 35f;
+    [SerializeField] private float fastMoveSpeed = 70f;
 
     // Update is called once per frame
     void Update()
@@ -45,7 +46,7 @@ public class CameraKeyboardController : MonoBehaviour
         if (rawX != 0f || rawZ != 0f)
         {
             Vector3 translate = new Vector3(rawX, 0f, rawZ).normalized;
-            float speed = (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) ? 70f : 35f;
+            float speed = (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) ? fastMoveSpeed : moveSpeed;
             this.transform.Translate(translate * (speed * Time.deltaTime), Space.World);
         }
     }

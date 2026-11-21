@@ -196,7 +196,7 @@ namespace AgentBridge
 
         private void Start()
         {
-            _triMap = GetComponent<TriMap>() ?? UnityEngine.Object.FindObjectOfType<TriMap>();
+            _triMap = GetComponent<TriMap>() ?? UnityEngine.Object.FindAnyObjectByType<TriMap>();
             if (_triMap == null)
             {
                 Debug.LogError("[ExternalAgentBridge] TriMap not found. Bridge disabled.");
@@ -204,10 +204,10 @@ namespace AgentBridge
                 return;
             }
 
-            _playerHandler = UnityEngine.Object.FindObjectOfType<PlayerHandler>();
-            _discardDialog = UnityEngine.Object.FindObjectOfType<DiscardCardsDialogUI>();
-            _stealDialog = UnityEngine.Object.FindObjectOfType<StealCardDialogUI>();
-            _friendshipDialog = UnityEngine.Object.FindObjectOfType<FriendshipCardDialogUI>();
+            _playerHandler = UnityEngine.Object.FindAnyObjectByType<PlayerHandler>();
+            _discardDialog = UnityEngine.Object.FindAnyObjectByType<DiscardCardsDialogUI>();
+            _stealDialog = UnityEngine.Object.FindAnyObjectByType<StealCardDialogUI>();
+            _friendshipDialog = UnityEngine.Object.FindAnyObjectByType<FriendshipCardDialogUI>();
 
             SubscribeToEvents();
 

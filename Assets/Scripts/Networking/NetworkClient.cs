@@ -179,14 +179,15 @@ namespace Networking
 
                 case NetworkMessageType.GameEvent:
                     string evtText = string.Empty;
+                    GameEventNotificationDTO gameEvt = null;
                     if (!string.IsNullOrEmpty(envelope.Payload))
                     {
                         if (envelope.Payload.TrimStart().StartsWith("{"))
                         {
                             try
                             {
-                                GameEventNotificationDTO evt = JsonUtility.FromJson<GameEventNotificationDTO>(envelope.Payload);
-                                evtText = evt?.Description;
+                                gameEvt = JsonUtility.FromJson<GameEventNotificationDTO>(envelope.Payload);
+                                evtText = gameEvt?.Description;
                             }
                             catch { }
                         }
@@ -194,6 +195,14 @@ namespace Networking
                         {
                             evtText = envelope.Payload;
                         }
+                    }
+                    if (gameEvt == null && !string.IsNullOrEmpty(evtText))
+                    {
+                        gameEvt = new GameEventNotificationDTO { Description = evtText };
+                    }
+                    if (gameEvt != null)
+                    {
+                        NetworkManager.Instance?.EnqueueMainThreadAction(() => OnGameEventReceived?.Invoke(gameEvt));
                     }
                     if (!string.IsNullOrEmpty(evtText))
                     {
