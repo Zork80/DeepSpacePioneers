@@ -6,10 +6,7 @@ using UnityEngine.InputSystem.UI;
 #endif
 
 /// <summary>
-/// Ensures the active EventSystem uses the appropriate input module:
-/// - Replaces StandaloneInputModule with InputSystemUIInputModule.
-/// - Assigns default UI actions (Click, Point, Submit, Navigate, etc.) and ensures all action maps are enabled.
-/// - Calls EventSystem.UpdateModules() so the EventSystem registers the module immediately.
+/// Ensures the active EventSystem uses InputSystemUIInputModule if not already present.
 /// </summary>
 public static class InputEventSystemAdapter
 {
@@ -32,26 +29,18 @@ public static class InputEventSystemAdapter
         if (es != null)
         {
             var standalone = es.GetComponent<StandaloneInputModule>();
-            var newModule = es.GetComponent<InputSystemUIInputModule>();
-
-            if (newModule == null)
-            {
-                newModule = es.gameObject.AddComponent<InputSystemUIInputModule>();
-            }
-
             if (standalone != null)
             {
                 Object.Destroy(standalone);
             }
 
-            newModule.AssignDefaultActions();
-            newModule.actionsAsset?.Enable();
-            newModule.enabled = false;
-            newModule.enabled = true;
-
-            es.UpdateModules();
-
-            Debug.Log($"[InputEventSystemAdapter] EventSystem upgraded with InputSystemUIInputModule. ActionsAsset={newModule.actionsAsset != null}, enabled={newModule.enabled}");
+            var newModule = es.GetComponent<InputSystemUIInputModule>();
+            if (newModule == null)
+            {
+                newModule = es.gameObject.AddComponent<InputSystemUIInputModule>();
+                newModule.AssignDefaultActions();
+                es.UpdateModules();
+            }
         }
 #endif
     }

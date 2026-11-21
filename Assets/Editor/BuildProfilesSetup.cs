@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using UnityEditor;
 using UnityEditor.Build.Profile;
 using UnityEditor.Build.Reporting;
@@ -157,22 +158,53 @@ namespace EditorTools
         [MenuItem("Build/Upgrade EventSystem in Scene", false, 40)]
         public static void UpgradeEventSystemInScene()
         {
-            var standalone = UnityEngine.Object.FindAnyObjectByType<StandaloneInputModule>();
-            if (standalone != null)
+            var scene = UnityEditor.SceneManagement.EditorSceneManager.OpenScene(ScenePath);
+            var es = UnityEngine.Object.FindFirstObjectByType<EventSystem>();
+            if (es != null)
             {
-                var go = standalone.gameObject;
-                UnityEngine.Object.DestroyImmediate(standalone);
-                var inputModule = go.GetComponent<UnityEngine.InputSystem.UI.InputSystemUIInputModule>();
+                var standalone = es.GetComponent<StandaloneInputModule>();
+                if (standalone != null)
+                {
+                    UnityEngine.Object.DestroyImmediate(standalone, true);
+                }
+
+                var inputModule = es.GetComponent<UnityEngine.InputSystem.UI.InputSystemUIInputModule>();
                 if (inputModule == null)
                 {
-                    inputModule = go.AddComponent<UnityEngine.InputSystem.UI.InputSystemUIInputModule>();
+                    inputModule = es.gameObject.AddComponent<UnityEngine.InputSystem.UI.InputSystemUIInputModule>();
                 }
-                inputModule.AssignDefaultActions();
-                inputModule.actionsAsset?.Enable();
-                var scene = UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene();
+
+                string defaultAssetPath = "Packages/com.unity.inputsystem/InputSystem/Runtime/Plugins/PlayerInput/DefaultInputActions.inputactions";
+                var defaultAsset = AssetDatabase.LoadAssetAtPath<UnityEngine.InputSystem.InputActionAsset>(defaultAssetPath);
+                if (defaultAsset != null)
+                {
+                    var subAssets = AssetDatabase.LoadAllAssetsAtPath(defaultAssetPath)
+                        .OfType<UnityEngine.InputSystem.InputActionReference>()
+                        .ToArray();
+
+                    inputModule.actionsAsset = defaultAsset;
+                    inputModule.point = subAssets.FirstOrDefault(a => a.action != null && (a.action.name == "Point" || a.action.name == "MousePosition"));
+                    inputModule.leftClick = subAssets.FirstOrDefault(a => a.action != null && (a.action.name == "Click" || a.action.name == "LeftClick"));
+                    inputModule.rightClick = subAssets.FirstOrDefault(a => a.action != null && (a.action.name == "RightClick" || a.action.name == "Right Click"));
+                    inputModule.middleClick = subAssets.FirstOrDefault(a => a.action != null && (a.action.name == "MiddleClick" || a.action.name == "Middle Click"));
+                    inputModule.scrollWheel = subAssets.FirstOrDefault(a => a.action != null && (a.action.name == "ScrollWheel" || a.action.name == "Scroll Wheel"));
+                    inputModule.move = subAssets.FirstOrDefault(a => a.action != null && (a.action.name == "Navigate" || a.action.name == "Move"));
+                    inputModule.submit = subAssets.FirstOrDefault(a => a.action != null && a.action.name == "Submit");
+                    inputModule.cancel = subAssets.FirstOrDefault(a => a.action != null && a.action.name == "Cancel");
+                    inputModule.trackedDevicePosition = subAssets.FirstOrDefault(a => a.action != null && (a.action.name == "TrackedDevicePosition" || a.action.name == "Position"));
+                    inputModule.trackedDeviceOrientation = subAssets.FirstOrDefault(a => a.action != null && (a.action.name == "TrackedDeviceOrientation" || a.action.name == "Orientation"));
+
+                    Debug.Log($"[BuildProfilesSetup] Successfully configured InputSystemUIInputModule with {subAssets.Length} action references from {defaultAssetPath}!");
+                }
+                else
+                {
+                    Debug.LogWarning($"[BuildProfilesSetup] Could not load default input actions from {defaultAssetPath}. Falling back to AssignDefaultActions().");
+                    inputModule.AssignDefaultActions();
+                }
+
                 UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(scene);
                 UnityEditor.SceneManagement.EditorSceneManager.SaveScene(scene);
-                Debug.Log("[BuildProfilesSetup] Successfully upgraded EventSystem in scene to InputSystemUIInputModule and saved scene!");
+                Debug.Log("[BuildProfilesSetup] Saved scene with upgraded EventSystem!");
             }
         }
 
