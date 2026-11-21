@@ -17,6 +17,7 @@ namespace Networking
         public const string Disconnect = "Disconnect";
         public const string LobbyUpdate = "LobbyUpdate";
         public const string SetSlot = "SetSlot";
+        public const string SetSeed = "SetSeed";
         public const string SetSpectatorMode = "SetSpectatorMode";
         public const string StartGame = "StartGame";
         public const string GameStarted = "GameStarted";
@@ -91,6 +92,13 @@ namespace Networking
     public class SetSpectatorModeRequestDTO
     {
         public string SpectatorMode = "Fair"; // "Fair" or "Caster"
+    }
+
+    [Serializable]
+    public class SetSeedRequestDTO
+    {
+        public int Seed;
+        public bool UseFixedSeed;
     }
 
     [Serializable]

@@ -286,6 +286,17 @@ namespace Networking
             _ = SendEnvelopeAsync(env);
         }
 
+        public void SendSetSeed(int seed, bool useFixedSeed)
+        {
+            var req = new SetSeedRequestDTO
+            {
+                Seed = seed,
+                UseFixedSeed = useFixedSeed
+            };
+            var env = new NetworkEnvelope(NetworkMessageType.SetSeed, JsonUtility.ToJson(req), LocalPlayerIndex);
+            _ = SendEnvelopeAsync(env);
+        }
+
         public void SendStartGame(int seed, bool useFixedSeed)
         {
             var req = new StartGameRequestDTO

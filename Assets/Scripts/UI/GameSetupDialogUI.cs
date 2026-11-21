@@ -108,6 +108,11 @@ public class GameSetupDialogUI : MonoBehaviour
     private Button _lobbySpectatorModeBtn;
     private Text _lobbySpectatorModeText;
     private Text _lobbySpectatorCountText;
+    private Button _lobbySeedModeBtn;
+    private Text _lobbySeedModeBtnText;
+    private InputField _lobbySeedInputField;
+    private Button _lobbyRerollBtn;
+    private Text _lobbyRerollBtnText;
     private readonly Text[] _lobbySlotTexts = new Text[4];
     private readonly Image[] _lobbySlotSwatches = new Image[4];
     private readonly Button[] _lobbySlotColorBtns = new Button[4];
@@ -779,6 +784,35 @@ public class GameSetupDialogUI : MonoBehaviour
         _lobbySpectatorCountText = UIFactory.CreateText(specRow.transform, _font, string.Format(UIStrings.LobbySpectatorCountFormat.GetText(), 0), 11, new Color(0.7f, 0.85f, 0.95f), TextAnchor.MiddleRight);
         _lobbySpectatorCountText.gameObject.AddComponent<LayoutElement>().flexibleWidth = 1f;
 
+        // Seed Row in Lobby (editable by Host, synced to all clients)
+        GameObject lobbySeedRow = UIFactory.CreateElement("LobbySeedRow", _lobbyContainer.transform, typeof(CanvasRenderer), typeof(Image), typeof(LayoutElement));
+        lobbySeedRow.GetComponent<Image>().color = new Color(0.04f, 0.11f, 0.18f, 0.85f);
+        lobbySeedRow.GetComponent<LayoutElement>().preferredHeight = 40f;
+        UIFactory.AddHorizontalLayout(lobbySeedRow, 8f, 6);
+
+        _lobbySeedModeBtn = UIFactory.CreateButton(lobbySeedRow.transform, _font, UIStrings.GameSetupSeedRandom.GetText(),
+            OnToggleLobbySeedModeClicked, new Color(0.15f, 0.3f, 0.45f, 1f), 11, 30f);
+        _lobbySeedModeBtn.GetComponent<LayoutElement>().preferredWidth = 165f;
+        _lobbySeedModeBtnText = _lobbySeedModeBtn.GetComponentInChildren<Text>();
+
+        UIFactory.CreateText(lobbySeedRow.transform, _font, "Seed:", 11, new Color(0.75f, 0.85f, 0.95f), TextAnchor.MiddleRight)
+            .gameObject.AddComponent<LayoutElement>().preferredWidth = 42f;
+
+        _lobbySeedInputField = UIFactory.CreateInputField(lobbySeedRow.transform, _font, "",
+            null, OnLobbySeedEndEdit,
+            new Color(0.02f, 0.05f, 0.09f, 1f), new Color(1f, 0.9f, 0.4f), 11, 30f, 10, UIStrings.GameSetupSeedPlaceholder.GetText());
+        _lobbySeedInputField.onValidateInput = (string input, int charIndex, char addedChar) =>
+        {
+            if (_latestLobbyState == null || !_latestLobbyState.useFixedSeed) return '\0';
+            return char.IsDigit(addedChar) ? addedChar : '\0';
+        };
+        _lobbySeedInputField.GetComponent<LayoutElement>().preferredWidth = 140f;
+
+        _lobbyRerollBtn = UIFactory.CreateButton(lobbySeedRow.transform, _font, UIStrings.GameSetupRerollSeed.GetText(),
+            OnLobbyRerollSeedClicked, new Color(0.18f, 0.42f, 0.3f, 1f), 11, 30f);
+        _lobbyRerollBtn.GetComponent<LayoutElement>().preferredWidth = 120f;
+        _lobbyRerollBtnText = _lobbyRerollBtn.GetComponentInChildren<Text>();
+
         // Action Bar for Lobby
         GameObject lobbyActionBar = UIFactory.CreateElement("LobbyActionBar", _lobbyContainer.transform);
         UIFactory.AddHorizontalLayout(lobbyActionBar, 14f, 4);
@@ -823,13 +857,29 @@ public class GameSetupDialogUI : MonoBehaviour
         }
 
         bool isHost = NetworkManager.Instance != null && NetworkManager.Instance.IsHost;
-        if (!isHost && lobby.seed != 0 && _triMap != null && _triMap.CurrentBoardSeed != lobby.seed)
+        if (lobby.seed != 0 && _triMap != null && _triMap.CurrentBoardSeed != lobby.seed)
         {
-            Debug.Log($"[GameSetupDialogUI] Syncing client board with Host lobby seed: {lobby.seed}");
+            Debug.Log($"[GameSetupDialogUI] Syncing board with lobby seed: {lobby.seed}");
             _currentSeed = lobby.seed;
-            _useFixedSeed = true;
+            _useFixedSeed = lobby.useFixedSeed;
             _triMap.RebuildMap(lobby.seed);
         }
+        if (_lobbySeedModeBtn != null) _lobbySeedModeBtn.interactable = isHost;
+        if (_lobbySeedModeBtnText != null)
+        {
+            _lobbySeedModeBtnText.text = lobby.useFixedSeed
+                ? UIStrings.GameSetupSeedFixed.GetText()
+                : UIStrings.GameSetupSeedRandom.GetText();
+        }
+        if (_lobbySeedInputField != null)
+        {
+            _lobbySeedInputField.interactable = isHost && lobby.useFixedSeed;
+            if (!_lobbySeedInputField.isFocused)
+            {
+                _lobbySeedInputField.text = lobby.seed > 0 ? lobby.seed.ToString() : string.Empty;
+            }
+        }
+        if (_lobbyRerollBtn != null) _lobbyRerollBtn.interactable = isHost;
         bool isSpectator = NetworkManager.Instance != null && NetworkManager.Instance.IsSpectator;
         if (_lobbyStatusText != null)
         {
@@ -983,6 +1033,39 @@ public class GameSetupDialogUI : MonoBehaviour
                 return;
             }
         }
+    }
+
+    private void OnToggleLobbySeedModeClicked()
+    {
+        if (NetworkManager.Instance?.Client == null || !NetworkManager.Instance.IsHost || _latestLobbyState == null) return;
+        bool nextFixed = !_latestLobbyState.useFixedSeed;
+        int seedToSend = _latestLobbyState.seed > 0 ? _latestLobbyState.seed : UnityEngine.Random.Range(100000, 999999);
+        if (!nextFixed)
+        {
+            seedToSend = UnityEngine.Random.Range(100000, 999999);
+        }
+        NetworkManager.Instance.Client.SendSetSeed(seedToSend, nextFixed);
+    }
+
+    private void OnLobbySeedEndEdit(string text)
+    {
+        if (NetworkManager.Instance?.Client == null || !NetworkManager.Instance.IsHost || _latestLobbyState == null) return;
+        if (!_latestLobbyState.useFixedSeed) return;
+        if (int.TryParse(text, out int parsedSeed) && parsedSeed > 0)
+        {
+            NetworkManager.Instance.Client.SendSetSeed(parsedSeed, true);
+        }
+        else if (_lobbySeedInputField != null)
+        {
+            _lobbySeedInputField.text = _latestLobbyState.seed.ToString();
+        }
+    }
+
+    private void OnLobbyRerollSeedClicked()
+    {
+        if (NetworkManager.Instance?.Client == null || !NetworkManager.Instance.IsHost || _latestLobbyState == null) return;
+        int newSeed = UnityEngine.Random.Range(100000, 999999);
+        NetworkManager.Instance.Client.SendSetSeed(newSeed, _latestLobbyState.useFixedSeed);
     }
 
     private void OnToggleLobbySpectatorModeClicked()
@@ -1202,6 +1285,7 @@ public class GameSetupDialogUI : MonoBehaviour
 
         if (_lobbyMyNameLabel != null) _lobbyMyNameLabel.text = UIStrings.LobbyYourNameLabel.GetText();
         if (_lobbySpectatorModeLabel != null) _lobbySpectatorModeLabel.text = UIStrings.LobbySpectatorModeLabel.GetText();
+        if (_lobbyRerollBtnText != null) _lobbyRerollBtnText.text = UIStrings.GameSetupRerollSeed.GetText();
         if (_lobbyLeaveBtnText != null) _lobbyLeaveBtnText.text = UIStrings.LobbyLeaveButton.GetText();
         if (_lobbyStartBtnText != null) _lobbyStartBtnText.text = UIStrings.LobbyStartButton.GetText();
 
@@ -1582,6 +1666,7 @@ public class GameSetupDialogUI : MonoBehaviour
 
         if (_lobbyMyNameLabel != null) _lobbyMyNameLabel.text = UIStrings.LobbyYourNameLabel.GetText();
         if (_lobbySpectatorModeLabel != null) _lobbySpectatorModeLabel.text = UIStrings.LobbySpectatorModeLabel.GetText();
+        if (_lobbyRerollBtnText != null) _lobbyRerollBtnText.text = UIStrings.GameSetupRerollSeed.GetText();
         if (_lobbyLeaveBtnText != null) _lobbyLeaveBtnText.text = UIStrings.LobbyLeaveButton.GetText();
         if (_lobbyStartBtnText != null) _lobbyStartBtnText.text = UIStrings.LobbyStartButton.GetText();
 

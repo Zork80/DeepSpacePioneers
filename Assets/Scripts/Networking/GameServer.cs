@@ -460,6 +460,20 @@ namespace Networking
                     }
                     break;
 
+                case NetworkMessageType.SetSeed:
+                    if ((session.IsHost || IsDedicated) && !IsGameStarted)
+                    {
+                        SetSeedRequestDTO seedReq = JsonUtility.FromJson<SetSeedRequestDTO>(envelope.Payload);
+                        if (seedReq != null && seedReq.Seed > 0)
+                        {
+                            _lobbyState.seed = seedReq.Seed;
+                            _lobbyState.useFixedSeed = seedReq.UseFixedSeed;
+                            Log($"Lobby seed updated to {_lobbyState.seed} (Fixed={_lobbyState.useFixedSeed}) by '{session.PlayerName}'.");
+                            UpdateLobbyState();
+                        }
+                    }
+                    break;
+
                 case NetworkMessageType.SetSpectatorMode:
                     if (session.IsHost || IsDedicated)
                     {
