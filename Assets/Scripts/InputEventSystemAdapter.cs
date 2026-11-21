@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -9,10 +10,12 @@ using UnityEngine.InputSystem.UI;
 
 /// <summary>
 /// Ensures the active EventSystem uses InputSystemUIInputModule, enables its action assets,
-/// prevents focus drop, and logs diagnostic click data.
+/// prevents focus drop, and logs diagnostic click/device data.
 /// </summary>
 public class InputEventSystemAdapter : MonoBehaviour
 {
+    private int _frameCounter = 0;
+
     private void Awake()
     {
         EnsureSetup();
@@ -33,7 +36,6 @@ public class InputEventSystemAdapter : MonoBehaviour
     public void EnsureSetup()
     {
 #if ENABLE_INPUT_SYSTEM
-        // Ensure background input is enabled so UI events are never dropped due to window focus
         InputSystem.settings.backgroundBehavior = InputSettings.BackgroundBehavior.IgnoreFocus;
 
         var es = GetComponent<EventSystem>() ?? EventSystem.current;
@@ -65,6 +67,12 @@ public class InputEventSystemAdapter : MonoBehaviour
 
     private void Update()
     {
+        _frameCounter++;
+        if (_frameCounter == 30)
+        {
+            LogSystemDiagnostics();
+        }
+
 #if ENABLE_INPUT_SYSTEM
         if (Mouse.current != null && (Mouse.current.leftButton.wasPressedThisFrame || Mouse.current.leftButton.wasReleasedThisFrame))
         {
@@ -88,6 +96,25 @@ public class InputEventSystemAdapter : MonoBehaviour
 
             Debug.LogWarning($"[InputEventSystemAdapter] Click (down={Mouse.current.leftButton.wasPressedThisFrame}, up={Mouse.current.leftButton.wasReleasedThisFrame}) at {mousePos}. ES={es?.name}, isFocused={es?.isFocused}, Module={curModule?.GetType().Name}, Hits: {hitInfo}");
         }
+#endif
+    }
+
+    private void LogSystemDiagnostics()
+    {
+        var es = EventSystem.current;
+        var curModule = es != null ? es.currentInputModule : null;
+        var allEventSystems = FindObjectsByType<EventSystem>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+
+#if ENABLE_INPUT_SYSTEM
+        string devices = string.Join(", ", InputSystem.devices.Select(d => $"{d.name}:{d.layout}(enabled={d.enabled})"));
+        var uiMod = GetComponent<InputSystemUIInputModule>();
+        string modDetails = uiMod != null
+            ? $"enabled={uiMod.enabled}, isActiveAndEnabled={uiMod.isActiveAndEnabled}, asset={uiMod.actionsAsset?.name}(enabled={uiMod.actionsAsset?.enabled}), point={uiMod.point?.action?.name}(enabled={uiMod.point?.action?.enabled}), leftClick={uiMod.leftClick?.action?.name}(enabled={uiMod.leftClick?.action?.enabled})"
+            : "NULL";
+
+        Debug.LogWarning($"[InputEventSystemAdapter] DIAG frame=30 | EventSystems={allEventSystems.Length}, CurrentES={es?.name}, isFocused={es?.isFocused}, CurrentModule={curModule?.GetType().Name} | Mouse.current={(Mouse.current != null ? Mouse.current.position.ReadValue().ToString() : "NULL")} | Devices({InputSystem.devices.Count})=[{devices}] | UIModule=[{modDetails}]");
+#else
+        Debug.LogWarning($"[InputEventSystemAdapter] DIAG frame=30 | ENABLE_INPUT_SYSTEM is NOT defined! EventSystems={allEventSystems.Length}, CurrentModule={curModule?.GetType().Name}");
 #endif
     }
 }
