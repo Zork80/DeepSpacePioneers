@@ -470,13 +470,13 @@ public class SidebarViewUI : MonoBehaviour
         Button toggleBtn = UIFactory.CreateButton(
             headerRow.transform,
             _font,
-            _showFriendshipDetails ? "▲ Basis" : "▼ Mehr",
+            _showFriendshipDetails ? UIStrings.ToggleBasic.GetText() : UIStrings.ToggleMore.GetText(),
             () =>
             {
                 _showFriendshipDetails = !_showFriendshipDetails;
                 if (_mothershipToggleText != null)
                 {
-                    _mothershipToggleText.text = _showFriendshipDetails ? "▲ Basis" : "▼ Mehr";
+                    _mothershipToggleText.text = _showFriendshipDetails ? UIStrings.ToggleBasic.GetText() : UIStrings.ToggleMore.GetText();
                 }
                 UpdateFlagshipInventory();
             },
@@ -779,11 +779,11 @@ public class SidebarViewUI : MonoBehaviour
         {
             if (_triMap.CurrentFoundingPhase != FoundingPhase.Complete)
             {
-                _turnStatusText.text = $"{_triMap.CurrentPlayer.PlayerName} ist am Zug (Gründung)...";
+                _turnStatusText.text = string.Format(UIStrings.PlayerTurnWithPhase.GetText(), _triMap.CurrentPlayer.PlayerName, UIStrings.PhaseSetup.GetText());
             }
             else
             {
-                _turnStatusText.text = $"{_triMap.CurrentPlayer.PlayerName} ist am Zug ({UIStrings.GetTurnPhaseName(_triMap.CurrentPhase)})...";
+                _turnStatusText.text = string.Format(UIStrings.PlayerTurnWithPhase.GetText(), _triMap.CurrentPlayer.PlayerName, UIStrings.GetTurnPhaseName(_triMap.CurrentPhase));
             }
             return;
         }
@@ -896,7 +896,7 @@ public class SidebarViewUI : MonoBehaviour
         }
         if (_resourceHeadingText != null) _resourceHeadingText.text = UIStrings.ResourcesHeading.GetText();
         if (_mothershipHeadingText != null) _mothershipHeadingText.text = UIStrings.FlagshipHeading.GetText();
-        if (_mothershipToggleText != null) _mothershipToggleText.text = _showFriendshipDetails ? "▲ Basis" : "▼ Mehr";
+        if (_mothershipToggleText != null) _mothershipToggleText.text = _showFriendshipDetails ? UIStrings.ToggleBasic.GetText() : UIStrings.ToggleMore.GetText();
 
         if (_displayedPlayer != null && _playerNameText != null)
         {

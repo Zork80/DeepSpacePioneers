@@ -726,12 +726,12 @@ public class ActionPanelUI : MonoBehaviour
         if (_triMap != null && _triMap.CurrentFoundingPhase != FoundingPhase.Complete)
         {
             _aiTurnText.text = isHumanOpponent
-                ? $"{player?.PlayerName} ist am Zug (Gründung)..."
+                ? string.Format(UIStrings.PlayerTurnWithPhase.GetText(), player != null ? player.PlayerName : string.Empty, UIStrings.PhaseSetup.GetText())
                 : string.Format(UIStrings.AiTurnInProgress.GetText(), player != null ? player.PlayerName : string.Empty);
         }
         else if (isHumanOpponent)
         {
-            _aiTurnText.text = $"{player?.PlayerName} ist am Zug...";
+            _aiTurnText.text = string.Format(UIStrings.PlayerTurnInProgress.GetText(), player != null ? player.PlayerName : string.Empty);
         }
         else
         {
