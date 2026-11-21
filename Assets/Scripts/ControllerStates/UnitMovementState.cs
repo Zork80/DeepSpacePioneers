@@ -47,7 +47,7 @@ namespace ControllerStates
                 ClearTriPath();
                 nextState = new DetectModeState(this);
             }
-            else if (Input.GetMouseButtonUp(1) || !Input.GetMouseButton(1))
+            else if (GameInput.GetMouseButtonUp(1) || !GameInput.GetMouseButton(1))
             {
                 Debug.Log("Complete unit movement.");
 

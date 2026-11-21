@@ -30,7 +30,7 @@ namespace ControllerStates
             if(nextState != this)
                 return nextState;
        
-            if( !UIManager.IsPointerOverUI() && Input.GetMouseButtonUp(0) )
+            if( !UIManager.IsPointerOverUI() && GameInput.GetMouseButtonUp(0) )
             {
                 Debug.Log("MOUSE UP -- click!");
 

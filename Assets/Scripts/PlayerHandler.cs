@@ -304,7 +304,7 @@ public class PlayerHandler : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (GameInput.GetKeyDown(KeyCode.Escape))
         {
             if (_confirmQuitDialog != null && _confirmQuitDialog.IsActive)
             {
@@ -316,7 +316,7 @@ public class PlayerHandler : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Tab) && !UIManager.IsAnyOverlayActive)
+        if (GameInput.GetKeyDown(KeyCode.Tab) && !UIManager.IsAnyOverlayActive)
         {
             if (_triMap != null && _triMap.CurrentPhase == GameTurnPhase.Flight &&
                 _triMap.LastFlagshipRoll != null && !_triMap.EncounterPending)
@@ -404,7 +404,7 @@ public class PlayerHandler : MonoBehaviour
 
             if (isLocalHumanTurn)
             {
-                if (Input.anyKeyDown || Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+                if (GameInput.AnyKeyDown)
                 {
                     if (_aiTakeoverDialog == null || !_aiTakeoverDialog.IsActive)
                     {

@@ -6232,14 +6232,14 @@ public class TriMap : MonoBehaviour, IQPathWorld
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.F1))
+        if (GameInput.GetKeyDown(KeyCode.F1))
         {
             DebugSettings.ShowCoordinateLabels = !DebugSettings.ShowCoordinateLabels;
             UpdateCoordinateLabelsVisibility();
             Debug.Log("[DebugSettings] Coordinate labels " + (DebugSettings.ShowCoordinateLabels ? "ENABLED" : "DISABLED"));
         }
 
-        if (Input.GetKeyDown(KeyCode.F2))
+        if (GameInput.GetKeyDown(KeyCode.F2))
         {
             DebugSettings.HighlightPlanetDiscoveryPoints = !DebugSettings.HighlightPlanetDiscoveryPoints;
             if (DebugSettings.HighlightPlanetDiscoveryPoints)
@@ -6253,13 +6253,13 @@ public class TriMap : MonoBehaviour, IQPathWorld
             Debug.Log("[DebugSettings] Planet discovery highlight " + (DebugSettings.HighlightPlanetDiscoveryPoints ? "ENABLED" : "DISABLED"));
         }
 
-        if (Input.GetKeyDown(KeyCode.F3))
+        if (GameInput.GetKeyDown(KeyCode.F3))
         {
             DebugSettings.DrawDiscoveryGizmos = !DebugSettings.DrawDiscoveryGizmos;
             Debug.Log("[DebugSettings] Discovery gizmos " + (DebugSettings.DrawDiscoveryGizmos ? "ENABLED" : "DISABLED"));
         }
 
-        if (Input.GetKeyDown(KeyCode.F4))
+        if (GameInput.GetKeyDown(KeyCode.F4))
         {
             DebugSettings.Language = DebugSettings.Language == GameLanguage.English
                 ? GameLanguage.German
@@ -6268,7 +6268,7 @@ public class TriMap : MonoBehaviour, IQPathWorld
             Debug.Log("[DebugSettings] Language switched to: " + DebugSettings.Language);
         }
 
-        if (Input.GetKeyDown(KeyCode.F5))
+        if (GameInput.GetKeyDown(KeyCode.F5))
         {
             DebugSettings.ShowSystemDebugLabels = !DebugSettings.ShowSystemDebugLabels;
             UpdateSystemLabelsVisibility();
