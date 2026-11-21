@@ -45,7 +45,7 @@ namespace Networking
             Disconnect();
             _isDisposed = false;
             IsSpectator = asSpectator;
-            PlayerName = !string.IsNullOrEmpty(playerName) ? playerName : "Player";
+            PlayerName = playerName ?? string.Empty;
             _cts = new CancellationTokenSource();
 
             try

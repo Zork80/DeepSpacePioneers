@@ -110,7 +110,7 @@ namespace Networking
                 _lobbyState.slots.Add(new LobbySlotDTO
                 {
                     slotIndex = i,
-                    playerName = $"Spieler {i + 1}",
+                    playerName = $"Player {i + 1}",
                     playerType = (i == 0 && !IsDedicated) ? "Human" : "AI",
                     aiDifficulty = "Normal",
                     colorIndex = i,
@@ -297,7 +297,9 @@ namespace Networking
                         }
 
                         isHost = assignedSlot == 0 && !IsDedicated;
-                        _lobbyState.slots[assignedSlot].playerName = !string.IsNullOrEmpty(req.PlayerName) ? req.PlayerName : $"Spieler {assignedSlot + 1}";
+                        string requestedName = req.PlayerName != null ? req.PlayerName.Trim() : string.Empty;
+                        if (requestedName == "Player") requestedName = string.Empty;
+                        _lobbyState.slots[assignedSlot].playerName = MakeUniqueSlotName(assignedSlot, requestedName);
                         _lobbyState.slots[assignedSlot].isConnected = true;
                         _lobbyState.slots[assignedSlot].isHost = isHost;
                         sessionName = _lobbyState.slots[assignedSlot].playerName;
@@ -415,10 +417,11 @@ namespace Networking
                         if (canEditSlot)
                         {
                             var slot = _lobbyState.slots[slotReq.SlotIndex];
-                            if (!string.IsNullOrEmpty(slotReq.PlayerName))
+                            if (slotReq.PlayerName != null)
                             {
-                                slot.playerName = slotReq.PlayerName;
-                                if (slotReq.SlotIndex == session.PlayerIndex) session.PlayerName = slotReq.PlayerName;
+                                string uniqueName = MakeUniqueSlotName(slotReq.SlotIndex, slotReq.PlayerName.Trim());
+                                slot.playerName = uniqueName;
+                                if (slotReq.SlotIndex == session.PlayerIndex) session.PlayerName = uniqueName;
                             }
                             if (session.IsHost || IsDedicated)
                             {
@@ -492,6 +495,33 @@ namespace Networking
                     HandlePlayerAction(session, envelope);
                     break;
             }
+        }
+
+        private string MakeUniqueSlotName(int targetSlotIndex, string requestedName)
+        {
+            string baseName = string.IsNullOrWhiteSpace(requestedName) ? $"Player {targetSlotIndex + 1}" : requestedName.Trim();
+            bool conflict = false;
+            for (int i = 0; i < _lobbyState.slots.Count; i++)
+            {
+                if (i != targetSlotIndex && string.Equals(_lobbyState.slots[i].playerName, baseName, StringComparison.OrdinalIgnoreCase))
+                {
+                    conflict = true;
+                    break;
+                }
+            }
+            if (!conflict) return baseName;
+
+            string fallback = $"Player {targetSlotIndex + 1}";
+            bool fallbackConflict = false;
+            for (int i = 0; i < _lobbyState.slots.Count; i++)
+            {
+                if (i != targetSlotIndex && string.Equals(_lobbyState.slots[i].playerName, fallback, StringComparison.OrdinalIgnoreCase))
+                {
+                    fallbackConflict = true;
+                    break;
+                }
+            }
+            return fallbackConflict ? $"{baseName} ({targetSlotIndex + 1})" : fallback;
         }
 
         private void HandlePlayerAction(ClientSession session, NetworkEnvelope envelope)

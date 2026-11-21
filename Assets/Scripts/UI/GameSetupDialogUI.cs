@@ -487,9 +487,9 @@ public class GameSetupDialogUI : MonoBehaviour
         UIFactory.AddHorizontalLayout(manualBox, 8f, 6);
 
         _manualPlayerLabel = UIFactory.CreateText(manualBox.transform, _font, UIStrings.LanPlayerLabel.GetText(), 11, Color.white, TextAnchor.MiddleRight);
-        _clientPlayerNameInput = UIFactory.CreateInputField(manualBox.transform, _font, "Player 2", null, null,
-            new Color(0.02f, 0.05f, 0.09f, 1f), Color.white, 11, 30f, 16, "Name");
-        _clientPlayerNameInput.GetComponent<LayoutElement>().preferredWidth = 110f;
+        _clientPlayerNameInput = UIFactory.CreateInputField(manualBox.transform, _font, "", null, null,
+            new Color(0.02f, 0.05f, 0.09f, 1f), Color.white, 11, 30f, 16, "Auto (Player 1-4)");
+        _clientPlayerNameInput.GetComponent<LayoutElement>().preferredWidth = 115f;
 
         UIFactory.CreateText(manualBox.transform, _font, "IP:", 11, Color.white, TextAnchor.MiddleRight);
         _manualIpInput = UIFactory.CreateInputField(manualBox.transform, _font, "127.0.0.1", null, null,
@@ -574,10 +574,7 @@ public class GameSetupDialogUI : MonoBehaviour
 
     private void ConnectToSelectedServer(string hostIp, int port, bool asSpectator)
     {
-        string pName = _clientPlayerNameInput != null && !string.IsNullOrEmpty(_clientPlayerNameInput.text)
-            ? _clientPlayerNameInput.text
-            : (asSpectator ? "Spectator" : "Spieler");
-
+        string pName = _clientPlayerNameInput != null ? _clientPlayerNameInput.text.Trim() : string.Empty;
         _ = ConnectToServerAsync(hostIp, port, pName, asSpectator);
     }
 
@@ -586,9 +583,7 @@ public class GameSetupDialogUI : MonoBehaviour
         string ip = _manualIpInput != null ? _manualIpInput.text.Trim() : "127.0.0.1";
         int port = 7777;
         if (_manualPortInput != null && int.TryParse(_manualPortInput.text, out int p)) port = p;
-        string pName = _clientPlayerNameInput != null && !string.IsNullOrEmpty(_clientPlayerNameInput.text)
-            ? _clientPlayerNameInput.text
-            : (asSpectator ? "Spectator" : "Spieler");
+        string pName = _clientPlayerNameInput != null ? _clientPlayerNameInput.text.Trim() : string.Empty;
 
         _ = ConnectToServerAsync(ip, port, pName, asSpectator);
     }
@@ -657,8 +652,8 @@ public class GameSetupDialogUI : MonoBehaviour
         UIFactory.AddHorizontalLayout(pRow, 8f, 0);
         _hostPlayerNameLabel = UIFactory.CreateText(pRow.transform, _font, UIStrings.LanHostPlayerNameLabel.GetText(), 12, Color.white, TextAnchor.MiddleLeft);
         _hostPlayerNameLabel.gameObject.AddComponent<LayoutElement>().preferredWidth = 160f;
-        _hostPlayerNameInput = UIFactory.CreateInputField(pRow.transform, _font, "Player 1 (Host)", null, null,
-            new Color(0.02f, 0.05f, 0.09f, 1f), Color.white, 12, 34f, 20, "Name");
+        _hostPlayerNameInput = UIFactory.CreateInputField(pRow.transform, _font, "", null, null,
+            new Color(0.02f, 0.05f, 0.09f, 1f), Color.white, 12, 34f, 20, "Auto (Player 1)");
         _hostPlayerNameInput.GetComponent<LayoutElement>().preferredWidth = 320f;
 
         // Port Field
@@ -697,9 +692,7 @@ public class GameSetupDialogUI : MonoBehaviour
             : "Deep Space Pioneers Server";
         int port = 7777;
         if (_hostPortInput != null && int.TryParse(_hostPortInput.text, out int p)) port = p;
-        string hName = _hostPlayerNameInput != null && !string.IsNullOrEmpty(_hostPlayerNameInput.text)
-            ? _hostPlayerNameInput.text
-            : "Spieler 1 (Host)";
+        string hName = _hostPlayerNameInput != null ? _hostPlayerNameInput.text.Trim() : string.Empty;
 
         bool ok = await NetworkManager.Instance.StartHostAsync(sName, port, hName);
         if (ok)
@@ -1443,6 +1436,7 @@ public class GameSetupDialogUI : MonoBehaviour
 
     private void LaunchGame()
     {
+        var usedNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         for (int i = 0; i < 4; i++)
         {
             var slot = _slots[i];
@@ -1452,7 +1446,14 @@ public class GameSetupDialogUI : MonoBehaviour
                 GameSetupConfig.Slots[i].Difficulty = slot.CurrentDifficulty;
                 GameSetupConfig.Slots[i].ColorIndex = slot.ColorIndex;
                 string enteredName = slot.NameInput != null ? slot.NameInput.text.Trim() : string.Empty;
-                GameSetupConfig.Slots[i].Name = !string.IsNullOrEmpty(enteredName) ? enteredName : $"Spieler {i + 1}";
+                string candidate = !string.IsNullOrEmpty(enteredName) ? enteredName : $"Player {i + 1}";
+                if (usedNames.Contains(candidate))
+                {
+                    candidate = $"Player {i + 1}";
+                    if (usedNames.Contains(candidate)) candidate = $"{enteredName} ({i + 1})";
+                }
+                usedNames.Add(candidate);
+                GameSetupConfig.Slots[i].Name = candidate;
             }
         }
 
