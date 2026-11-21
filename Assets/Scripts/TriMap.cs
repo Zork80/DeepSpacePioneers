@@ -6392,8 +6392,9 @@ public class TriMap : MonoBehaviour, IQPathWorld
                 if (mats[i] == null) continue;
                 string matName = mats[i].name;
 
-                // 1. Primary main hull (metal) and accent stripes (metalRed) -> Full player material
-                if (matName.StartsWith("metalRed", System.StringComparison.OrdinalIgnoreCase) ||
+                // 1. Primary main hull (hull_main / legacy metal / metalRed) -> Full player material
+                if (matName.StartsWith("hull_main", System.StringComparison.OrdinalIgnoreCase) ||
+                    matName.StartsWith("metalRed", System.StringComparison.OrdinalIgnoreCase) ||
                     (matName.StartsWith("metal", System.StringComparison.OrdinalIgnoreCase) && 
                      !matName.StartsWith("metalDark", System.StringComparison.OrdinalIgnoreCase)))
                 {
@@ -6407,13 +6408,51 @@ public class TriMap : MonoBehaviour, IQPathWorld
                     }
                     replacedAny = true;
                 }
-                // 2. Chassis / lower base frame (metalDark) -> Rich darkened tone of player color
+                // 2. Dark structural chassis / trusses (hull_dark / legacy metalDark) -> Dark gunmetal with subtle player tint
+                else if (matName.StartsWith("hull_dark", System.StringComparison.OrdinalIgnoreCase))
+                {
+                    mats[i].color = Color.Lerp(new Color(0.18f, 0.20f, 0.25f), pColor, 0.20f);
+                    replacedAny = true;
+                }
                 else if (matName.StartsWith("metalDark", System.StringComparison.OrdinalIgnoreCase))
                 {
                     mats[i].color = Color.Lerp(pColor, Color.black, 0.45f);
                     replacedAny = true;
                 }
-                // 3. 'dark' stays black/charcoal for cockpits, exhausts, and mechanical vents
+                // 3. Accent trim / antennas / docking rings -> Warm metallic gold accent
+                else if (matName.StartsWith("accent", System.StringComparison.OrdinalIgnoreCase))
+                {
+                    mats[i].color = new Color(0.95f, 0.72f, 0.18f);
+                    replacedAny = true;
+                }
+                // 4. Thruster exhausts / energy cores -> Luminous cyan with subtle emission
+                else if (matName.StartsWith("glow", System.StringComparison.OrdinalIgnoreCase))
+                {
+                    Color glowColor = new Color(0.15f, 0.85f, 1.0f);
+                    mats[i].color = glowColor;
+                    mats[i].EnableKeyword("_EMISSION");
+                    mats[i].SetColor("_EmissionColor", glowColor * 1.35f);
+                    replacedAny = true;
+                }
+                // 5. Biodomes / bridges -> Sky glass blue
+                else if (matName.StartsWith("dome", System.StringComparison.OrdinalIgnoreCase))
+                {
+                    mats[i].color = new Color(0.28f, 0.72f, 0.96f);
+                    replacedAny = true;
+                }
+                // 6. Solar arrays -> Deep photovoltaic blue
+                else if (matName.StartsWith("solar", System.StringComparison.OrdinalIgnoreCase))
+                {
+                    mats[i].color = new Color(0.10f, 0.24f, 0.56f);
+                    replacedAny = true;
+                }
+                // 7. Cargo containers -> Industrial amber
+                else if (matName.StartsWith("cargo", System.StringComparison.OrdinalIgnoreCase))
+                {
+                    mats[i].color = new Color(0.88f, 0.62f, 0.22f);
+                    replacedAny = true;
+                }
+                // 8. 'dark' stays black/charcoal for cockpits, exhausts, and mechanical vents
             }
 
             // Fallback for single-material models or custom primitives

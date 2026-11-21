@@ -13,12 +13,12 @@ module colony_piece(
 ) {
     // 1. Central Biosphere Dome on low circular ring collar
     // Base ring collar (rests flush on ground, Z=0)
-    color(COLOR_HULL_DARK)
+    part("hull_dark", COLOR_HULL_DARK)
         cylinder(r1=dome_r + 1.2, r2=dome_r + 0.6, h=1.2);
 
     // Biome Dome
     translate([0, 0, 0.8]) {
-        color(COLOR_DOME)
+        part("dome", COLOR_DOME)
             difference() {
                 sphere(r=dome_r);
                 translate([0, 0, -dome_r])
@@ -27,7 +27,7 @@ module colony_piece(
 
         // Structural Reinforcement Arches (Exoskeleton Ribs)
         if (show_details) {
-            color(COLOR_HULL_MAIN) {
+            part("hull_main", COLOR_HULL_MAIN) {
                 for (a = [0, 60, 120]) {
                     rotate([0, 0, a])
                         difference() {
@@ -42,9 +42,9 @@ module colony_piece(
 
             // Top Apex Hub & Communication Spire
             translate([0, 0, dome_r - 0.4]) {
-                color(COLOR_HULL_MAIN)
+                part("hull_main", COLOR_HULL_MAIN)
                     cylinder(r1=2.0, r2=1.0, h=1.6);
-                color(COLOR_ACCENT) {
+                part("accent", COLOR_ACCENT) {
                     translate([0, 0, 1.6])
                         cylinder(r=0.45, h=3.2); // Beacon antenna
                     translate([0, 0, 4.8])
@@ -59,7 +59,7 @@ module colony_piece(
         rotate([0, 0, ang]) {
             translate([dome_r - 0.8, 0, 0]) {
                 // Ground Corridor & Hab Pod
-                color(COLOR_HULL_MAIN) {
+                part("hull_main", COLOR_HULL_MAIN) {
                     translate([0, -airlock_w/2, 0])
                         cube([airlock_len, airlock_w, 2.6]);
                     // Rounded Airlock Terminal End
@@ -68,13 +68,13 @@ module colony_piece(
                 }
 
                 // Outer Docking Door
-                color(COLOR_ACCENT)
+                part("accent", COLOR_ACCENT)
                     translate([airlock_len + airlock_w/2 - 0.2, -airlock_w/4, 0.4])
                         cube([0.5, airlock_w/2, 1.8]);
 
                 // Auxiliary Life-Support Coolant Tanks
                 if (show_details) {
-                    color(COLOR_HULL_DARK)
+                    part("hull_dark", COLOR_HULL_DARK)
                         translate([airlock_len*0.45, airlock_w/2 + 0.8, 1.2])
                             rotate([90, 0, 0])
                                 cylinder(r=1.0, h=1.6, center=true);
@@ -88,7 +88,7 @@ module colony_piece(
         rotate([0, 0, 60]) {
             translate([dome_r + 1.2, 0, 0]) {
                 // Support Strut
-                color(COLOR_HULL_DARK) {
+                part("hull_dark", COLOR_HULL_DARK) {
                     cylinder(r=0.9, h=3.2);
                     translate([0, 0, 3.2])
                         rotate([0, 35, 0])
