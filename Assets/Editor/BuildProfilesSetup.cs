@@ -4,6 +4,7 @@ using UnityEditor;
 using UnityEditor.Build.Profile;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace EditorTools
 {
@@ -153,6 +154,28 @@ namespace EditorTools
             }
         }
 
+        [MenuItem("Build/Upgrade EventSystem in Scene", false, 40)]
+        public static void UpgradeEventSystemInScene()
+        {
+            var standalone = UnityEngine.Object.FindAnyObjectByType<StandaloneInputModule>();
+            if (standalone != null)
+            {
+                var go = standalone.gameObject;
+                UnityEngine.Object.DestroyImmediate(standalone);
+                var inputModule = go.GetComponent<UnityEngine.InputSystem.UI.InputSystemUIInputModule>();
+                if (inputModule == null)
+                {
+                    inputModule = go.AddComponent<UnityEngine.InputSystem.UI.InputSystemUIInputModule>();
+                }
+                inputModule.AssignDefaultActions();
+                inputModule.actionsAsset?.Enable();
+                var scene = UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene();
+                UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(scene);
+                UnityEditor.SceneManagement.EditorSceneManager.SaveScene(scene);
+                Debug.Log("[BuildProfilesSetup] Successfully upgraded EventSystem in scene to InputSystemUIInputModule and saved scene!");
+            }
+        }
+
         [MenuItem("Build/1. Build Linux Client (to Builds/Linux_Client/)", false, 10)]
         public static bool BuildLinuxClient()
         {
@@ -296,6 +319,7 @@ namespace EditorTools
                     if (File.Exists(donePath)) File.Delete(donePath);
 
                     AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
+                    BuildProfilesSetup.UpgradeEventSystemInScene();
                     Debug.Log("[BuildTriggerWatcher] Trigger file detected! Initiating BuildLinuxClient()...");
                     bool ok = BuildProfilesSetup.BuildLinuxClient();
                     if (ok)
