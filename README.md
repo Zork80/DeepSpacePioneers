@@ -127,9 +127,9 @@ Deep Space Pioneers features an authoritative multiplayer architecture supportin
     ./DeepSpacePioneers.x86_64 -batchmode -nographics -server -port:7777 -name:"Deep Space Server"
     ```
 - **Lobby & Setup Dialog Integration ([`Assets/Scripts/UI/GameSetupDialogUI.cs`](Assets/Scripts/UI/GameSetupDialogUI.cs)):**
-  - **👥 Lokales Spiel:** Classic local pass-and-play hotseat mode against AI opponents.
-  - **🌐 Server suchen (LAN):** Live LAN server browser with discovery list and direct IP connect.
-  - **🚀 LAN hosten:** Configure server name and port, open a room, and host a match.
+  - **👥 Local Game (*Lokales Spiel*):** Classic local pass-and-play hotseat mode against AI opponents.
+  - **🌐 Browse Servers (LAN) (*Server suchen (LAN)*):** Live LAN server browser with discovery list and direct IP connect.
+  - **🚀 Host LAN (*LAN hosten*):** Configure server name and port, open a room, and host a match.
 
 ---
 
@@ -169,34 +169,34 @@ These types are declared in [`Assets/Scripts/GameRules.cs`](Assets/Scripts/GameR
 
 ---
 
-## Building Costs & Maximum Component Limits (Maximalanzahl der Bauten)
+## Building Costs & Maximum Component Limits
 
 Building costs and maximum limits per player in Deep Space Pioneers:
 
 ### Overview Table: Costs, Maximums & Rules
 
-| Building / Upgrade (Bau / Ausbau) | Ore | Fuel | Carbon | Food | Goods | Max. per Player | Total Game Material | Victory Points (VP) | Supply & Interaction Rules |
+| Building / Upgrade | Ore | Fuel | Carbon | Food | Goods | Max. per Player | Total Game Material | Victory Points (VP) | Supply & Interaction Rules |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---|
-| **Colony (Kolonie)** | 1 | 1 | 1 | 1 | 0 | **9** | 36 (9 × 4 colors) | 1 VP | Built by launching a Colony Ship. Places 1 colony piece onto an intersection; the transport ship returns to supply. |
-| **Spaceport (Raumwerft)** | 0 | 0 | 3 | 2 | 0 | **3** | 12 (3 × 4 colors) | 2 VP *(replaces 1 VP)* | Upgrades an existing colony by clipping a spaceport ring over it. **The colony piece remains deployed on the board** (modified colony) and is not returned to supply. Requires a free adjacent launch site. |
-| **Trade Station (Handelsstation)** | 1 | 1 | 0 | 0 | 2 | **7** | 28 (7 × 4 colors) | 0 VP *(Friendship Cards)* | Built by launching a Trade Ship. Placed onto an alien outpost trading dock; the transport ship returns to supply. |
-| **Transport Ship (Transportschiff / Transporter)** | – | – | – | – | – | **3** | 12 (3 × 4 colors) | 0 VP | Mobile carrier hull shared between Colony Ships and Trade Ships. At most 3 active transport ships per player may be on the board at any time. |
-| **Colony Ship (Kolonieschiff)** | 1 | 1 | 1 | 1 | 0 | **3** *(shared)* | – | 0 VP | Consumes 1 Transport Ship + 1 Colony piece from personal supply while in transit. |
-| **Trade Ship (Handelsschiff)** | 1 | 1 | 0 | 0 | 2 | **3** *(shared)* | – | 0 VP | Consumes 1 Transport Ship + 1 Trade Station piece from personal supply while in transit. |
-| **Booster (Triebwerk)** | 0 | 2 | 0 | 0 | 0 | **6** | 24 (yellow rings) | 0 VP | Installed into the flagship base. Each booster adds +1 to base flight speed and speed rolls during encounters. |
-| **Cannon (Bordkanone)** | 0 | 0 | 2 | 0 | 0 | **6** | 24 (red rings) | 0 VP | Installed onto flagship sides. Each cannon adds +1 to combat strength during corsair and encounter battles. |
-| **Freight Pod (Frachtring)** | 2 | 0 | 0 | 0 | 0 | **5** | 20 (blue rings) | 0 VP | Installed into flagship center. Determines trade relationship capacity with alien civilizations and ice planet terraforming ability. |
+| **Colony** | 1 | 1 | 1 | 1 | 0 | **9** | 36 (9 × 4 colors) | 1 VP | Built by launching a Colony Ship. Places 1 colony piece onto an intersection; the transport ship returns to supply. |
+| **Spaceport** | 0 | 0 | 3 | 2 | 0 | **3** | 12 (3 × 4 colors) | 2 VP *(replaces 1 VP)* | Upgrades an existing colony by clipping a spaceport ring over it. **The colony piece remains deployed on the board** (modified colony) and is not returned to supply. Requires a free adjacent launch site. |
+| **Trade Station** | 1 | 1 | 0 | 0 | 2 | **7** | 28 (7 × 4 colors) | 0 VP *(Friendship Cards)* | Built by launching a Trade Ship. Placed onto an alien outpost trading dock; the transport ship returns to supply. |
+| **Transport Ship** | – | – | – | – | – | **3** | 12 (3 × 4 colors) | 0 VP | Mobile carrier hull shared between Colony Ships and Trade Ships. At most 3 active transport ships per player may be on the board at any time. |
+| **Colony Ship** | 1 | 1 | 1 | 1 | 0 | **3** *(shared)* | – | 0 VP | Consumes 1 Transport Ship + 1 Colony piece from personal supply while in transit. |
+| **Trade Ship** | 1 | 1 | 0 | 0 | 2 | **3** *(shared)* | – | 0 VP | Consumes 1 Transport Ship + 1 Trade Station piece from personal supply while in transit. |
+| **Booster** | 0 | 2 | 0 | 0 | 0 | **6** | 24 (yellow rings) | 0 VP | Installed into the flagship base. Each booster adds +1 to base flight speed and speed rolls during encounters. |
+| **Cannon** | 0 | 0 | 2 | 0 | 0 | **6** | 24 (red rings) | 0 VP | Installed onto flagship sides. Each cannon adds +1 to combat strength during corsair and encounter battles. |
+| **Freight Pod** | 2 | 0 | 0 | 0 | 0 | **5** | 20 (blue rings) | 0 VP | Installed into flagship center. Determines trade relationship capacity with alien civilizations and ice planet terraforming ability. |
 
 ### Detailed Rules for Buildings & Supply Limits
 
-1. **Colonies (Kolonien – Max. 9 pro Spieler):**
+1. **Colonies (Max 9 per Player):**
    - Each player has **9 colony figures** in their player color.
    - During variable setup, players place 2 initial colonies (one of which is upgraded into a spaceport) plus 1 colony loaded onto a colony ship.
    - Building a new Colony Ship takes 1 colony piece and 1 transport ship from personal supply.
    - When the colony ship lands on a valid planet intersection and founds a colony, the colony piece is placed on the board, and the transport ship piece returns to the player's personal supply.
    - Unmodified colonies yield 1 Victory Point each and generate resource cards according to adjacent production numbers.
 
-2. **Spaceports (Raumwerften – Max. 3 pro Spieler):**
+2. **Spaceports (Max 3 per Player):**
    - Each player has **3 spaceport ring pieces** in their player color.
    - A spaceport is constructed by upgrading an existing colony (cost: 3 Carbon + 2 Food) that has at least one free adjacent spaceport launch site.
    - **Modified Colony Rule:** The spaceport ring is clipped over the existing colony piece. The colony piece is **not** returned to the player's supply; it remains deployed on the board underneath the spaceport ring.
@@ -204,32 +204,32 @@ Building costs and maximum limits per player in Deep Space Pioneers:
    - Each spaceport yields **2 Victory Points** (it replaces the 1 VP of the underlying colony; it does *not* produce 1 + 2 = 3 VP).
    - Spaceports serve as launch sites: new transport ships (Colony Ships and Trade Ships) can only be built and placed onto open launch sites adjacent to a spaceport.
 
-3. **Trade Stations (Handelsstationen – Max. 7 pro Spieler):**
+3. **Trade Stations (Max 7 per Player):**
    - Each player has **7 trade station pieces** in their player color.
    - Building a Trade Ship takes 1 trade station piece and 1 transport ship from personal supply.
    - When landing on an open dock of an alien outpost, the trade station piece is established at that dock, and the transport ship piece returns to personal supply.
    - Establishing trade stations unlocks alien friendship cards and special trade/movement abilities.
 
-4. **Transport Ships (Transporter – Max. 3 pro Spieler):**
+4. **Transport Ships (Max 3 per Player):**
    - Each player has **3 transport ship figures** in their player color.
    - Transport ships serve as the mobile hull for both Colony Ships and Trade Ships.
    - A player cannot build a Colony Ship or Trade Ship if all 3 transport ships are currently active on the board (`ColonyShipsOnBoard + TradeShipsOnBoard >= 3`).
    - As soon as a ship founds a colony or establishes a trade station, its transport ship figure is reclaimed into the player's personal supply and can immediately be reused to build new ships.
 
-5. **Flagship Upgrades (Flaggschiff-Ausbauten – Triebwerke, Bordkanonen, Frachtmodule):**
+5. **Flagship Upgrades (Boosters, Cannons, Freight Pods):**
    - Each player can equip their physical flagship with up to **6 Boosters**, **6 Cannons**, and **5 Freight Pods**.
    - These are drawn from the shared game pool (24 Boosters, 24 Cannons, 20 Freight Pods total for 4 players).
    - Once a player reaches the maximum limit for an upgrade type (e.g. 5/5 Freight Pods), that upgrade option is disabled in the construction menu.
 
 6. **Real-Time Supply Tracking & UI Representation:**
    - The player HUD / sidebar (`SidebarViewUI`) displays live component counts against their maximum limits:
-     - `Kolonien: x/9`
-     - `Raumhäfen: x/3`
-     - `Handelsstationen: x/7`
-     - `Transportschiffe: x/3`
-     - `Triebwerke: x/6`
-     - `Bordkanonen: x/6`
-     - `Frachtmodule: x/5`
+     - `Colonies: x/9`
+     - `Spaceports: x/3`
+     - `Trade Stations: x/7`
+     - `Transport Ships: x/3`
+     - `Boosters: x/6`
+     - `Cannons: x/6`
+     - `Freight Pods: x/5`
    - When a resource or supply limit is reached, construction buttons are dynamically disabled with explanatory hover tooltips (`CostTooltipUI`).
 
 ### Trading Rules
@@ -240,16 +240,16 @@ During the Trade & Build Phase, the active player can conduct two forms of trade
 
 ---
 
-## Turn Structure & Phase Workflows (Spielablauf & Ablaufpläne)
+## Turn Structure & Phase Workflows
 
 ### Overview: Player Turn Lifecycle
 
 ```mermaid
 flowchart TD
-    Start["Start of Turn - Zugbeginn"] --> Phase1["1. Production Phase - Ertragsphase"]
-    Phase1 --> Phase2["2. Trade and Build Phase - Handels- und Bauphase"]
+    Start["Start of Turn"] --> Phase1["1. Production Phase"]
+    Phase1 --> Phase2["2. Trade and Build Phase"]
     Phase2 --> HasShips{"Player has ships on board?"}
-    HasShips -->|Yes| Phase3["3. Flight Phase - Flugphase"]
+    HasShips -->|Yes| Phase3["3. Flight Phase"]
     HasShips -->|No| CheckVP["Check Victory Points"]
     Phase3 --> CheckVP
     CheckVP --> Won{"Victory Points >= 15?"}
@@ -260,13 +260,13 @@ flowchart TD
 
 ---
 
-### Initial Set-up Phase (Variable Set-up / Startaufstellung)
+### Initial Set-up Phase (Variable Set-up)
 
 For the variable set-up board, the game defines a **Set-up Phase** consisting of four distinct rounds before normal turns begin:
 
 ```mermaid
 flowchart TD
-    SetupStart["Begin Set-up Phase - Startaufstellung"] --> RollDice["All players roll 2d6 to determine starting player"]
+    SetupStart["Begin Set-up Phase"] --> RollDice["All players roll 2d6 to determine starting player"]
     RollDice --> Round1["Round 1: First Colony - clockwise"]
     Round1 --> Round2["Round 2: Second Colony - counter-clockwise"]
     Round2 --> Round3["Round 3: Third Colony - clockwise"]
@@ -286,7 +286,7 @@ Following the set-up phase, each player receives 3 resource cards and 1 half Fam
 
 ### Regular Player Turn Phases
 
-#### 1. Production Phase (Ertragsphase)
+#### 1. Production Phase
 
 The active player rolls two standard six-sided dice (2d6). Planets with matching number discs produce resources for all players owning adjacent colonies (1 card) or spaceports (2 cards).
 
@@ -294,7 +294,7 @@ If a **7** is rolled, no planet resources are generated, and the 7-roll sequence
 
 ```mermaid
 flowchart TD
-    ProdStart["Production Phase - Ertragsphase"] --> RollProd["Active player rolls 2d6"]
+    ProdStart["Production Phase"] --> RollProd["Active player rolls 2d6"]
     RollProd --> CheckSeven{"Dice total == 7?"}
     
     CheckSeven -->|No: Roll 2-6 or 8-12| PlanetYield["Planets matching number produce resources: 1 per Colony, 2 per Spaceport"]
@@ -310,13 +310,13 @@ flowchart TD
     ActiveSevenReserve --> ProdEnd
 ```
 
-#### 2. Trade & Build Phase (Handels- und Bauphase)
+#### 2. Trade & Build Phase
 
 During the Trade & Build Phase, the active player may conduct trades and construct ships, upgrades, and settlements in any order and as often as resources and component supply allow:
 
 ```mermaid
 flowchart TD
-    TBStart["Trade & Build Phase - Handels- und Bauphase"] --> Actions{"Player Actions"}
+    TBStart["Trade & Build Phase"] --> Actions{"Player Actions"}
     
     Actions -->|Trade| TradeChoice{"Trading Option"}
     TradeChoice -->|Supply Trade| BankTrade["Trade with Bank / Supply: 3:1 Standard or 2:1 Goods"]
@@ -341,7 +341,7 @@ flowchart TD
     Actions -->|Done| TBEnd["Advance to Flight Phase"]
 ```
 
-#### 3. Flight Phase & Encounter Resolution (Flugphase & Begegnungen)
+#### 3. Flight Phase & Encounter Resolution
 
 If the active player owns ships on the board, they engage their flight drives (rolling two flight impulse cores):
 - **Colored Impulse Cores:** Blue = 1, Yellow = 2, Red = 3. Sum of cores + Boosters determines movement allowance for every ship.
@@ -349,7 +349,7 @@ If the active player owns ships on the board, they engage their flight drives (r
 
 ```mermaid
 flowchart TD
-    FlightStart["Flight Phase - Flugphase"] --> RollImpulse["Engage Flight Drives: Roll 2 Impulse Cores"]
+    FlightStart["Flight Phase"] --> RollImpulse["Engage Flight Drives: Roll 2 Impulse Cores"]
     RollImpulse --> BlackCore{"Black Core rolled?"}
 
     BlackCore -->|No| NormalSpeed["Calculate Speed: Sum of colored cores + Boosters"]
@@ -380,21 +380,21 @@ flowchart TD
     MoveUnits --> FlightEnd["End Flight Phase and Pass Dice"]
 ```
 
-##### Rohstoffabgabe bei Begegnungskarten (Resource Surrender in Encounters)
-Wenn eine Begegnungskarte die Abgabe von Rohstoffen verlangt (z. B. Piratenforderung `Choice:2`, Beschlagnahmung oder Bezahlung bei Piratentausch/-überfall `Choice:1` oder freiwillige Spenden):
-- **Menschliche Spieler:** Es öffnet sich der interaktive modale Auswahldialog (`DiscardCardsDialogUI`) mit Rohstoff-Steppern. Der Spieler wählt frei aus seinem Handkartenbestand genau die geforderte Anzahl an Karten aus und bestätigt die Abgabe.
-- **KI-Spieler:** Die KI wählt automatisch Rohstoffe über `AiPlayerController.ChooseDiscardCards` aus und gibt diese ab.
-- **Live-Aktualisierung:** Die abgegebenen Karten werden sofort vom Spielerkonto abgezogen und das Ressourceninventar in der Sidebar (`SidebarViewUI`) sowie der Spielstatus werden synchronisiert.
+##### Resource Surrender in Encounters
+When an encounter card requires surrendering resources (e.g. a corsair demand `Choice:2`, confiscation or payment during a corsair trade/raid `Choice:1`, or voluntary donations):
+- **Human Players:** The interactive modal selection dialog (`DiscardCardsDialogUI`) opens with resource steppers. The player freely selects the exact required number of cards from their hand and confirms the surrender.
+- **AI Players:** The AI automatically selects and surrenders resources via `AiPlayerController.ChooseDiscardCards`.
+- **Live Synchronization:** Surrendered cards are immediately deducted from the player's inventory, and both the sidebar resource display (`SidebarViewUI`) and the game state are synchronized.
 
 Once the flight phase concludes, dice are passed to the next player clockwise.
 
 ---
 
-#### 4. Special Planet Types: Ice Planets & Corsair Bases (Eisplaneten & Korsarenbasen)
+#### 4. Special Planet Types: Ice Planets & Corsair Bases
 
 Unexplored planetary systems can harbor dangerous or harsh conditions represented by special tokens:
 
-- **Ice Planets (Eisplaneten – 2 Tokens):**
+- **Ice Planets (2 Tokens):**
   - Depict a freight pod icon with an upgrade requirement (**2** or **3** freight pods).
   - While ice-covered: the planet produces **no resources** on dice rolls, and colonies **cannot be established** at adjacent sites.
   - **Terraforming Requirements:**
@@ -404,7 +404,7 @@ Unexplored planetary systems can harbor dangerous or harsh conditions represente
     1. The player immediately claims the Ice Planet Token as a Fame Medal (**+1 Victory Point**, permanent).
     2. A random **Reserve Number Disc** (from the 5 reserve discs: `{ 3, 4, 5, 9, 11 }`) is drawn and placed face-up on the planet.
     3. The planet becomes a regular producing planet, and adjacent colony sites are unlocked. If a colony ship is present on the colony site, a colony can be founded immediately!
-- **Void Corsair Bases (Korsarenbasen – 3 Tokens):**
+- **Void Corsair Bases (3 Tokens):**
   - Depict a cannon icon with a combat requirement (**4**, **5**, or **6** cannons).
   - While occupied: produces **no resources**, and adjacent colony sites are **blocked**.
   - **Defeating Corsairs Requirements:**
@@ -446,9 +446,9 @@ flowchart TD
 
 ---
 
-#### 5. Game End (Spielende)
+#### 5. Game End
 
-According to the rules, the game ends with the turn in which the active player owns **15 or more victory points** (`TriMap.WinningVictoryPoints`). Only the player whose turn it is can win; the check happens when that player ends his turn (`TriMap.EndCurrentTurn`).
+According to the rules, the game ends with the turn in which the active player owns **15 or more victory points** (`TriMap.WinningVictoryPoints`). Only the player whose turn it is can win; the check happens when that player ends their turn (`TriMap.EndCurrentTurn`).
 
 ```mermaid
 flowchart TD
@@ -550,8 +550,8 @@ The 32 numbered encounter cards are implemented as localizable Unity assets rath
      - Overlay backgrounds intercept pointer raycasts, and active tooltips are hidden immediately when an overlay opens.
      - Tooltips reside on the root Canvas overlay with `ignoreLayout = true`, eliminating layout recalculation jitter and hover pixel shifts.
    - **Step 4: Persistent Left Sidebar Component & Dynamic Sub-Panels**  
-     - [`SidebarViewUI.cs`](Assets/Scripts/UI/SidebarViewUI.cs): Controls the left HUD (player header, collapsible resource inventory, flagship upgrade counters, dynamic height handling, and bottom-anchored "Weiter" button via flexible spacer).
-     - [`ActionPanelUI.cs`](Assets/Scripts/UI/ActionPanelUI.cs): State-driven phase controller (production dice roll, accordion foldouts for "Bauen" & "Handeln", flight phase hints, contextual colony/trade station founding buttons, ship placement, and AI turn banners).
+     - [`SidebarViewUI.cs`](Assets/Scripts/UI/SidebarViewUI.cs): Controls the left HUD (player header, collapsible resource inventory, flagship upgrade counters, dynamic height handling, and bottom-anchored "Next" (*"Weiter"*) button via flexible spacer).
+     - [`ActionPanelUI.cs`](Assets/Scripts/UI/ActionPanelUI.cs): State-driven phase controller (production dice roll, accordion foldouts for "Build" & "Trade" / *"Bauen" & "Handeln"*, flight phase hints, contextual colony/trade station founding buttons, ship placement, and AI turn banners).
      - Event-driven data updates (`OnResourcesChanged`, `OnUpgradesChanged`, `OnTurnPhaseChanged`) decoupled from `PlayerHandler.cs` (slashing `PlayerHandler` from ~4,700 lines down to 576 lines).
 4. **Production Phase 7-Roll & Reserve Pile Resolution** *(Completed)*:
    - **Reserve Pile Management:** Implemented [`ReserveDeck.cs`](Assets/Scripts/ReserveDeck.cs) holding 40 resource cards (8 of each type). Automatically reshuffles and restocks when depleted, and supplies 3 initial cards at setup as well as relief fund cards.
@@ -571,7 +571,7 @@ The 32 numbered encounter cards are implemented as localizable Unity assets rath
    - **World-Space Planet Hover Tooltip:** Interactive tooltip ([`PlanetTooltipUI.cs`](Assets/Scripts/UI/PlanetTooltipUI.cs)) displaying planetary system resource yields, dice roll probabilities, and hazard readiness. Undiscovered systems conceal hazard types and dice numbers behind an `UNENTDECKT` banner to avoid spoilers.
 6. **Victory Condition, Game Over Screen & Encounter Modernization** *(Completed)*:
    - **Victory Condition Evaluation:** Active player reaching 15 or more Victory Points ends the game upon turn completion. Turn advancing and AI actions are cleanly halted.
-   - **GameOver Screen:** Implemented [`GameOverDialogUI.cs`](Assets/Scripts/UI/GameOverDialogUI.cs) displaying the match winner, full scoreboard with victory point rankings, and an interactive "Neues Spiel" (New Game) reload button.
+   - **GameOver Screen:** Implemented [`GameOverDialogUI.cs`](Assets/Scripts/UI/GameOverDialogUI.cs) displaying the match winner, full scoreboard with victory point rankings, and an interactive "New Game" (*"Neues Spiel"*) reload button.
    - **Digital Encounter Card Adaptation:** Updated all 32 encounter card texts in [`EncounterCardsData.json`](Assets/Resources/EncounterCards/EncounterCardsData.json) to fit the digital format.
    - **Interactive Upgrade Loss Dialog:** Implemented [`UpgradeChoiceDialogUI.cs`](Assets/Scripts/UI/UpgradeChoiceDialogUI.cs) allowing players to choose which flagship upgrade (Booster, Cannon, Freight Pod) to remove when prompted by an encounter card instead of automatically removing a freight pod.
 7. **External Agent Bridge for Automated Testing** *(Completed)*:
@@ -660,11 +660,11 @@ Deep Space Pioneers features distinct alien civilizations and cosmic entities, e
   - **Codebase & Identifier Consistency:** Original sci-fi space exploration terminology established across all C# classes, comments, UI strings, and bridge protocols.
   - **3D Game Pieces & Asset Pipeline (OpenSCAD & 3D Print Pipeline):**
     All 5 game pieces are designed as clean, parametric CAD models in [OpenSCAD](Assets/Models/OpenSCAD/):
-    - **Colony Settlement (Kolonie):** Central geodesic biosphere dome with 3 radial airlock wings and an integrated solar sensor array, sitting flush on the board grid.
-    - **Spaceport (Raumhafen):** True modular expansion of the base colony with extended habitat pods on all 3 wings, a floating gantry launch ring with clear vertical sightlines, and a deep-space communications dish.
-    - **Trade Station (Handelsstation):** Orbit-docking outpost with a high comms beacon spire, 3 outward docking clamps, and hexagonal solar collector wings.
-    - **Colony Ship (Kolonieschiff):** Fast aerodynamic explorer carrying a colonization pod between twin atmospheric rudders and twin thrusters.
-    - **Trade Ship (Handelsschiff):** Heavy catamaran-hulled industrial transport with 4 external modular freight containers and twin engine cowlings.
+    - **Colony Settlement:** Central geodesic biosphere dome with 3 radial airlock wings and an integrated solar sensor array, sitting flush on the board grid.
+    - **Spaceport:** True modular expansion of the base colony with extended habitat pods on all 3 wings, a floating gantry launch ring with clear vertical sightlines, and a deep-space communications dish.
+    - **Trade Station:** Orbit-docking outpost with a high comms beacon spire, 3 outward docking clamps, and hexagonal solar collector wings.
+    - **Colony Ship:** Fast aerodynamic explorer carrying a colonization pod between twin atmospheric rudders and twin thrusters.
+    - **Trade Ship:** Heavy catamaran-hulled industrial transport with 4 external modular freight containers and twin engine cowlings.
     - **Export & Prefab Pipeline:** Parametric source files located in `Assets/Models/OpenSCAD/`. `export_pieces.py` exports dual binary `.stl` and Unity-converted `.obj` formats into `Assets/Models/Pieces/`. Prefabs are automatically assembled and scaled via `SetupOpenSCADPieces.cs`. Legacy Kenney models and transitional setup scripts have been completely removed.
 
 ---
@@ -673,7 +673,7 @@ Deep Space Pioneers features distinct alien civilizations and cosmic entities, e
 
 1. **Investigation Status: Sidebar Player Data Display (AI vs. Local Human Player)**:
    - **Context & User Report:**
-     - The user launched the game directly from the Unity Editor in single-player mode against 3 AI opponents (Spieler 1 is human, Spieler 2–4 are AI).
+     - The user launched the game directly from the Unity Editor in single-player mode against 3 AI opponents (Player 1 is human, Players 2–4 are AI).
      - Opponent stats—specifically transport ships (`ActiveTransportShips`: colony and trade ships) and other mothership/flagship inventory values—were still visible in the left sidebar (`SidebarViewUI`) during AI turns, despite the initial routing in commit `e39586f`.
    - **Root Cause & Architectural Assessment:**
      - In `SidebarViewUI.cs`, `_displayedPlayer` controls both `UpdateResourceInventory()` and `UpdateFlagshipInventory()`. The flagship panel text includes boosters, cannons, freight pods, colonies, spaceports, trade stations, and active transport ships (`ActiveTransportShips`).
