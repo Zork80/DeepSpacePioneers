@@ -1215,7 +1215,7 @@ public class PlayerHandler : MonoBehaviour
         else if (!isLocalTurn && candidate != null)
         {
             text.AppendLine();
-            text.AppendLine($"{candidate.PlayerName} ist am Zug...");
+            text.AppendLine(string.Format(UIStrings.PlayerTurnInProgress.GetText(), candidate.PlayerName));
         }
 
         _foundingPanel.SetText(text.ToString());

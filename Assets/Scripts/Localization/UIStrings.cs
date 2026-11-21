@@ -721,6 +721,18 @@ public static class UIStrings
     public static readonly LocalizedString AiTurnInProgress =
         new LocalizedString("{0} (AI) is thinking...", "{0} (KI) ist am Zug...");
 
+    public static readonly LocalizedString PlayerTurnInProgress =
+        new LocalizedString("{0}'s turn...", "{0} ist am Zug...");
+
+    public static readonly LocalizedString PlayerTurnWithPhase =
+        new LocalizedString("{0}'s turn ({1})...", "{0} ist am Zug ({1})...");
+
+    public static readonly LocalizedString ToggleBasic =
+        new LocalizedString("▲ Basic", "▲ Basis");
+
+    public static readonly LocalizedString ToggleMore =
+        new LocalizedString("▼ More", "▼ Mehr");
+
     // --- Victory Points Overview ---
     public static readonly LocalizedString VictoryPointsHeading =
         new LocalizedString("Victory Points", "Siegpunkte");
