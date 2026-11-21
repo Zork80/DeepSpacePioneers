@@ -17,6 +17,7 @@ namespace Networking
         public const string Disconnect = "Disconnect";
         public const string LobbyUpdate = "LobbyUpdate";
         public const string SetSlot = "SetSlot";
+        public const string SetSpectatorMode = "SetSpectatorMode";
         public const string StartGame = "StartGame";
         public const string GameStarted = "GameStarted";
         public const string GameStateSnapshot = "GameStateSnapshot";
@@ -72,6 +73,7 @@ namespace Networking
     {
         public string PlayerName;
         public string ClientVersion;
+        public bool AsSpectator;
     }
 
     [Serializable]
@@ -79,8 +81,16 @@ namespace Networking
     {
         public int AssignedPlayerIndex;
         public bool IsHost;
+        public bool IsSpectator;
+        public string SpectatorMode = "Fair";
         public string ServerVersion;
         public string ServerName;
+    }
+
+    [Serializable]
+    public class SetSpectatorModeRequestDTO
+    {
+        public string SpectatorMode = "Fair"; // "Fair" or "Caster"
     }
 
     [Serializable]

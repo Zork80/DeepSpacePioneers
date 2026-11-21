@@ -92,6 +92,9 @@ public class GameSetupDialogUI : MonoBehaviour
     private Text _lobbyStatusText;
     private Button _lobbyStartBtn;
     private Button _lobbyLeaveBtn;
+    private Button _lobbySpectatorModeBtn;
+    private Text _lobbySpectatorModeText;
+    private Text _lobbySpectatorCountText;
     private readonly Text[] _lobbySlotTexts = new Text[4];
     private readonly Image[] _lobbySlotSwatches = new Image[4];
 
@@ -466,8 +469,12 @@ public class GameSetupDialogUI : MonoBehaviour
         _manualPortInput.GetComponent<LayoutElement>().preferredWidth = 65f;
 
         Button manualConnectBtn = UIFactory.CreateButton(manualBox.transform, _font, "Verbinden",
-            OnManualConnectClicked, new Color(0.12f, 0.55f, 0.35f, 1f), 11, 32f);
-        manualConnectBtn.GetComponent<LayoutElement>().preferredWidth = 110f;
+            () => OnManualConnectClicked(false), new Color(0.12f, 0.55f, 0.35f, 1f), 11, 32f);
+        manualConnectBtn.GetComponent<LayoutElement>().preferredWidth = 95f;
+
+        Button manualSpectateBtn = UIFactory.CreateButton(manualBox.transform, _font, "Zuschauen",
+            () => OnManualConnectClicked(true), new Color(0.15f, 0.38f, 0.62f, 1f), 11, 32f);
+        manualSpectateBtn.GetComponent<LayoutElement>().preferredWidth = 95f;
 
         _browserContainer.SetActive(false);
     }
@@ -519,33 +526,39 @@ public class GameSetupDialogUI : MonoBehaviour
             Text infoText = UIFactory.CreateText(row.transform, _font, info, 11, new Color(1f, 0.85f, 0.4f), TextAnchor.MiddleCenter);
             infoText.gameObject.AddComponent<LayoutElement>().preferredWidth = 140f;
 
-            // Join Button
+            // Join & Spectate Buttons
             Button joinBtn = UIFactory.CreateButton(row.transform, _font, "Beitreten",
-                () => ConnectToSelectedServer(server.RemoteIp, server.TcpPort), new Color(0.12f, 0.58f, 0.35f, 1f), 11, 32f);
-            joinBtn.GetComponent<LayoutElement>().preferredWidth = 100f;
+                () => ConnectToSelectedServer(server.RemoteIp, server.TcpPort, false), new Color(0.12f, 0.58f, 0.35f, 1f), 11, 32f);
+            joinBtn.GetComponent<LayoutElement>().preferredWidth = 90f;
+
+            Button spectateBtn = UIFactory.CreateButton(row.transform, _font, "Zuschauen",
+                () => ConnectToSelectedServer(server.RemoteIp, server.TcpPort, true), new Color(0.15f, 0.38f, 0.62f, 1f), 11, 32f);
+            spectateBtn.GetComponent<LayoutElement>().preferredWidth = 90f;
         }
     }
 
-    private void ConnectToSelectedServer(string hostIp, int port)
+    private void ConnectToSelectedServer(string hostIp, int port, bool asSpectator)
     {
         string pName = _clientPlayerNameInput != null && !string.IsNullOrEmpty(_clientPlayerNameInput.text)
             ? _clientPlayerNameInput.text
-            : "Spieler";
+            : (asSpectator ? "Spectator" : "Spieler");
 
-        _ = ConnectToServerAsync(hostIp, port, pName);
+        _ = ConnectToServerAsync(hostIp, port, pName, asSpectator);
     }
 
-    private void OnManualConnectClicked()
+    private void OnManualConnectClicked(bool asSpectator)
     {
         string ip = _manualIpInput != null ? _manualIpInput.text.Trim() : "127.0.0.1";
         int port = 7777;
         if (_manualPortInput != null && int.TryParse(_manualPortInput.text, out int p)) port = p;
-        string pName = _clientPlayerNameInput != null && !string.IsNullOrEmpty(_clientPlayerNameInput.text) ? _clientPlayerNameInput.text : "Spieler";
+        string pName = _clientPlayerNameInput != null && !string.IsNullOrEmpty(_clientPlayerNameInput.text)
+            ? _clientPlayerNameInput.text
+            : (asSpectator ? "Spectator" : "Spieler");
 
-        _ = ConnectToServerAsync(ip, port, pName);
+        _ = ConnectToServerAsync(ip, port, pName, asSpectator);
     }
 
-    private async System.Threading.Tasks.Task ConnectToServerAsync(string ip, int port, string pName)
+    private async System.Threading.Tasks.Task ConnectToServerAsync(string ip, int port, string pName, bool asSpectator = false)
     {
         if (NetworkManager.Instance == null) return;
 
@@ -553,7 +566,7 @@ public class GameSetupDialogUI : MonoBehaviour
         {
             if (_discoveryStatusText != null) _discoveryStatusText.text = $"Verbinde zu {ip}:{port}...";
 
-            bool ok = await NetworkManager.Instance.ConnectToServerAsync(ip, port, pName);
+            bool ok = await NetworkManager.Instance.ConnectToServerAsync(ip, port, pName, asSpectator);
             if (ok)
             {
                 HookClientEvents();
@@ -695,6 +708,23 @@ public class GameSetupDialogUI : MonoBehaviour
             _lobbySlotTexts[i].gameObject.AddComponent<LayoutElement>().preferredWidth = 360f;
         }
 
+        // Spectator Mode Row (configurable by Host)
+        GameObject specRow = UIFactory.CreateElement("LobbySpectatorRow", _lobbyContainer.transform, typeof(CanvasRenderer), typeof(Image), typeof(LayoutElement));
+        specRow.GetComponent<Image>().color = new Color(0.05f, 0.13f, 0.22f, 0.90f);
+        specRow.GetComponent<LayoutElement>().preferredHeight = 40f;
+        UIFactory.AddHorizontalLayout(specRow, 10f, 6);
+
+        UIFactory.CreateText(specRow.transform, _font, "Spectator-Modus:", 12, new Color(0.75f, 0.88f, 1f), TextAnchor.MiddleLeft, FontStyle.Bold)
+            .gameObject.AddComponent<LayoutElement>().preferredWidth = 135f;
+
+        _lobbySpectatorModeBtn = UIFactory.CreateButton(specRow.transform, _font, "Fair (Karten verdeckt)",
+            OnToggleLobbySpectatorModeClicked, new Color(0.14f, 0.34f, 0.54f, 1f), 11, 30f);
+        _lobbySpectatorModeBtn.GetComponent<LayoutElement>().preferredWidth = 220f;
+        _lobbySpectatorModeText = _lobbySpectatorModeBtn.GetComponentInChildren<Text>();
+
+        _lobbySpectatorCountText = UIFactory.CreateText(specRow.transform, _font, "Zuschauer: 0", 11, new Color(0.7f, 0.85f, 0.95f), TextAnchor.MiddleRight);
+        _lobbySpectatorCountText.gameObject.AddComponent<LayoutElement>().flexibleWidth = 1f;
+
         // Action Bar for Lobby
         GameObject lobbyActionBar = UIFactory.CreateElement("LobbyActionBar", _lobbyContainer.transform);
         UIFactory.AddHorizontalLayout(lobbyActionBar, 14f, 4);
@@ -743,11 +773,34 @@ public class GameSetupDialogUI : MonoBehaviour
             _useFixedSeed = true;
             _triMap.RebuildMap(lobby.seed);
         }
+        bool isSpectator = NetworkManager.Instance != null && NetworkManager.Instance.IsSpectator;
         if (_lobbyStatusText != null)
         {
-            _lobbyStatusText.text = isHost
-                ? "Du bist der Host. Sobald alle Mitspieler bereit sind, kannst du starten."
-                : "Warten auf Spielstart durch den Host...";
+            if (isSpectator)
+            {
+                _lobbyStatusText.text = $"Du schaust als Spectator zu (Modus: {lobby.spectatorMode}). Warten auf Spielstart...";
+            }
+            else
+            {
+                _lobbyStatusText.text = isHost
+                    ? "Du bist der Host. Sobald alle Mitspieler bereit sind, kannst du starten."
+                    : "Warten auf Spielstart durch den Host...";
+            }
+        }
+
+        if (_lobbySpectatorModeBtn != null)
+        {
+            _lobbySpectatorModeBtn.interactable = isHost;
+        }
+        if (_lobbySpectatorModeText != null)
+        {
+            _lobbySpectatorModeText.text = lobby.spectatorMode == "Caster"
+                ? "Caster (Alle Infos sichtbar)"
+                : "Fair (Karten verdeckt)";
+        }
+        if (_lobbySpectatorCountText != null)
+        {
+            _lobbySpectatorCountText.text = $"Zuschauer: {lobby.spectatorCount}";
         }
 
         if (_lobbyStartBtn != null)
@@ -806,6 +859,14 @@ public class GameSetupDialogUI : MonoBehaviour
                 _lobbySlotTexts[i].color = slot.isConnected ? new Color(0.5f, 1f, 0.6f) : (slot.playerType == "AI" ? new Color(1f, 0.9f, 0.4f) : Color.gray);
             }
         }
+    }
+
+    private void OnToggleLobbySpectatorModeClicked()
+    {
+        if (NetworkManager.Instance?.Client == null || !NetworkManager.Instance.IsHost) return;
+        string current = NetworkManager.Instance.CurrentSpectatorMode;
+        string next = current == "Caster" ? "Fair" : "Caster";
+        NetworkManager.Instance.Client.SendSetSpectatorMode(next);
     }
 
     private void OnStartNetworkGameClicked()

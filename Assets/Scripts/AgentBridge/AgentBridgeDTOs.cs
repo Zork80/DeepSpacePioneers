@@ -416,6 +416,7 @@ namespace AgentBridge
         public int localPlayerIndex;
         public bool isCurrentPlayerLocal;
         public bool isWaitingForAgent;
+        public string spectatorMode = "Fair";
         public PlayerRankingDTO[] rankings;
     }
 
@@ -454,14 +455,17 @@ namespace AgentBridge
         public int hostSlotIndex;
         public int seed;
         public bool useFixedSeed;
+        public string spectatorMode = "Fair"; // "Fair" or "Caster"
+        public int spectatorCount;
     }
 
     public static class GameStateMaskingExtensions
     {
         /// <summary>
         /// Masks secret information (Fog of War) such as opponent hand cards for a specific player.
+        /// For spectators (recipientPlayerIndex &lt; 0), masks all players in Fair mode and reveals all in Caster mode.
         /// </summary>
-        public static GameStateObservationDTO CreateMaskedCopy(this GameStateObservationDTO source, int recipientPlayerIndex)
+        public static GameStateObservationDTO CreateMaskedCopy(this GameStateObservationDTO source, int recipientPlayerIndex, bool maskForSpectator = true)
         {
             if (source == null) return null;
 
@@ -469,12 +473,15 @@ namespace AgentBridge
             string json = JsonUtility.ToJson(source);
             GameStateObservationDTO copy = JsonUtility.FromJson<GameStateObservationDTO>(json);
 
-            if (copy.players != null)
+            bool shouldMaskAll = recipientPlayerIndex < 0 && maskForSpectator;
+            bool skipMasking = recipientPlayerIndex < 0 && !maskForSpectator;
+
+            if (!skipMasking && copy.players != null)
             {
                 for (int i = 0; i < copy.players.Length; i++)
                 {
                     PlayerStateDTO p = copy.players[i];
-                    if (p != null && p.playerIndex != recipientPlayerIndex && p.resources != null)
+                    if (p != null && (shouldMaskAll || p.playerIndex != recipientPlayerIndex) && p.resources != null)
                     {
                         // Mask detailed resources for opponents; only total is shared
                         int total = p.resources.total;
@@ -492,7 +499,7 @@ namespace AgentBridge
             }
 
             copy.localPlayerIndex = recipientPlayerIndex;
-            copy.isCurrentPlayerLocal = copy.currentPlayerIndex == recipientPlayerIndex;
+            copy.isCurrentPlayerLocal = recipientPlayerIndex >= 0 && copy.currentPlayerIndex == recipientPlayerIndex;
 
             return copy;
         }

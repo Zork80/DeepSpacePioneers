@@ -18,6 +18,7 @@ namespace Networking
         public int PlayerIndex { get; set; } = -1;
         public string PlayerName { get; set; } = "Player";
         public bool IsHost { get; set; }
+        public bool IsSpectator { get; set; }
         public bool IsConnected => Client != null && Client.Connected;
         public CancellationTokenSource Cts { get; private set; } = new CancellationTokenSource();
 
@@ -231,10 +232,17 @@ namespace Networking
 
                 int assignedSlot = -1;
                 bool isHost = false;
+                bool isSpectator = req.AsSpectator;
+                string sessionName = !string.IsNullOrEmpty(req.PlayerName) ? req.PlayerName : (isSpectator ? "Spectator" : "Player");
 
                 lock (_sessionLock)
                 {
-                    if (IsGameStarted)
+                    if (isSpectator)
+                    {
+                        assignedSlot = -1;
+                        isHost = false;
+                    }
+                    else if (IsGameStarted)
                     {
                         // Check if reconnecting player matches slot
                         for (int i = 0; i < _lobbyState.slots.Count; i++)
@@ -291,25 +299,31 @@ namespace Networking
                         _lobbyState.slots[assignedSlot].playerName = !string.IsNullOrEmpty(req.PlayerName) ? req.PlayerName : $"Spieler {assignedSlot + 1}";
                         _lobbyState.slots[assignedSlot].isConnected = true;
                         _lobbyState.slots[assignedSlot].isHost = isHost;
+                        sessionName = _lobbyState.slots[assignedSlot].playerName;
                     }
 
                     session = new ClientSession(tcpClient, isHost)
                     {
                         PlayerIndex = assignedSlot,
-                        PlayerName = _lobbyState.slots[assignedSlot].playerName
+                        PlayerName = sessionName,
+                        IsSpectator = isSpectator
                     };
                     _sessions.Add(session);
                     RefreshHostPrivileges();
                     isHost = session.IsHost;
                 }
 
-                Log($"Player '{session.PlayerName}' connected and assigned slot {assignedSlot} (Host={isHost})");
+                Log(isSpectator
+                    ? $"Spectator '{session.PlayerName}' connected (Mode={_lobbyState.spectatorMode})"
+                    : $"Player '{session.PlayerName}' connected and assigned slot {assignedSlot} (Host={isHost})");
 
                 // Send Welcome
                 var welcome = new WelcomeResponseDTO
                 {
                     AssignedPlayerIndex = assignedSlot,
                     IsHost = isHost,
+                    IsSpectator = isSpectator,
+                    SpectatorMode = _lobbyState.spectatorMode,
                     ServerVersion = "1.0.0",
                     ServerName = ServerName
                 };
@@ -318,27 +332,40 @@ namespace Networking
                 UpdateLobbyState();
                 UpdateAnnouncer();
 
-                // If game already started, ensure slot is converted to human control and send snapshot
+                // If game already started, handle player transition or spectator mid-game sync
                 if (IsGameStarted)
                 {
-                    NetworkManager.Instance?.EnqueueMainThreadAction(() =>
+                    if (isSpectator)
                     {
-                        TriMap map = TriMapInstance;
-                        if (map != null && map.Players != null && assignedSlot >= 0 && assignedSlot < map.Players.Length)
+                        var startedDto = new GameStartedDTO
                         {
-                            Player p = map.Players[assignedSlot];
-                            if (p != null)
+                            Seed = _lobbyState.seed,
+                            HostPlayerIndex = _lobbyState.hostSlotIndex
+                        };
+                        await session.SendEnvelopeAsync(new NetworkEnvelope(NetworkMessageType.GameStarted, JsonUtility.ToJson(startedDto)));
+                        SendSnapshotToSession(session);
+                    }
+                    else
+                    {
+                        NetworkManager.Instance?.EnqueueMainThreadAction(() =>
+                        {
+                            TriMap map = TriMapInstance;
+                            if (map != null && map.Players != null && assignedSlot >= 0 && assignedSlot < map.Players.Length)
                             {
-                                p.Type = isHost ? Player.PlayerType.LOCAL : Player.PlayerType.REMOTE;
-                                Log($"Player '{p.PlayerName}' (Slot {assignedSlot}) transitioned to human control ({p.Type}).");
+                                Player p = map.Players[assignedSlot];
+                                if (p != null)
+                                {
+                                    p.Type = isHost ? Player.PlayerType.LOCAL : Player.PlayerType.REMOTE;
+                                    Log($"Player '{p.PlayerName}' (Slot {assignedSlot}) transitioned to human control ({p.Type}).");
+                                }
                             }
-                        }
-                        if (assignedSlot >= 0 && assignedSlot < GameSetupConfig.Slots.Length)
-                        {
-                            GameSetupConfig.Slots[assignedSlot].Type = isHost ? Player.PlayerType.LOCAL : Player.PlayerType.REMOTE;
-                        }
-                    });
-                    SendSnapshotToSession(session);
+                            if (assignedSlot >= 0 && assignedSlot < GameSetupConfig.Slots.Length)
+                            {
+                                GameSetupConfig.Slots[assignedSlot].Type = isHost ? Player.PlayerType.LOCAL : Player.PlayerType.REMOTE;
+                            }
+                        });
+                        SendSnapshotToSession(session);
+                    }
                 }
 
                 // Read loop for this client
@@ -394,6 +421,29 @@ namespace Networking
                     }
                     break;
 
+                case NetworkMessageType.SetSpectatorMode:
+                    if (session.IsHost || IsDedicated)
+                    {
+                        SetSpectatorModeRequestDTO modeReq = JsonUtility.FromJson<SetSpectatorModeRequestDTO>(envelope.Payload);
+                        if (modeReq != null)
+                        {
+                            _lobbyState.spectatorMode = modeReq.SpectatorMode == "Caster" ? "Caster" : "Fair";
+                            Log($"Spectator mode set to '{_lobbyState.spectatorMode}' by '{session.PlayerName}'.");
+                            UpdateLobbyState();
+                            if (IsGameStarted)
+                            {
+                                lock (_sessionLock)
+                                {
+                                    for (int i = 0; i < _sessions.Count; i++)
+                                    {
+                                        if (_sessions[i].IsSpectator) SendSnapshotToSession(_sessions[i]);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    break;
+
                 case NetworkMessageType.StartGame:
                     if (session.IsHost || IsDedicated)
                     {
@@ -410,6 +460,12 @@ namespace Networking
 
         private void HandlePlayerAction(ClientSession session, NetworkEnvelope envelope)
         {
+            if (session.IsSpectator || session.PlayerIndex < 0)
+            {
+                Log($"Ignored PlayerAction from spectator '{session.PlayerName}'.");
+                return;
+            }
+
             AgentActionDTO action = JsonUtility.FromJson<AgentActionDTO>(envelope.Payload);
             if (action == null) return;
 
@@ -550,6 +606,8 @@ namespace Networking
         {
             if (!IsRunning || !IsGameStarted || observation == null) return;
 
+            bool maskSpectator = _lobbyState.spectatorMode != "Caster";
+
             // Broadcast Fog-of-War masked snapshots to each client session individually
             lock (_sessionLock)
             {
@@ -557,9 +615,11 @@ namespace Networking
                 {
                     ClientSession session = _sessions[i];
                     // Skip local Host session - Host state is already authoritative in memory
-                    if (session.IsConnected && session.PlayerIndex > 0 && !session.IsHost)
+                    if (session.IsConnected && !session.IsHost && (session.PlayerIndex > 0 || session.IsSpectator))
                     {
-                        GameStateObservationDTO masked = observation.CreateMaskedCopy(session.PlayerIndex);
+                        int recipient = session.IsSpectator ? -1 : session.PlayerIndex;
+                        GameStateObservationDTO masked = observation.CreateMaskedCopy(recipient, maskSpectator);
+                        masked.spectatorMode = _lobbyState.spectatorMode;
                         string payload = JsonUtility.ToJson(masked);
                         _ = session.SendEnvelopeAsync(new NetworkEnvelope(NetworkMessageType.GameStateSnapshot, payload, -1));
                     }
@@ -576,7 +636,9 @@ namespace Networking
 
         public void SendSnapshotToSession(ClientSession session)
         {
-            if (session == null || !session.IsConnected || session.IsHost || session.PlayerIndex <= 0) return;
+            if (session == null || !session.IsConnected || session.IsHost || (!session.IsSpectator && session.PlayerIndex <= 0)) return;
+
+            bool maskSpectator = _lobbyState.spectatorMode != "Caster";
 
             NetworkManager.Instance?.EnqueueMainThreadAction(() =>
             {
@@ -585,7 +647,9 @@ namespace Networking
                     GameStateObservationDTO obs = ExternalAgentBridge.Instance.BuildObservation();
                     if (obs != null)
                     {
-                        GameStateObservationDTO masked = obs.CreateMaskedCopy(session.PlayerIndex);
+                        int recipient = session.IsSpectator ? -1 : session.PlayerIndex;
+                        GameStateObservationDTO masked = obs.CreateMaskedCopy(recipient, maskSpectator);
+                        masked.spectatorMode = _lobbyState.spectatorMode;
                         string payload = JsonUtility.ToJson(masked);
                         _ = session.SendEnvelopeAsync(new NetworkEnvelope(NetworkMessageType.GameStateSnapshot, payload, -1));
                     }
@@ -633,12 +697,21 @@ namespace Networking
 
         private void UpdateLobbyState()
         {
-            // Evaluate canStart
+            // Evaluate canStart & spectatorCount
             int humanConnected = 0;
             for (int i = 0; i < _lobbyState.slots.Count; i++)
             {
                 if (_lobbyState.slots[i].isConnected) humanConnected++;
             }
+            int spectators = 0;
+            lock (_sessionLock)
+            {
+                for (int i = 0; i < _sessions.Count; i++)
+                {
+                    if (_sessions[i].IsConnected && _sessions[i].IsSpectator) spectators++;
+                }
+            }
+            _lobbyState.spectatorCount = spectators;
             _lobbyState.canStart = humanConnected >= (IsDedicated ? 1 : 1);
 
             string json = JsonUtility.ToJson(_lobbyState);
@@ -797,8 +870,17 @@ namespace Networking
                 }
             }
 
-            Log($"Player '{session.PlayerName}' (Slot {session.PlayerIndex}) disconnected");
+            Log(session.IsSpectator
+                ? $"Spectator '{session.PlayerName}' disconnected"
+                : $"Player '{session.PlayerName}' (Slot {session.PlayerIndex}) disconnected");
             session.Dispose();
+
+            if (session.IsSpectator)
+            {
+                if (!IsGameStarted) UpdateLobbyState();
+                UpdateAnnouncer();
+                return;
+            }
 
             if (!IsGameStarted)
             {

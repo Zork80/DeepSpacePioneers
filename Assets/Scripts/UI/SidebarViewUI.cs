@@ -553,14 +553,35 @@ public class SidebarViewUI : MonoBehaviour
 
         StringBuilder sb = new StringBuilder();
 
-        if (!_showResourceDetails)
+        bool isFairSpectator = Networking.NetworkManager.Instance != null &&
+                               Networking.NetworkManager.Instance.IsSpectator &&
+                               Networking.NetworkManager.Instance.CurrentSpectatorMode != "Caster";
+
+        if (!_showResourceDetails || isFairSpectator)
         {
             int totalCards = 0;
-            foreach (ResourceType resource in GameRules.Resources)
+            bool readFromNetState = false;
+            if (isFairSpectator &&
+                Networking.NetworkManager.Instance?.Client?.LatestState?.players != null &&
+                _triMap != null && _triMap.Players != null)
             {
-                totalCards += _displayedPlayer.GetResourceCount(resource);
+                int pIdx = System.Array.IndexOf(_triMap.Players, _displayedPlayer);
+                var netPlayers = Networking.NetworkManager.Instance.Client.LatestState.players;
+                if (pIdx >= 0 && pIdx < netPlayers.Length && netPlayers[pIdx]?.resources != null)
+                {
+                    totalCards = netPlayers[pIdx].resources.total;
+                    readFromNetState = true;
+                }
             }
-            sb.Append(string.Format("Karten: {0} · {1}{2}", totalCards, UIStrings.HalfMedals.GetText(), _displayedPlayer.HalfMedalCount));
+            if (!readFromNetState)
+            {
+                foreach (ResourceType resource in GameRules.Resources)
+                {
+                    totalCards += _displayedPlayer.GetResourceCount(resource);
+                }
+            }
+            string suffix = isFairSpectator ? " (verdeckt)" : string.Empty;
+            sb.Append(string.Format("Karten: {0}{1} · {2}{3}", totalCards, suffix, UIStrings.HalfMedals.GetText(), _displayedPlayer.HalfMedalCount));
 
             if (_resourceLayout != null)
             {
@@ -830,11 +851,25 @@ public class SidebarViewUI : MonoBehaviour
         }
 
         _turnStatusText.text = text;
+        if (Networking.NetworkManager.Instance != null && Networking.NetworkManager.Instance.IsSpectator)
+        {
+            string mode = Networking.NetworkManager.Instance.CurrentSpectatorMode;
+            _turnStatusText.text = $"[Spectator: {mode}] {text}";
+        }
     }
 
     public void UpdateNextButtonState()
     {
         if (_nextButton == null || _triMap == null) return;
+
+        bool isSpectator = Networking.NetworkManager.Instance != null && Networking.NetworkManager.Instance.IsSpectator;
+        if (isSpectator)
+        {
+            _nextButton.interactable = false;
+            if (_nextButtonImage != null) _nextButtonImage.color = new Color(0.08f, 0.12f, 0.16f, 0.6f);
+            if (_nextButtonLabel != null) _nextButtonLabel.color = new Color(0.55f, 0.65f, 0.75f, 0.7f);
+            return;
+        }
 
         bool isTurnOfDisplayedPlayer = _triMap.CurrentPlayer != null && _triMap.CurrentPlayer == _displayedPlayer;
         bool isLocalTurn = isTurnOfDisplayedPlayer;
@@ -977,6 +1012,11 @@ public class SidebarViewUI : MonoBehaviour
     {
         hasAnyHuman = false;
         if (_triMap == null || _triMap.Players == null) return null;
+
+        if (Networking.NetworkManager.Instance != null && Networking.NetworkManager.Instance.IsSpectator)
+        {
+            return null;
+        }
 
         if (Networking.NetworkManager.Instance != null && Networking.NetworkManager.Instance.IsClientConnected)
         {

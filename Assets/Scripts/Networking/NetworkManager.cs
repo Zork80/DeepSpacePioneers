@@ -30,6 +30,8 @@ namespace Networking
         public string LastConnectionError => Client?.LastError;
 
         public int LocalPlayerIndex => Client != null ? Client.LocalPlayerIndex : -1;
+        public bool IsSpectator => Client != null && Client.IsConnected && Client.IsSpectator;
+        public string CurrentSpectatorMode => Client != null && !string.IsNullOrEmpty(Client.SpectatorMode) ? Client.SpectatorMode : "Fair";
 
         public event Action<AgentBridge.GameStateObservationDTO> OnClientGameStateReceived;
         public event Action<AgentBridge.AgentResultDTO> OnClientActionResultReceived;
@@ -154,7 +156,7 @@ namespace Networking
             Server.Start();
         }
 
-        public async Task<bool> ConnectToServerAsync(string hostIp, int tcpPort, string playerName)
+        public async Task<bool> ConnectToServerAsync(string hostIp, int tcpPort, string playerName, bool asSpectator = false)
         {
             DisconnectAll();
 
@@ -162,7 +164,7 @@ namespace Networking
             Client.OnGameStateReceived += (s) => OnClientGameStateReceived?.Invoke(s);
             Client.OnActionResultReceived += (r) => OnClientActionResultReceived?.Invoke(r);
             Client.OnGameEventReceived += HandleGameEventReceived;
-            bool connected = await Client.ConnectAsync(hostIp, tcpPort, playerName);
+            bool connected = await Client.ConnectAsync(hostIp, tcpPort, playerName, asSpectator);
             return connected;
         }
 

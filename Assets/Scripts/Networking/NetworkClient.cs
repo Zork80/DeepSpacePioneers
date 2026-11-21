@@ -17,6 +17,8 @@ namespace Networking
         public bool IsConnected => _client != null && _client.Connected && !_isDisposed;
         public int LocalPlayerIndex { get; private set; } = -1;
         public bool IsHost { get; private set; }
+        public bool IsSpectator { get; private set; }
+        public string SpectatorMode { get; private set; } = "Fair";
         public string ServerName { get; private set; }
         public string PlayerName { get; private set; } = "Player";
         public string LastError { get; private set; }
@@ -38,10 +40,11 @@ namespace Networking
         public event Action<GameEventNotificationDTO> OnGameEventReceived;
         public event Action<string> OnErrorReceived;
 
-        public async Task<bool> ConnectAsync(string host, int port, string playerName)
+        public async Task<bool> ConnectAsync(string host, int port, string playerName, bool asSpectator = false)
         {
             Disconnect();
             _isDisposed = false;
+            IsSpectator = asSpectator;
             PlayerName = !string.IsNullOrEmpty(playerName) ? playerName : "Player";
             _cts = new CancellationTokenSource();
 
@@ -50,7 +53,7 @@ namespace Networking
                 _client = new TcpClient();
                 _client.NoDelay = true;
 
-                Debug.Log($"[NetworkClient] Connecting to {host}:{port}...");
+                Debug.Log($"[NetworkClient] Connecting to {host}:{port} (Spectator={asSpectator})...");
                 await _client.ConnectAsync(host, port);
                 _stream = _client.GetStream();
 
@@ -58,7 +61,8 @@ namespace Networking
                 var connectDto = new ConnectRequestDTO
                 {
                     PlayerName = PlayerName,
-                    ClientVersion = "1.0.0"
+                    ClientVersion = "1.0.0",
+                    AsSpectator = asSpectator
                 };
                 await SendEnvelopeAsync(new NetworkEnvelope(NetworkMessageType.Connect, JsonUtility.ToJson(connectDto)));
 
@@ -128,6 +132,8 @@ namespace Networking
                     {
                         LocalPlayerIndex = welcome.AssignedPlayerIndex;
                         IsHost = welcome.IsHost;
+                        IsSpectator = welcome.IsSpectator || welcome.AssignedPlayerIndex < 0;
+                        if (!string.IsNullOrEmpty(welcome.SpectatorMode)) SpectatorMode = welcome.SpectatorMode;
                         ServerName = welcome.ServerName;
                         NetworkManager.Instance?.EnqueueMainThreadAction(() => OnConnected?.Invoke(welcome));
                     }
@@ -137,6 +143,7 @@ namespace Networking
                     LobbyStateDTO lobby = JsonUtility.FromJson<LobbyStateDTO>(envelope.Payload);
                     if (lobby != null)
                     {
+                        if (!string.IsNullOrEmpty(lobby.spectatorMode)) SpectatorMode = lobby.spectatorMode;
                         NetworkManager.Instance?.EnqueueMainThreadAction(() => OnLobbyUpdated?.Invoke(lobby));
                     }
                     break;
@@ -153,6 +160,7 @@ namespace Networking
                     GameStateObservationDTO state = JsonUtility.FromJson<GameStateObservationDTO>(envelope.Payload);
                     if (state != null)
                     {
+                        if (!string.IsNullOrEmpty(state.spectatorMode)) SpectatorMode = state.spectatorMode;
                         LatestState = state;
                         NetworkManager.Instance?.EnqueueMainThreadAction(() => OnGameStateReceived?.Invoke(state));
                     }
@@ -267,6 +275,16 @@ namespace Networking
             _ = SendEnvelopeAsync(env);
         }
 
+        public void SendSetSpectatorMode(string spectatorMode)
+        {
+            var req = new SetSpectatorModeRequestDTO
+            {
+                SpectatorMode = spectatorMode == "Caster" ? "Caster" : "Fair"
+            };
+            var env = new NetworkEnvelope(NetworkMessageType.SetSpectatorMode, JsonUtility.ToJson(req), LocalPlayerIndex);
+            _ = SendEnvelopeAsync(env);
+        }
+
         public void SendStartGame(int seed, bool useFixedSeed)
         {
             var req = new StartGameRequestDTO
@@ -302,6 +320,7 @@ namespace Networking
 
             LocalPlayerIndex = -1;
             IsHost = false;
+            IsSpectator = false;
         }
 
         public void Dispose()
