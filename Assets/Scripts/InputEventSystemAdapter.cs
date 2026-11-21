@@ -8,50 +8,57 @@ using UnityEngine.InputSystem.UI;
 #endif
 
 /// <summary>
-/// Ensures the active EventSystem uses InputSystemUIInputModule and logs diagnostic data on click.
+/// Ensures the active EventSystem uses InputSystemUIInputModule, enables its action assets,
+/// prevents focus drop, and logs diagnostic click data.
 /// </summary>
 public class InputEventSystemAdapter : MonoBehaviour
 {
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
-    private static void Init()
+    private void Awake()
     {
-        EnsureEventSystemModule();
-        UnityEngine.SceneManagement.SceneManager.sceneLoaded += (scene, mode) => EnsureEventSystemModule();
+        EnsureSetup();
+        Debug.LogWarning($"[InputEventSystemAdapter] Awake on '{gameObject.name}'. EventSystem={EventSystem.current?.name}");
     }
 
-    public static void EnsureEventSystemModule()
+    private void Start()
+    {
+        EnsureSetup();
+        Debug.LogWarning($"[InputEventSystemAdapter] Start on '{gameObject.name}'. ActiveModule={EventSystem.current?.currentInputModule?.GetType().Name}");
+    }
+
+    private void OnEnable()
+    {
+        EnsureSetup();
+    }
+
+    public void EnsureSetup()
     {
 #if ENABLE_INPUT_SYSTEM
         // Ensure background input is enabled so UI events are never dropped due to window focus
         InputSystem.settings.backgroundBehavior = InputSettings.BackgroundBehavior.IgnoreFocus;
 
-        EventSystem es = EventSystem.current;
-        if (es == null)
-        {
-            es = Object.FindAnyObjectByType<EventSystem>();
-        }
-
+        var es = GetComponent<EventSystem>() ?? EventSystem.current;
         if (es != null)
         {
-            if (es.GetComponent<InputEventSystemAdapter>() == null)
-            {
-                es.gameObject.AddComponent<InputEventSystemAdapter>();
-            }
-
             var standalone = es.GetComponent<StandaloneInputModule>();
             if (standalone != null)
             {
-                Object.Destroy(standalone);
+                Destroy(standalone);
             }
 
-            var newModule = es.GetComponent<InputSystemUIInputModule>();
-            if (newModule == null)
+            var module = es.GetComponent<InputSystemUIInputModule>();
+            if (module == null)
             {
-                newModule = es.gameObject.AddComponent<InputSystemUIInputModule>();
-                newModule.AssignDefaultActions();
-                es.UpdateModules();
+                module = es.gameObject.AddComponent<InputSystemUIInputModule>();
+                module.AssignDefaultActions();
             }
-            newModule.actionsAsset?.Enable();
+
+            if (module.actionsAsset != null && !module.actionsAsset.enabled)
+            {
+                module.actionsAsset.Enable();
+                Debug.LogWarning($"[InputEventSystemAdapter] Explicitly enabled actionsAsset '{module.actionsAsset.name}'");
+            }
+
+            es.UpdateModules();
         }
 #endif
     }
@@ -59,7 +66,7 @@ public class InputEventSystemAdapter : MonoBehaviour
     private void Update()
     {
 #if ENABLE_INPUT_SYSTEM
-        if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
+        if (Mouse.current != null && (Mouse.current.leftButton.wasPressedThisFrame || Mouse.current.leftButton.wasReleasedThisFrame))
         {
             var es = EventSystem.current;
             var curModule = es != null ? es.currentInputModule : null;
@@ -79,7 +86,7 @@ public class InputEventSystemAdapter : MonoBehaviour
                 ? string.Join(" -> ", results.ConvertAll(r => $"{r.gameObject.name}(cam={r.module?.eventCamera?.name}, depth={r.depth})"))
                 : "NONE";
 
-            Debug.LogWarning($"[InputEventSystemAdapter] LeftClick at {mousePos}. ES={es?.name}, isFocused={es?.isFocused}, Module={curModule?.GetType().Name}(enabled={curModule?.enabled}), Hits: {hitInfo}");
+            Debug.LogWarning($"[InputEventSystemAdapter] Click (down={Mouse.current.leftButton.wasPressedThisFrame}, up={Mouse.current.leftButton.wasReleasedThisFrame}) at {mousePos}. ES={es?.name}, isFocused={es?.isFocused}, Module={curModule?.GetType().Name}, Hits: {hitInfo}");
         }
 #endif
     }

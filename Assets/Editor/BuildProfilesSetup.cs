@@ -202,6 +202,12 @@ namespace EditorTools
                     inputModule.AssignDefaultActions();
                 }
 
+                var adapter = es.GetComponent<InputEventSystemAdapter>();
+                if (adapter == null)
+                {
+                    es.gameObject.AddComponent<InputEventSystemAdapter>();
+                }
+
                 UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(scene);
                 UnityEditor.SceneManagement.EditorSceneManager.SaveScene(scene);
                 Debug.Log("[BuildProfilesSetup] Saved scene with upgraded EventSystem!");
