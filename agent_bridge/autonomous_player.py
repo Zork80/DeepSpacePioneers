@@ -100,7 +100,7 @@ def read_state(timeout=5.0):
 
 def send_action(action_dict, timeout=8.0):
     if action_dict.get("action") == "MoveShip":
-        timeout = 8.0
+        timeout = max(timeout, 15.0)
     action_id = action_dict.get("actionId", f"bot-{int(time.time()*1000)}")
     action_dict["actionId"] = action_id
 
@@ -1075,7 +1075,7 @@ def decide_and_act(state, step_delay=0.6):
                 else:
                     sorted_targets = sorted(candidate_targets, key=lambda t: PioneerScorer.score_trade_target(t, ship["q"], ship["r"], current_player, state), reverse=True)
 
-                for target in sorted_targets[:2]:
+                for target in sorted_targets[:5]:
                     if (target["q"], target["r"]) == (ship["q"], ship["r"]):
                         continue
                     target_info = f"({target['q']}, {target['r']})"
@@ -1094,7 +1094,7 @@ def decide_and_act(state, step_delay=0.6):
                         "fromR": ship["r"],
                         "toQ": target["q"],
                         "toR": target["r"]
-                    }, timeout=8.0)
+                    }, timeout=15.0)
                     print(f"[Bot] Result: {res.get('message') or res.get('error')}")
                     if res.get("success"):
                         moved = True
@@ -1107,9 +1107,12 @@ def decide_and_act(state, step_delay=0.6):
                             if res_trade.get("success"):
                                 print(f"[Bot] Built trade station immediately upon arrival at ({target['q']}, {target['r']}): {res_trade.get('message')}")
                         break
-                    else:
-                        # If movement failed or timed out, do not retry outdated coordinates
+                    elif "Timeout" in str(res.get("error", "")):
+                        # If movement timed out, do not retry outdated coordinates
                         break
+                    else:
+                        # Path/target blocked or unreachable; try next candidate target
+                        continue
             if moved:
                 break
         if moved:

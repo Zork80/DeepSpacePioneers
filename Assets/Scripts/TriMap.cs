@@ -191,7 +191,7 @@ public class TriMap : MonoBehaviour, IQPathWorld
     {
         Instance = this;
         Application.runInBackground = true;
-        QualitySettings.vSyncCount = 1;
+        QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 60;
         Physics.simulationMode = SimulationMode.Script;
         Audio.PhaseAudioManager.EnsureInitialized();
