@@ -262,14 +262,15 @@ namespace Networking
             _ = SendEnvelopeAsync(env);
         }
 
-        public void SendSetSlot(int slotIndex, string playerName, string playerType, string aiDifficulty)
+        public void SendSetSlot(int slotIndex, string playerName, string playerType, string aiDifficulty, int colorIndex = -1)
         {
             var req = new SetSlotRequestDTO
             {
                 SlotIndex = slotIndex,
                 PlayerName = playerName,
                 PlayerType = playerType,
-                AiDifficulty = aiDifficulty
+                AiDifficulty = aiDifficulty,
+                ColorIndex = colorIndex
             };
             var env = new NetworkEnvelope(NetworkMessageType.SetSlot, JsonUtility.ToJson(req), LocalPlayerIndex);
             _ = SendEnvelopeAsync(env);

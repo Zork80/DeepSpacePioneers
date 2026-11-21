@@ -113,6 +113,7 @@ namespace Networking
                     playerName = $"Spieler {i + 1}",
                     playerType = (i == 0 && !IsDedicated) ? "Human" : "AI",
                     aiDifficulty = "Normal",
+                    colorIndex = i,
                     isConnected = false,
                     isHost = i == 0 && !IsDedicated
                 });
@@ -407,15 +408,50 @@ namespace Networking
                     break;
 
                 case NetworkMessageType.SetSlot:
-                    if (session.IsHost || IsDedicated)
+                    SetSlotRequestDTO slotReq = JsonUtility.FromJson<SetSlotRequestDTO>(envelope.Payload);
+                    if (slotReq != null && slotReq.SlotIndex >= 0 && slotReq.SlotIndex < _lobbyState.slots.Count && !session.IsSpectator)
                     {
-                        SetSlotRequestDTO slotReq = JsonUtility.FromJson<SetSlotRequestDTO>(envelope.Payload);
-                        if (slotReq != null && slotReq.SlotIndex >= 0 && slotReq.SlotIndex < _lobbyState.slots.Count)
+                        bool canEditSlot = session.IsHost || IsDedicated || slotReq.SlotIndex == session.PlayerIndex;
+                        if (canEditSlot)
                         {
                             var slot = _lobbyState.slots[slotReq.SlotIndex];
-                            if (!string.IsNullOrEmpty(slotReq.PlayerName)) slot.playerName = slotReq.PlayerName;
-                            if (!string.IsNullOrEmpty(slotReq.PlayerType)) slot.playerType = slotReq.PlayerType;
-                            if (!string.IsNullOrEmpty(slotReq.AiDifficulty)) slot.aiDifficulty = slotReq.AiDifficulty;
+                            if (!string.IsNullOrEmpty(slotReq.PlayerName))
+                            {
+                                slot.playerName = slotReq.PlayerName;
+                                if (slotReq.SlotIndex == session.PlayerIndex) session.PlayerName = slotReq.PlayerName;
+                            }
+                            if (session.IsHost || IsDedicated)
+                            {
+                                if (!string.IsNullOrEmpty(slotReq.PlayerType)) slot.playerType = slotReq.PlayerType;
+                                if (!string.IsNullOrEmpty(slotReq.AiDifficulty)) slot.aiDifficulty = slotReq.AiDifficulty;
+                            }
+                            if (slotReq.ColorIndex >= 0 && slotReq.ColorIndex < 4 && slotReq.ColorIndex != slot.colorIndex)
+                            {
+                                // Allow color change only if no OTHER human player uses that color
+                                bool takenByOtherHuman = false;
+                                int holderIndex = -1;
+                                for (int c = 0; c < _lobbyState.slots.Count; c++)
+                                {
+                                    if (c != slotReq.SlotIndex && _lobbyState.slots[c].colorIndex == slotReq.ColorIndex)
+                                    {
+                                        holderIndex = c;
+                                        if (_lobbyState.slots[c].playerType == "Human")
+                                        {
+                                            takenByOtherHuman = true;
+                                        }
+                                        break;
+                                    }
+                                }
+                                if (!takenByOtherHuman)
+                                {
+                                    int oldColor = slot.colorIndex;
+                                    slot.colorIndex = slotReq.ColorIndex;
+                                    if (holderIndex >= 0)
+                                    {
+                                        _lobbyState.slots[holderIndex].colorIndex = oldColor;
+                                    }
+                                }
+                            }
                             UpdateLobbyState();
                         }
                     }
@@ -577,11 +613,19 @@ namespace Networking
                 {
                     map.Players[i].Type = pType;
                     map.Players[i].PlayerName = slot.playerName;
+                    if (map.PlayerMaterials != null && slot.colorIndex >= 0 && slot.colorIndex < map.PlayerMaterials.Length)
+                    {
+                        map.Players[i].Material = map.PlayerMaterials[slot.colorIndex];
+                    }
                     if (slot.playerType == "AI")
                     {
                         Enum.TryParse(slot.aiDifficulty, out Player.AiDifficulty diff);
                         map.Players[i].Difficulty = diff;
                     }
+                }
+                if (i < GameSetupConfig.Slots.Length)
+                {
+                    GameSetupConfig.Slots[i].ColorIndex = slot.colorIndex;
                 }
 
                 if (i < GameSetupConfig.Slots.Length)

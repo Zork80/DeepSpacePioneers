@@ -800,13 +800,24 @@ public class SidebarViewUI : MonoBehaviour
 
         if (!isCurrentPlayerDisplayed && _triMap.CurrentPlayer != null)
         {
+            string oppStatus;
             if (_triMap.CurrentFoundingPhase != FoundingPhase.Complete)
             {
-                _turnStatusText.text = string.Format(UIStrings.PlayerTurnWithPhase.GetText(), _triMap.CurrentPlayer.PlayerName, UIStrings.PhaseSetup.GetText());
+                oppStatus = string.Format(UIStrings.PlayerTurnWithPhase.GetText(), _triMap.CurrentPlayer.PlayerName, UIStrings.PhaseSetup.GetText());
             }
             else
             {
-                _turnStatusText.text = string.Format(UIStrings.PlayerTurnWithPhase.GetText(), _triMap.CurrentPlayer.PlayerName, UIStrings.GetTurnPhaseName(_triMap.CurrentPhase));
+                oppStatus = string.Format(UIStrings.PlayerTurnWithPhase.GetText(), _triMap.CurrentPlayer.PlayerName, UIStrings.GetTurnPhaseName(_triMap.CurrentPhase));
+                if (_triMap.LastProductionRoll != null)
+                {
+                    oppStatus += string.Format(UIStrings.ProductionRollSummary.GetText(), _triMap.LastProductionRoll.Total);
+                }
+            }
+            _turnStatusText.text = oppStatus;
+            if (Networking.NetworkManager.Instance != null && Networking.NetworkManager.Instance.IsSpectator)
+            {
+                string mode = Networking.NetworkManager.Instance.CurrentSpectatorMode;
+                _turnStatusText.text = $"[Spectator: {mode}] {oppStatus}";
             }
             return;
         }
@@ -831,7 +842,6 @@ public class SidebarViewUI : MonoBehaviour
         }
 
         if (_triMap.CurrentFoundingPhase == FoundingPhase.Complete &&
-            _triMap.CurrentPhase == GameTurnPhase.Production &&
             _triMap.LastProductionRoll != null)
         {
             text += string.Format(UIStrings.ProductionRollSummary.GetText(), _triMap.LastProductionRoll.Total);

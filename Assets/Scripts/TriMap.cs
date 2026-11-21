@@ -313,6 +313,10 @@ public class TriMap : MonoBehaviour, IQPathWorld
                 }
                 Players[i].Type = slot.Type;
                 Players[i].Difficulty = slot.Difficulty;
+                if (PlayerMaterials != null && slot.ColorIndex >= 0 && slot.ColorIndex < PlayerMaterials.Length)
+                {
+                    Players[i].Material = PlayerMaterials[slot.ColorIndex];
+                }
             }
         }
 

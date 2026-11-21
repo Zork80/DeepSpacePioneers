@@ -100,6 +100,7 @@ namespace Networking
         public string PlayerName;
         public string PlayerType;     // "Human" or "AI"
         public string AiDifficulty;   // "Easy", "Normal", "Hard"
+        public int ColorIndex = -1;   // -1 = keep unchanged
     }
 
     [Serializable]

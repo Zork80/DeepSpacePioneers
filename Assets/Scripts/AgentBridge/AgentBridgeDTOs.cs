@@ -444,6 +444,7 @@ namespace AgentBridge
         public string aiDifficulty = "Normal"; // "Easy", "Normal", "Hard"
         public bool isConnected;
         public bool isHost;
+        public int colorIndex;
     }
 
     [Serializable]

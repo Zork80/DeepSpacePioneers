@@ -97,11 +97,18 @@ public class GameSetupDialogUI : MonoBehaviour
     private Text _lobbySpectatorCountText;
     private readonly Text[] _lobbySlotTexts = new Text[4];
     private readonly Image[] _lobbySlotSwatches = new Image[4];
+    private readonly Button[] _lobbySlotColorBtns = new Button[4];
+    private InputField _lobbyMyNameInput;
+    private int _lobbyMyNameSlot = -1;
+    private LobbyStateDTO _latestLobbyState;
 
     private class SlotUI
     {
         public int SlotIndex;
-        public Text NameText;
+        public InputField NameInput;
+        public Button ColorButton;
+        public Image ColorSwatch;
+        public int ColorIndex;
         public Button TypeButton;
         public Text TypeButtonText;
         public Image TypeButtonImage;
@@ -282,22 +289,25 @@ public class GameSetupDialogUI : MonoBehaviour
 
             UIFactory.AddHorizontalLayout(row, 10f, 6);
 
-            // Color indicator swatch
-            GameObject swatch = UIFactory.CreateElement("ColorSwatch", row.transform, typeof(CanvasRenderer), typeof(Image), typeof(LayoutElement));
-            swatch.GetComponent<Image>().color = PlayerColors[i];
+            // Clickable Color Swatch Button
+            GameObject swatch = UIFactory.CreateElement("ColorSwatch", row.transform, typeof(CanvasRenderer), typeof(Image), typeof(Button), typeof(LayoutElement));
+            Image swatchImg = swatch.GetComponent<Image>();
+            swatchImg.color = PlayerColors[i];
+            Button colorBtn = swatch.GetComponent<Button>();
+            colorBtn.targetGraphic = swatchImg;
+            colorBtn.onClick.AddListener(() => CycleLocalSlotColor(slotIdx));
             LayoutElement swatchLayout = swatch.GetComponent<LayoutElement>();
-            swatchLayout.preferredWidth = 14f;
+            swatchLayout.preferredWidth = 26f;
             swatchLayout.preferredHeight = 30f;
 
-            // Player Name label
-            GameObject nameBox = UIFactory.CreateElement("NameBox", row.transform, typeof(LayoutElement));
-            UIFactory.Rect(nameBox).sizeDelta = new Vector2(170f, 30f);
-            LayoutElement nameLayout = nameBox.GetComponent<LayoutElement>();
+            // Editable Player Name InputField
+            InputField nameInput = UIFactory.CreateInputField(row.transform, _font, "Spieler " + (i + 1),
+                null, null,
+                new Color(0.02f, 0.06f, 0.11f, 0.95f), Color.white, 13, 30f, 18, "Name");
+            LayoutElement nameLayout = nameInput.GetComponent<LayoutElement>();
             nameLayout.preferredWidth = 170f;
             nameLayout.minWidth = 140f;
             nameLayout.preferredHeight = 30f;
-            Text nameTxt = UIFactory.CreateText(nameBox.transform, _font, "Spieler " + (i + 1), 13, Color.white, TextAnchor.MiddleLeft, FontStyle.Bold);
-            UIFactory.Stretch(nameTxt.rectTransform, new Vector2(4f, 0), Vector2.zero);
 
             // Type Toggle Button: Human vs AI
             Button typeBtn = UIFactory.CreateButton(row.transform, _font, UIStrings.GameSetupPlayerLocal.GetText(),
@@ -320,7 +330,10 @@ public class GameSetupDialogUI : MonoBehaviour
             _slots[i] = new SlotUI
             {
                 SlotIndex = i,
-                NameText = nameTxt,
+                NameInput = nameInput,
+                ColorButton = colorBtn,
+                ColorSwatch = swatchImg,
+                ColorIndex = i,
                 TypeButton = typeBtn,
                 TypeButtonText = typeBtn.GetComponentInChildren<Text>(),
                 TypeButtonImage = typeBtn.GetComponent<Image>(),
@@ -696,17 +709,34 @@ public class GameSetupDialogUI : MonoBehaviour
             rowLayout.minHeight = 44f;
             UIFactory.AddHorizontalLayout(row, 10f, 6);
 
-            // Swatch
-            GameObject swatch = UIFactory.CreateElement("ColorSwatch", row.transform, typeof(CanvasRenderer), typeof(Image), typeof(LayoutElement));
+            // Clickable Swatch in Lobby
+            GameObject swatch = UIFactory.CreateElement("ColorSwatch", row.transform, typeof(CanvasRenderer), typeof(Image), typeof(Button), typeof(LayoutElement));
             _lobbySlotSwatches[i] = swatch.GetComponent<Image>();
             _lobbySlotSwatches[i].color = PlayerColors[i];
-            swatch.GetComponent<LayoutElement>().preferredWidth = 14f;
+            _lobbySlotColorBtns[i] = swatch.GetComponent<Button>();
+            _lobbySlotColorBtns[i].targetGraphic = _lobbySlotSwatches[i];
+            _lobbySlotColorBtns[i].onClick.AddListener(() => CycleLobbySlotColor(slotIdx));
+            swatch.GetComponent<LayoutElement>().preferredWidth = 26f;
             swatch.GetComponent<LayoutElement>().preferredHeight = 30f;
 
             // Text
             _lobbySlotTexts[i] = UIFactory.CreateText(row.transform, _font, $"Slot {i + 1}: Offen...", 12, Color.white, TextAnchor.MiddleLeft);
             _lobbySlotTexts[i].gameObject.AddComponent<LayoutElement>().preferredWidth = 360f;
         }
+
+        // Personal Name Edit Row in Lobby (for connected player's own slot)
+        GameObject myNameRow = UIFactory.CreateElement("LobbyMyNameRow", _lobbyContainer.transform, typeof(CanvasRenderer), typeof(Image), typeof(LayoutElement));
+        myNameRow.GetComponent<Image>().color = new Color(0.04f, 0.11f, 0.18f, 0.85f);
+        myNameRow.GetComponent<LayoutElement>().preferredHeight = 38f;
+        UIFactory.AddHorizontalLayout(myNameRow, 10f, 6);
+
+        UIFactory.CreateText(myNameRow.transform, _font, "Dein Name:", 12, new Color(0.75f, 0.88f, 1f), TextAnchor.MiddleLeft, FontStyle.Bold)
+            .gameObject.AddComponent<LayoutElement>().preferredWidth = 100f;
+
+        _lobbyMyNameInput = UIFactory.CreateInputField(myNameRow.transform, _font, "Spieler",
+            null, OnLobbyMyNameEndEdit,
+            new Color(0.02f, 0.06f, 0.11f, 0.95f), Color.white, 12, 28f, 18, "Name");
+        _lobbyMyNameInput.GetComponent<LayoutElement>().preferredWidth = 220f;
 
         // Spectator Mode Row (configurable by Host)
         GameObject specRow = UIFactory.CreateElement("LobbySpectatorRow", _lobbyContainer.transform, typeof(CanvasRenderer), typeof(Image), typeof(LayoutElement));
@@ -759,6 +789,7 @@ public class GameSetupDialogUI : MonoBehaviour
     private void HandleNetworkLobbyUpdated(LobbyStateDTO lobby)
     {
         if (lobby == null) return;
+        _latestLobbyState = lobby;
 
         if (_lobbyTitleText != null)
         {
@@ -834,6 +865,7 @@ public class GameSetupDialogUI : MonoBehaviour
             if (i < GameSetupConfig.Slots.Length)
             {
                 GameSetupConfig.Slots[i].Name = slot.playerName;
+                GameSetupConfig.Slots[i].ColorIndex = Mathf.Clamp(slot.colorIndex, 0, PlayerColors.Length - 1);
                 if (slot.playerType == "AI")
                 {
                     GameSetupConfig.Slots[i].Type = Player.PlayerType.AI;
@@ -849,6 +881,32 @@ public class GameSetupDialogUI : MonoBehaviour
                 }
             }
 
+            if (_lobbySlotSwatches[i] != null)
+            {
+                int cIdx = Mathf.Clamp(slot.colorIndex, 0, PlayerColors.Length - 1);
+                _lobbySlotSwatches[i].color = PlayerColors[cIdx];
+            }
+            if (_lobbySlotColorBtns[i] != null)
+            {
+                int localIdx = NetworkManager.Instance != null ? NetworkManager.Instance.LocalPlayerIndex : -1;
+                _lobbySlotColorBtns[i].interactable = !isSpectator && (localIdx == i || isHost);
+            }
+
+            if (_lobbyMyNameInput != null && !isSpectator)
+            {
+                int localIdx = NetworkManager.Instance != null ? NetworkManager.Instance.LocalPlayerIndex : -1;
+                if (localIdx == i && _lobbyMyNameSlot != localIdx)
+                {
+                    _lobbyMyNameSlot = localIdx;
+                    _lobbyMyNameInput.text = slot.playerName;
+                }
+                _lobbyMyNameInput.interactable = localIdx >= 0;
+            }
+            else if (_lobbyMyNameInput != null && isSpectator)
+            {
+                _lobbyMyNameInput.interactable = false;
+            }
+
             if (_lobbySlotTexts[i] != null)
             {
                 string status = slot.isConnected
@@ -857,6 +915,46 @@ public class GameSetupDialogUI : MonoBehaviour
 
                 _lobbySlotTexts[i].text = $"Slot {i + 1}: {slot.playerName} – {status}";
                 _lobbySlotTexts[i].color = slot.isConnected ? new Color(0.5f, 1f, 0.6f) : (slot.playerType == "AI" ? new Color(1f, 0.9f, 0.4f) : Color.gray);
+            }
+        }
+    }
+
+    private void OnLobbyMyNameEndEdit(string newName)
+    {
+        if (NetworkManager.Instance?.Client == null || NetworkManager.Instance.IsSpectator) return;
+        int localIdx = NetworkManager.Instance.LocalPlayerIndex;
+        if (localIdx < 0) return;
+        string trimmed = newName != null ? newName.Trim() : string.Empty;
+        if (string.IsNullOrEmpty(trimmed)) return;
+        NetworkManager.Instance.Client.SendSetSlot(localIdx, trimmed, null, null, -1);
+    }
+
+    private void CycleLobbySlotColor(int slotIdx)
+    {
+        if (NetworkManager.Instance?.Client == null || _latestLobbyState?.slots == null) return;
+        if (slotIdx < 0 || slotIdx >= _latestLobbyState.slots.Count) return;
+
+        bool isHost = NetworkManager.Instance.IsHost;
+        int localIdx = NetworkManager.Instance.LocalPlayerIndex;
+        if (!isHost && localIdx != slotIdx) return;
+
+        int currentColor = _latestLobbyState.slots[slotIdx].colorIndex;
+        for (int step = 1; step <= 4; step++)
+        {
+            int candidate = (currentColor + step) % 4;
+            bool usedByOtherHuman = false;
+            for (int j = 0; j < _latestLobbyState.slots.Count; j++)
+            {
+                if (j != slotIdx && _latestLobbyState.slots[j].playerType == "Human" && _latestLobbyState.slots[j].colorIndex == candidate)
+                {
+                    usedByOtherHuman = true;
+                    break;
+                }
+            }
+            if (!usedByOtherHuman)
+            {
+                NetworkManager.Instance.Client.SendSetSlot(slotIdx, null, null, null, candidate);
+                return;
             }
         }
     }
@@ -1037,7 +1135,8 @@ public class GameSetupDialogUI : MonoBehaviour
             {
                 uiSlot.CurrentType = configSlot.Type;
                 uiSlot.CurrentDifficulty = configSlot.Difficulty;
-                uiSlot.NameText.text = configSlot.Name;
+                uiSlot.ColorIndex = Mathf.Clamp(configSlot.ColorIndex, 0, PlayerColors.Length - 1);
+                if (uiSlot.NameInput != null) uiSlot.NameInput.text = configSlot.Name;
                 UpdateSlotUI(uiSlot);
             }
         }
@@ -1061,6 +1160,48 @@ public class GameSetupDialogUI : MonoBehaviour
 
         UpdateSeedUI();
         UpdateDebugLabelsBtnUI();
+    }
+
+    private void CycleLocalSlotColor(int slotIndex)
+    {
+        if (slotIndex < 0 || slotIndex >= 4) return;
+        var slot = _slots[slotIndex];
+        if (slot == null) return;
+
+        for (int step = 1; step <= 4; step++)
+        {
+            int candidate = (slot.ColorIndex + step) % 4;
+            bool usedByOtherHuman = false;
+            int aiHolder = -1;
+            for (int j = 0; j < 4; j++)
+            {
+                if (j != slotIndex && _slots[j] != null && _slots[j].ColorIndex == candidate)
+                {
+                    if (_slots[j].CurrentType != Player.PlayerType.AI)
+                    {
+                        usedByOtherHuman = true;
+                    }
+                    else
+                    {
+                        aiHolder = j;
+                    }
+                    break;
+                }
+            }
+
+            if (!usedByOtherHuman)
+            {
+                int oldColor = slot.ColorIndex;
+                slot.ColorIndex = candidate;
+                if (aiHolder >= 0)
+                {
+                    _slots[aiHolder].ColorIndex = oldColor;
+                    UpdateSlotUI(_slots[aiHolder]);
+                }
+                UpdateSlotUI(slot);
+                return;
+            }
+        }
     }
 
     private void TogglePlayerType(int slotIndex)
@@ -1114,6 +1255,10 @@ public class GameSetupDialogUI : MonoBehaviour
         slot.DiffContainer.SetActive(isAi);
         slot.DiffButtonText.text = GetDifficultyLabel(slot.CurrentDifficulty);
         slot.DiffButtonImage.color = GetDifficultyColor(slot.CurrentDifficulty);
+        if (slot.ColorSwatch != null)
+        {
+            slot.ColorSwatch.color = PlayerColors[Mathf.Clamp(slot.ColorIndex, 0, PlayerColors.Length - 1)];
+        }
     }
 
     private string GetDifficultyLabel(Player.AiDifficulty difficulty)
@@ -1249,7 +1394,9 @@ public class GameSetupDialogUI : MonoBehaviour
             {
                 GameSetupConfig.Slots[i].Type = slot.CurrentType;
                 GameSetupConfig.Slots[i].Difficulty = slot.CurrentDifficulty;
-                GameSetupConfig.Slots[i].Name = slot.NameText.text;
+                GameSetupConfig.Slots[i].ColorIndex = slot.ColorIndex;
+                string enteredName = slot.NameInput != null ? slot.NameInput.text.Trim() : string.Empty;
+                GameSetupConfig.Slots[i].Name = !string.IsNullOrEmpty(enteredName) ? enteredName : $"Spieler {i + 1}";
             }
         }
 
@@ -1348,9 +1495,13 @@ public class GameSetupDialogUI : MonoBehaviour
         {
             if (_slots[i] != null)
             {
-                if (_slots[i].NameText != null)
+                if (_slots[i].NameInput != null)
                 {
-                    _slots[i].NameText.text = string.Format(UIStrings.DefaultPlayerName.GetText(), i + 1);
+                    string cur = _slots[i].NameInput.text;
+                    if (string.IsNullOrEmpty(cur) || cur == $"Spieler {i + 1}" || cur == $"Player {i + 1}")
+                    {
+                        _slots[i].NameInput.text = string.Format(UIStrings.DefaultPlayerName.GetText(), i + 1);
+                    }
                 }
                 UpdateSlotUI(_slots[i]);
             }

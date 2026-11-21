@@ -12,6 +12,7 @@ public class PlayerSetupSlot
     public Player.PlayerType Type = Player.PlayerType.LOCAL;
     public Player.AiDifficulty Difficulty = Player.AiDifficulty.Normal;
     public bool IsActive = true;
+    public int ColorIndex = 0;
 }
 
 /// <summary>
@@ -27,10 +28,10 @@ public static class GameSetupConfig
 
     public static PlayerSetupSlot[] Slots = new PlayerSetupSlot[4]
     {
-        new PlayerSetupSlot { PlayerNumber = 1, Name = "Spieler 1", Type = Player.PlayerType.LOCAL, Difficulty = Player.AiDifficulty.Normal, IsActive = true },
-        new PlayerSetupSlot { PlayerNumber = 2, Name = "Spieler 2", Type = Player.PlayerType.AI, Difficulty = Player.AiDifficulty.Normal, IsActive = true },
-        new PlayerSetupSlot { PlayerNumber = 3, Name = "Spieler 3", Type = Player.PlayerType.AI, Difficulty = Player.AiDifficulty.Normal, IsActive = true },
-        new PlayerSetupSlot { PlayerNumber = 4, Name = "Spieler 4", Type = Player.PlayerType.AI, Difficulty = Player.AiDifficulty.Normal, IsActive = true },
+        new PlayerSetupSlot { PlayerNumber = 1, Name = "Spieler 1", Type = Player.PlayerType.LOCAL, Difficulty = Player.AiDifficulty.Normal, IsActive = true, ColorIndex = 0 },
+        new PlayerSetupSlot { PlayerNumber = 2, Name = "Spieler 2", Type = Player.PlayerType.AI, Difficulty = Player.AiDifficulty.Normal, IsActive = true, ColorIndex = 1 },
+        new PlayerSetupSlot { PlayerNumber = 3, Name = "Spieler 3", Type = Player.PlayerType.AI, Difficulty = Player.AiDifficulty.Normal, IsActive = true, ColorIndex = 2 },
+        new PlayerSetupSlot { PlayerNumber = 4, Name = "Spieler 4", Type = Player.PlayerType.AI, Difficulty = Player.AiDifficulty.Normal, IsActive = true, ColorIndex = 3 },
     };
 
     public static void ResetToDefaults()
@@ -40,10 +41,10 @@ public static class GameSetupConfig
         Seed = UnityEngine.Random.Range(1, int.MaxValue);
         ActivePlayerCount = 4;
         ShowSystemDebugLabels = false;
-        Slots[0] = new PlayerSetupSlot { PlayerNumber = 1, Name = "Spieler 1", Type = Player.PlayerType.LOCAL, Difficulty = Player.AiDifficulty.Normal, IsActive = true };
-        Slots[1] = new PlayerSetupSlot { PlayerNumber = 2, Name = "Spieler 2", Type = Player.PlayerType.AI, Difficulty = Player.AiDifficulty.Normal, IsActive = true };
-        Slots[2] = new PlayerSetupSlot { PlayerNumber = 3, Name = "Spieler 3", Type = Player.PlayerType.AI, Difficulty = Player.AiDifficulty.Normal, IsActive = true };
-        Slots[3] = new PlayerSetupSlot { PlayerNumber = 4, Name = "Spieler 4", Type = Player.PlayerType.AI, Difficulty = Player.AiDifficulty.Normal, IsActive = true };
+        Slots[0] = new PlayerSetupSlot { PlayerNumber = 1, Name = "Spieler 1", Type = Player.PlayerType.LOCAL, Difficulty = Player.AiDifficulty.Normal, IsActive = true, ColorIndex = 0 };
+        Slots[1] = new PlayerSetupSlot { PlayerNumber = 2, Name = "Spieler 2", Type = Player.PlayerType.AI, Difficulty = Player.AiDifficulty.Normal, IsActive = true, ColorIndex = 1 };
+        Slots[2] = new PlayerSetupSlot { PlayerNumber = 3, Name = "Spieler 3", Type = Player.PlayerType.AI, Difficulty = Player.AiDifficulty.Normal, IsActive = true, ColorIndex = 2 };
+        Slots[3] = new PlayerSetupSlot { PlayerNumber = 4, Name = "Spieler 4", Type = Player.PlayerType.AI, Difficulty = Player.AiDifficulty.Normal, IsActive = true, ColorIndex = 3 };
     }
 }
 
