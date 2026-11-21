@@ -518,7 +518,20 @@ public class SidebarViewUI : MonoBehaviour
             _displayedPlayer.ResourcesChanged += UpdateResourceInventory;
             _displayedPlayer.UpgradesChanged += UpdateFlagshipInventory;
             _displayedPlayer.FriendshipCardsChanged += UpdateFlagshipInventory;
+        }
 
+        RefreshPlayerHeader();
+        UpdateResourceInventory();
+        UpdateFlagshipInventory();
+        UpdateTurnStatus();
+        UpdateNextButtonState();
+        RefreshActionPanel();
+    }
+
+    public void RefreshPlayerHeader()
+    {
+        if (_displayedPlayer != null)
+        {
             if (_playerNameText != null)
             {
                 _playerNameText.text = _displayedPlayer.PlayerName;
@@ -536,15 +549,10 @@ public class SidebarViewUI : MonoBehaviour
         else
         {
             if (_playerNameText != null) _playerNameText.text = string.Empty;
+            if (_playerColorSwatch != null) _playerColorSwatch.color = Color.gray;
             if (_resourceInventoryText != null) _resourceInventoryText.text = string.Empty;
             if (_mothershipInventoryText != null) _mothershipInventoryText.text = string.Empty;
         }
-
-        UpdateResourceInventory();
-        UpdateFlagshipInventory();
-        UpdateTurnStatus();
-        UpdateNextButtonState();
-        RefreshActionPanel();
     }
 
     public void UpdateResourceInventory()
@@ -1111,6 +1119,7 @@ public class SidebarViewUI : MonoBehaviour
         }
         else
         {
+            RefreshPlayerHeader();
             UpdateResourceInventory();
             UpdateFlagshipInventory();
             UpdateTurnStatus();
@@ -1128,6 +1137,7 @@ public class SidebarViewUI : MonoBehaviour
         }
         else
         {
+            RefreshPlayerHeader();
             UpdateResourceInventory();
             UpdateFlagshipInventory();
             UpdateTurnStatus();
