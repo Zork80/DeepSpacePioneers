@@ -966,6 +966,8 @@ public class SidebarViewUI : MonoBehaviour
             _triMap.OnPlayerChanged += OnPlayerChanged;
             _triMap.OnTurnPhaseChanged += OnTurnPhaseChanged;
             _triMap.OnFoundingPhaseChanged += OnFoundingPhaseChanged;
+            _triMap.OnProductionRoll += OnProductionRoll;
+            _triMap.OnFlagshipRoll += OnFlagshipRoll;
             _triMap.OnShipPlacementStateChanged += OnShipPlacementStateChanged;
             _triMap.OnSpaceportUpgradeStateChanged += OnSpaceportUpgradeStateChanged;
             _triMap.OnSpaceJumpStateChanged += OnSpaceJumpStateChanged;
@@ -982,6 +984,8 @@ public class SidebarViewUI : MonoBehaviour
             _triMap.OnPlayerChanged -= OnPlayerChanged;
             _triMap.OnTurnPhaseChanged -= OnTurnPhaseChanged;
             _triMap.OnFoundingPhaseChanged -= OnFoundingPhaseChanged;
+            _triMap.OnProductionRoll -= OnProductionRoll;
+            _triMap.OnFlagshipRoll -= OnFlagshipRoll;
             _triMap.OnShipPlacementStateChanged -= OnShipPlacementStateChanged;
             _triMap.OnSpaceportUpgradeStateChanged -= OnSpaceportUpgradeStateChanged;
             _triMap.OnSpaceJumpStateChanged -= OnSpaceJumpStateChanged;
@@ -1130,6 +1134,22 @@ public class SidebarViewUI : MonoBehaviour
             UpdateNextButtonState();
             RefreshActionPanel();
         }
+    }
+
+    private void OnProductionRoll(Player player, ProductionRollResult roll)
+    {
+        UpdateResourceInventory();
+        UpdateTurnStatus();
+        UpdateNextButtonState();
+        RefreshActionPanel();
+    }
+
+    private void OnFlagshipRoll(Player player, FlagshipRollResult roll)
+    {
+        UpdateFlagshipInventory();
+        UpdateTurnStatus();
+        UpdateNextButtonState();
+        RefreshActionPanel();
     }
 
     private void OnShipPlacementStateChanged()
