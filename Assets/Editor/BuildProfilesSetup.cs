@@ -212,6 +212,24 @@ namespace EditorTools
                 UnityEditor.SceneManagement.EditorSceneManager.SaveScene(scene);
                 Debug.Log("[BuildProfilesSetup] Saved scene with upgraded EventSystem!");
             }
+
+            // Ensure SpaceBackground resources are imported as Sprites and attach SpaceParallaxBackground
+            string[] parallaxTextures = {
+                "Assets/Resources/SpaceBackground/space_nebula.png",
+                "Assets/Resources/SpaceBackground/space_stars_fg.png"
+            };
+            foreach (string texPath in parallaxTextures)
+            {
+                TextureImporter ti = AssetImporter.GetAtPath(texPath) as TextureImporter;
+                if (ti != null && ti.textureType != TextureImporterType.Sprite)
+                {
+                    ti.textureType = TextureImporterType.Sprite;
+                    ti.spriteImportMode = SpriteImportMode.Single;
+                    ti.alphaIsTransparency = true;
+                    ti.maxTextureSize = 4096;
+                    ti.SaveAndReimport();
+                }
+            }
         }
 
         [MenuItem("Build/1. Build Linux Client (to Builds/Linux_Client/)", false, 10)]
