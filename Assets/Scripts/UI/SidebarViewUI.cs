@@ -23,7 +23,6 @@ public class SidebarViewUI : MonoBehaviour
     [SerializeField] private Button _nextButton;
     [SerializeField] private Image _nextButtonImage;
     [SerializeField] private Text _nextButtonLabel;
-    [SerializeField] private Button _languageButton;
     [SerializeField] private Button _quitButton;
     [SerializeField] private Text _turnStatusText;
 
@@ -348,17 +347,6 @@ public class SidebarViewUI : MonoBehaviour
 
         UpdateNextButtonState();
 
-        if (_languageButton == null)
-        {
-            _languageButton = UIFactory.CreateButton(transform, _font, UIStrings.LanguageButton.GetText(),
-                () => LocalizationManager.ToggleLanguage(), new Color(0.14f, 0.25f, 0.38f, 0.9f), 11, 26f);
-            LayoutElement langLayout = _languageButton.GetComponent<LayoutElement>();
-            langLayout.preferredHeight = 26f;
-            langLayout.minHeight = 24f;
-            langLayout.flexibleWidth = 1f;
-            langLayout.flexibleHeight = 0f;
-        }
-
         if (_quitButton == null)
         {
             _quitButton = UIFactory.CreateButton(transform, _font, UIStrings.QuitGame.GetText(),
@@ -371,7 +359,6 @@ public class SidebarViewUI : MonoBehaviour
         }
 
         buttonObj.transform.SetAsLastSibling();
-        _languageButton.transform.SetAsLastSibling();
         _quitButton.transform.SetAsLastSibling();
 
         if (_spacer != null)
@@ -900,11 +887,6 @@ public class SidebarViewUI : MonoBehaviour
     public void UpdateLanguage()
     {
         if (_nextButtonLabel != null) _nextButtonLabel.text = UIStrings.NextTurn.GetText();
-        if (_languageButton != null)
-        {
-            Text langTxt = _languageButton.GetComponentInChildren<Text>();
-            if (langTxt != null) langTxt.text = UIStrings.LanguageButton.GetText();
-        }
         if (_quitButton != null)
         {
             Text qTxt = _quitButton.GetComponentInChildren<Text>();
