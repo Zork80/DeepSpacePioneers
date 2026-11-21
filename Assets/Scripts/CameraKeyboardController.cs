@@ -18,7 +18,7 @@ public class CameraKeyboardController : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Home))
+        if (GameInput.GetKeyDown(KeyCode.Home))
         {
             CameraMotion motion = GetComponent<CameraMotion>();
             if (motion != null)
@@ -31,22 +31,22 @@ public class CameraKeyboardController : MonoBehaviour
         float rawX = 0f;
         float rawZ = 0f;
 
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) rawZ += 1f;
-        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) rawZ -= 1f;
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) rawX -= 1f;
-        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) rawX += 1f;
+        if (GameInput.GetKey(KeyCode.W) || GameInput.GetKey(KeyCode.UpArrow)) rawZ += 1f;
+        if (GameInput.GetKey(KeyCode.S) || GameInput.GetKey(KeyCode.DownArrow)) rawZ -= 1f;
+        if (GameInput.GetKey(KeyCode.A) || GameInput.GetKey(KeyCode.LeftArrow)) rawX -= 1f;
+        if (GameInput.GetKey(KeyCode.D) || GameInput.GetKey(KeyCode.RightArrow)) rawX += 1f;
 
         // Fallback to Input axes if gamepad or other binding is active
         if (rawX == 0f && rawZ == 0f)
         {
-            rawX = Input.GetAxisRaw("Horizontal");
-            rawZ = Input.GetAxisRaw("Vertical");
+            rawX = GameInput.GetAxisRaw("Horizontal");
+            rawZ = GameInput.GetAxisRaw("Vertical");
         }
 
         if (rawX != 0f || rawZ != 0f)
         {
             Vector3 translate = new Vector3(rawX, 0f, rawZ).normalized;
-            float speed = (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) ? fastMoveSpeed : moveSpeed;
+            float speed = (GameInput.GetKey(KeyCode.LeftShift) || GameInput.GetKey(KeyCode.RightShift)) ? fastMoveSpeed : moveSpeed;
             this.transform.Translate(translate * (speed * Time.deltaTime), Space.World);
         }
     }

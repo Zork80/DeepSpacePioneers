@@ -40,7 +40,7 @@ namespace ControllerStates
             }
             else
             {
-                if( Input.GetMouseButtonUp(0) )
+                if( GameInput.GetMouseButtonUp(0) )
                 {
                     // TODO: Are we clicking on a tri with a unit?
                     //          If so, select it
@@ -218,7 +218,7 @@ namespace ControllerStates
                         }
                     }
                 }
-                else if (TriMap.IsExecutingSpaceJump && Input.GetMouseButtonDown(1))
+                else if (TriMap.IsExecutingSpaceJump && GameInput.GetMouseButtonDown(1))
                 {
                     if (TriUnderMouse != null)
                     {
@@ -241,7 +241,7 @@ namespace ControllerStates
                          !TriMap.AnimationIsPlaying &&
                          !TriMap.IsExecutingSpaceJump &&
                          TriMap.CanMoveUnit(SelectionController.SelectedUnit) &&
-                         Input.GetMouseButtonDown(1) )
+                         GameInput.GetMouseButtonDown(1) )
                 {
                     // We have a selected unit, and we've pushed down the right
                     // mouse button, so enter unit movement mode.
@@ -251,7 +251,7 @@ namespace ControllerStates
                 else if (TriMap.CurrentPhase == GameTurnPhase.Flight &&
                          !TriMap.IsExecutingSpaceJump &&
                          SelectionController.SelectedUnit != null &&
-                         Input.GetMouseButtonDown(1))
+                         GameInput.GetMouseButtonDown(1))
                 {
                     if (TriMap.LastFlagshipRoll == null)
                     {
@@ -267,8 +267,8 @@ namespace ControllerStates
                         PlayerHandler.ShowToast("Dieses Schiff hat in dieser Runde keine Bewegungspunkte mehr.", isWarning: true);
                     }
                 }
-                else if( (Input.GetMouseButton(2) || ((Input.GetMouseButton(1) || (Input.GetMouseButton(0) && (Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.Space)))) && (TriMap.CurrentPhase != GameTurnPhase.Flight || SelectionController.SelectedUnit == null))) && 
-                         Vector3.Distance( Input.mousePosition, LastMousePosition) > _mouseDragThreshold )
+                else if( (GameInput.GetMouseButton(2) || ((GameInput.GetMouseButton(1) || (GameInput.GetMouseButton(0) && (GameInput.GetKey(KeyCode.LeftAlt) || GameInput.GetKey(KeyCode.Space)))) && (TriMap.CurrentPhase != GameTurnPhase.Flight || SelectionController.SelectedUnit == null))) && 
+                         Vector3.Distance( GameInput.MousePosition, LastMousePosition) > _mouseDragThreshold )
                 {
                     nextState = new CameraDragState(this);
                 }

@@ -39,7 +39,7 @@ namespace ControllerStates
         {
             TriUnderMouse = MouseToTri();
 
-            if( Input.GetKeyDown(KeyCode.Escape) )
+            if( GameInput.GetKeyDown(KeyCode.Escape) )
             {
                 SelectionController.SelectedUnit = null;
                 SelectionController.SelectedColony = null;
@@ -55,7 +55,7 @@ namespace ControllerStates
         {
             Update_ScrollZoom();
 
-            LastMousePosition = Input.mousePosition;
+            LastMousePosition = GameInput.MousePosition;
             if (UIManager.IsPointerOverUI())
             {
                 TriUnderMouse = null;
@@ -155,7 +155,7 @@ namespace ControllerStates
                 return null;
             }
 
-            Vector3 mousePos = Input.mousePosition;
+            Vector3 mousePos = GameInput.MousePosition;
             Vector3 camPos = mainCam.transform.position;
             if (mousePos == _lastRaycastMousePos && camPos == _lastRaycastCamPos)
             {
@@ -212,7 +212,7 @@ namespace ControllerStates
         void Update_ScrollZoom()
         {
             // Zoom to scrollwheel
-            float scrollAmount = Input.GetAxis ("Mouse ScrollWheel");
+            float scrollAmount = GameInput.MouseScrollDeltaY;
             if (scrollAmount == 0f && CameraTargetOffset.sqrMagnitude < 0.0001f)
             {
                 return;
@@ -224,7 +224,7 @@ namespace ControllerStates
             float minHeight = 2;
             float maxHeight = 20;
             // Move camera towards hitPos
-            Vector3 hitPos = MouseToGroundPlane(Input.mousePosition);
+            Vector3 hitPos = MouseToGroundPlane(GameInput.MousePosition);
             Vector3 dir = hitPos - mainCam.transform.position;
 
             Vector3 p = mainCam.transform.position;

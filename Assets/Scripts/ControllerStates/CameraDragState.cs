@@ -12,7 +12,7 @@ namespace ControllerStates
             TriUnderMouse = previousState.TriUnderMouse;
             TriLastUnderMouse = previousState.TriLastUnderMouse;
             SelectionController = previousState.SelectionController;
-            LastMouseGroundPlanePosition = MouseToGroundPlane(Input.mousePosition);
+            LastMouseGroundPlanePosition = MouseToGroundPlane(GameInput.MousePosition);
             LastMousePosition = previousState.LastMousePosition;   
             LineRenderer = previousState.LineRenderer;
             LayerIDForTriTiles = previousState.LayerIDForTriTiles;
@@ -34,7 +34,7 @@ namespace ControllerStates
                 return nextState;
 
 
-            if (!Input.GetMouseButton(2) && !Input.GetMouseButton(1) && !Input.GetMouseButton(0))
+            if (!GameInput.GetMouseButton(2) && !GameInput.GetMouseButton(1) && !GameInput.GetMouseButton(0))
             {
                 nextState = new DetectModeState(this);
             }
@@ -42,7 +42,7 @@ namespace ControllerStates
             {        
                 // Right now, all we need are camera controls
 
-                Vector3 hitPos = MouseToGroundPlane(Input.mousePosition);
+                Vector3 hitPos = MouseToGroundPlane(GameInput.MousePosition);
 
                 if (hitPos != Vector3.zero && LastMouseGroundPlanePosition != Vector3.zero)
                 {
@@ -52,7 +52,7 @@ namespace ControllerStates
                     {
                         mainCam.transform.Translate (diff, Space.World);
                     }
-                    LastMouseGroundPlanePosition = MouseToGroundPlane(Input.mousePosition);
+                    LastMouseGroundPlanePosition = MouseToGroundPlane(GameInput.MousePosition);
                 }
             }
 

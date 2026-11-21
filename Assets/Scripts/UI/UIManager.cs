@@ -121,7 +121,7 @@ public static class UIManager
             return true;
         }
 
-        return IsScreenPositionOverHUD(Input.mousePosition);
+        return IsScreenPositionOverHUD(GameInput.MousePosition);
     }
 
     /// <summary>
