@@ -53,6 +53,19 @@ Unity -batchmode -quit -projectPath . -executeMethod EditorTools.BuildProfilesSe
 msbuild Assembly-CSharp.csproj && msbuild Assembly-CSharp-Editor.csproj
 ```
 
+### Automated GitHub Releases (CI/CD)
+The repository includes a GitHub Actions release pipeline in [`.github/workflows/release.yml`](.github/workflows/release.yml) using `game-ci/unity-builder@v4` (Unity `6000.3.26f1`) for **Linux Client**, **Linux Dedicated Server**, and **Windows Client**.
+
+1. **Configure Unity License Secret** in GitHub (`Settings → Secrets and variables → Actions`):
+   - **Unity Personal**: Add `UNITY_LICENSE` with the contents of your `.ulf` license file (e.g. `~/.local/share/unity3d/Unity/Unity_lic.ulf` on Linux, or generate an `.alf` via the manual [`Request Unity Activation File`](.github/workflows/unity-activation.yml) workflow and activate it at [license.unity3d.com](https://license.unity3d.com/)).
+   - **Unity Plus / Pro**: Alternatively set `UNITY_EMAIL`, `UNITY_PASSWORD`, and `UNITY_SERIAL`.
+2. **Trigger a Release**:
+   ```bash
+   git tag v0.1.0
+   git push origin v0.1.0
+   ```
+   Or trigger the workflow manually from the **Actions** tab (`workflow_dispatch`).
+
 ---
 
 ## English – German Terminology Reference
