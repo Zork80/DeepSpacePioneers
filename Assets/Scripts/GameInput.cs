@@ -1,13 +1,9 @@
 using UnityEngine;
-
-#if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
-#endif
 
 /// <summary>
-/// Centralized cross-version input abstraction for Deep Space Pioneers.
-/// Supports both Unity's New Input System (UnityEngine.InputSystem) and Legacy Input Manager.
+/// Centralized input abstraction for Deep Space Pioneers using Unity's Input System.
 /// </summary>
 public static class GameInput
 {
@@ -15,18 +11,12 @@ public static class GameInput
     {
         get
         {
-#if ENABLE_INPUT_SYSTEM
             if (Mouse.current != null)
             {
                 Vector2 pos = Mouse.current.position.ReadValue();
                 return new Vector3(pos.x, pos.y, 0f);
             }
-#endif
-#if ENABLE_LEGACY_INPUT_MANAGER
-            return Input.mousePosition;
-#else
             return Vector3.zero;
-#endif
         }
     }
 
@@ -34,7 +24,6 @@ public static class GameInput
     {
         get
         {
-#if ENABLE_INPUT_SYSTEM
             if (Mouse.current != null)
             {
                 float scroll = Mouse.current.scroll.ReadValue().y;
@@ -44,64 +33,28 @@ public static class GameInput
                     return Mathf.Clamp(scroll / 120f, -1f, 1f);
                 }
             }
-#endif
-#if ENABLE_LEGACY_INPUT_MANAGER
-            return Input.GetAxis("Mouse ScrollWheel");
-#else
             return 0f;
-#endif
         }
     }
 
     public static bool GetMouseButton(int button)
     {
-#if ENABLE_INPUT_SYSTEM
-        if (Mouse.current != null)
-        {
-            ButtonControl btn = GetMouseButtonControl(button);
-            if (btn != null) return btn.isPressed;
-        }
-#endif
-#if ENABLE_LEGACY_INPUT_MANAGER
-        return Input.GetMouseButton(button);
-#else
-        return false;
-#endif
+        ButtonControl btn = GetMouseButtonControl(button);
+        return btn != null && btn.isPressed;
     }
 
     public static bool GetMouseButtonDown(int button)
     {
-#if ENABLE_INPUT_SYSTEM
-        if (Mouse.current != null)
-        {
-            ButtonControl btn = GetMouseButtonControl(button);
-            if (btn != null) return btn.wasPressedThisFrame;
-        }
-#endif
-#if ENABLE_LEGACY_INPUT_MANAGER
-        return Input.GetMouseButtonDown(button);
-#else
-        return false;
-#endif
+        ButtonControl btn = GetMouseButtonControl(button);
+        return btn != null && btn.wasPressedThisFrame;
     }
 
     public static bool GetMouseButtonUp(int button)
     {
-#if ENABLE_INPUT_SYSTEM
-        if (Mouse.current != null)
-        {
-            ButtonControl btn = GetMouseButtonControl(button);
-            if (btn != null) return btn.wasReleasedThisFrame;
-        }
-#endif
-#if ENABLE_LEGACY_INPUT_MANAGER
-        return Input.GetMouseButtonUp(button);
-#else
-        return false;
-#endif
+        ButtonControl btn = GetMouseButtonControl(button);
+        return btn != null && btn.wasReleasedThisFrame;
     }
 
-#if ENABLE_INPUT_SYSTEM
     private static ButtonControl GetMouseButtonControl(int button)
     {
         if (Mouse.current == null) return null;
@@ -113,77 +66,39 @@ public static class GameInput
             default: return null;
         }
     }
-#endif
 
     public static bool GetKey(KeyCode key)
     {
-#if ENABLE_INPUT_SYSTEM
-        if (Keyboard.current != null)
-        {
-            KeyControl keyControl = GetKeyControl(key);
-            if (keyControl != null) return keyControl.isPressed;
-        }
-#endif
-#if ENABLE_LEGACY_INPUT_MANAGER
-        return Input.GetKey(key);
-#else
-        return false;
-#endif
+        KeyControl keyControl = GetKeyControl(key);
+        return keyControl != null && keyControl.isPressed;
     }
 
     public static bool GetKeyDown(KeyCode key)
     {
-#if ENABLE_INPUT_SYSTEM
-        if (Keyboard.current != null)
-        {
-            KeyControl keyControl = GetKeyControl(key);
-            if (keyControl != null) return keyControl.wasPressedThisFrame;
-        }
-#endif
-#if ENABLE_LEGACY_INPUT_MANAGER
-        return Input.GetKeyDown(key);
-#else
-        return false;
-#endif
+        KeyControl keyControl = GetKeyControl(key);
+        return keyControl != null && keyControl.wasPressedThisFrame;
     }
 
     public static bool GetKeyUp(KeyCode key)
     {
-#if ENABLE_INPUT_SYSTEM
-        if (Keyboard.current != null)
-        {
-            KeyControl keyControl = GetKeyControl(key);
-            if (keyControl != null) return keyControl.wasReleasedThisFrame;
-        }
-#endif
-#if ENABLE_LEGACY_INPUT_MANAGER
-        return Input.GetKeyUp(key);
-#else
-        return false;
-#endif
+        KeyControl keyControl = GetKeyControl(key);
+        return keyControl != null && keyControl.wasReleasedThisFrame;
     }
 
     public static bool AnyKeyDown
     {
         get
         {
-#if ENABLE_INPUT_SYSTEM
             if (Keyboard.current != null && Keyboard.current.anyKey.wasPressedThisFrame) return true;
             if (Mouse.current != null && (Mouse.current.leftButton.wasPressedThisFrame ||
                                           Mouse.current.rightButton.wasPressedThisFrame ||
                                           Mouse.current.middleButton.wasPressedThisFrame)) return true;
-#endif
-#if ENABLE_LEGACY_INPUT_MANAGER
-            return Input.anyKeyDown || Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1);
-#else
             return false;
-#endif
         }
     }
 
     public static float GetAxisRaw(string axis)
     {
-#if ENABLE_INPUT_SYSTEM
         if (Keyboard.current != null)
         {
             if (axis == "Horizontal")
@@ -201,15 +116,9 @@ public static class GameInput
                 return val;
             }
         }
-#endif
-#if ENABLE_LEGACY_INPUT_MANAGER
-        return Input.GetAxisRaw(axis);
-#else
         return 0f;
-#endif
     }
 
-#if ENABLE_INPUT_SYSTEM
     private static KeyControl GetKeyControl(KeyCode key)
     {
         if (Keyboard.current == null) return null;
@@ -240,5 +149,4 @@ public static class GameInput
             default: return null;
         }
     }
-#endif
 }

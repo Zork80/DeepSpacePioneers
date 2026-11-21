@@ -1,10 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
-
-#if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
-#endif
 
 /// <summary>
 /// Ensures the active EventSystem uses InputSystemUIInputModule, enables its action assets,
@@ -24,7 +21,6 @@ public class InputEventSystemAdapter : MonoBehaviour
 
     public void EnsureSetup()
     {
-#if ENABLE_INPUT_SYSTEM
         InputSystem.settings.backgroundBehavior = InputSettings.BackgroundBehavior.IgnoreFocus;
 
         var es = GetComponent<EventSystem>() ?? EventSystem.current;
@@ -50,6 +46,5 @@ public class InputEventSystemAdapter : MonoBehaviour
 
             es.UpdateModules();
         }
-#endif
     }
 }
