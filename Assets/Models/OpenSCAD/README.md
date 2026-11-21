@@ -1,51 +1,51 @@
-# Deep Space Pioneers – Parametrische OpenSCAD Spielfiguren
+# Deep Space Pioneers – Parametric OpenSCAD Game Pieces
 
-Dieses Verzeichnis enthält die parametrischen 3D-Modelle für alle Spielfiguren und Außenposten von *Deep Space Pioneers*.
+This directory contains the parametric 3D models for all game pieces and outposts of *Deep Space Pioneers*.
 
-Die Modelle sind sowohl für die Echtzeit-Darstellung in Unity (Export als `.obj`) als auch für den physikalischen 3D-Druck (Export als `.stl`, optimiert für FDM- und Resin-Drucker wie Bambu Lab / Prusa via OrcaSlicer) konzipiert.
+The models are designed both for real-time rendering in Unity (exported as `.obj`) and for physical 3D printing (exported as `.stl`, optimized for FDM and resin printers such as Bambu Lab / Prusa via OrcaSlicer).
 
 ---
 
-## 🚀 Übersicht der Spielfiguren
+## 🚀 Game Piece Overview
 
-| Modell | Datei | Beschreibung | Besonderheiten |
+| Model | File | Description | Key Features |
 |---|---|---|---|
-| **Kolonie (Colony)** | `colony.scad` | Grundlegende planetare Siedlung (Tier 1) | Hexagonaler Sockel, 3 Schleusentrakte im 120°-Winkel passend zum Dreiecks-/Hexgitter, Biodom mit Exoskelett-Bögen, Solarpaneel |
-| **Raumhafen (Spaceport)** | `spaceport.scad` | Ausbaustufe der Kolonie (Tier 2) | Umschließt die Kolonie mit 3 massiven Startpylonen, oberem Orbital-Dockingring, Betankungsarm und Subraum-Sensorantenne |
-| **Handelsstation (Trade Base)** | `trade_station.scad` | Neutraler oder errichteter Handelsposten | Zwillings-Parabolantennen, modulare Frachtcontainer-Paletten, Flugleitturm mit Panoramakuppel |
-| **Kolonieschiff (Colony Ship)** | `colony_ship.scad` | Transporter zur Koloniegründung | Sci-Fi Keilrumpf mit Warpgondeln und eingeklinkter Biosphären-Siedlungskapsel |
-| **Handelsschiff (Trade Ship)** | `trade_ship.scad` | Transporter für den interstellaren Handel | Gleicher modularer Rumpf wie das Kolonieschiff, beladen mit 3 sechseckigen Schwerlast-Frachtcontainern |
+| **Colony** | `colony.scad` | Basic planetary settlement (Tier 1) | Hexagonal base, 3 airlock wings at 120° angles matching the triangle/hex grid, biodome with exoskeleton arches, solar panel |
+| **Spaceport** | `spaceport.scad` | Colony upgrade (Tier 2) | Encloses the colony with 3 heavy launch pylons, upper orbital docking ring, fueling arm, and subspace sensor antenna |
+| **Trade Station** | `trade_station.scad` | Neutral or player-built trading outpost | Twin parabolic dishes, modular cargo container pallets, flight control tower with panoramic dome |
+| **Colony Ship** | `colony_ship.scad` | Transport vessel for founding colonies | Sci-fi wedge hull with warp nacelles and docked biosphere settlement pod |
+| **Trade Ship** | `trade_ship.scad` | Transport vessel for interstellar trade | Same modular hull as the colony ship, loaded with 3 hexagonal heavy-duty cargo containers |
 
 ---
 
-## 📐 Design & Skalierung
+## 📐 Design & Scaling
 
-- **Gitter-Ausrichtung**: Kolonie und Raumhafen besitzen einen hexagonalen Sockel mit 120°-Achsen, sodass Straßen/Flugrouten und Kanten perfekt an die Dreiecksfelder anschließen.
-- **Modulare Schiffs-Architektur**: Kolonieschiff und Handelsschiff teilen sich den aerodynamischen Rumpf (`ship_hull_chassis` in `ships.scad`) und unterscheiden sich durch ihre spezifische Nutzlast (`colony_payload` vs. `trade_payload`).
-- **Maßstab**:
-  - Im Code entsprechen die Einheiten Millimetern (z. B. Koloniedurchmesser 24 mm).
-  - Für Unity entspricht 1 Einheit = 10 mm (bzw. Skalierung im Prefab ca. 0.25).
-  - Für 3D-Druck (OrcaSlicer/Bambu Studio/PrusaSlicer) direkt 1:1 druckbar.
+- **Grid Alignment**: Colony and Spaceport feature a hexagonal base with 120° axes so that flight routes and edges align cleanly with the triangular grid cells.
+- **Modular Ship Architecture**: Colony Ship and Trade Ship share the aerodynamic hull (`ship_hull_chassis` in `ships.scad`) and differ by their specific payload (`colony_payload` vs. `trade_payload`).
+- **Scale**:
+  - In the OpenSCAD code, units correspond to millimeters (e.g., colony diameter 24 mm).
+  - For Unity, 1 unit = 10 mm (or prefab scale approx. 0.25).
+  - For 3D printing (OrcaSlicer / Bambu Studio / PrusaSlicer), directly printable at 1:1 scale.
 
 ---
 
-## 🛠️ Export nach Unity & 3D-Druck
+## 🛠️ Exporting for Unity & 3D Printing
 
-### Automatisiert per Python-Skript:
-Das beiliegende Skript `export_pieces.py` erkennt installierte OpenSCAD-Installationen (native CLI, Flatpak oder AppImage) und erzeugt die `.obj`- und `.stl`-Dateien in `Assets/Models/Pieces/`:
+### Automated via Python Script:
+The included `export_pieces.py` script detects installed OpenSCAD binaries (native CLI, Flatpak, or AppImage) and generates the `.obj` and `.stl` files in `Assets/Models/Pieces/`:
 
 ```bash
-# Alle Modelle rendern ($fn=64)
+# Render all models ($fn=64)
 python3 export_pieces.py
 
-# Nur OBJ für Unity rendern
+# Render OBJ only for Unity
 python3 export_pieces.py --format obj
 
-# Spezifische Figur mit hoher Auflösung für den 3D-Druck rendern
+# Render a specific piece in high resolution for 3D printing
 python3 export_pieces.py --piece colony_ship --format stl --fn 96
 ```
 
-### Manuell per OpenSCAD CLI:
+### Manual via OpenSCAD CLI:
 ```bash
 openscad -o ../Pieces/colony.obj -D '$fn=64;' colony.scad
 openscad -o ../Pieces/spaceport.obj -D '$fn=64;' spaceport.scad
