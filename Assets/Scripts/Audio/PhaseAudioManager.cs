@@ -14,9 +14,9 @@ namespace Audio
 
     /// <summary>
     /// Manages the 4 phase-dependent background loops (Planning, Trade, Movement, Event).
-    /// All loops are sample-accurate (67 BPM, 4 bars = 631,880 samples at 44.1 kHz).
+    /// All loops share the same tempo, key, and exact sample length (120 BPM, 8 bars = 705,600 samples at 44.1 kHz).
     /// They run simultaneously in lockstep, and this manager smoothly crossfades between them
-    /// as the game transitions through its phases.
+    /// using an equal-power curve as the game transitions through its phases.
     /// </summary>
     public class PhaseAudioManager : MonoBehaviour
     {
@@ -31,7 +31,7 @@ namespace Audio
         [Header("Settings")]
         [Range(0f, 1f)]
         [SerializeField] private float _masterVolume = 0.20f;
-        [SerializeField] private float _crossfadeDuration = 0.75f;
+        [SerializeField] private float _crossfadeDuration = 2.0f;
 
         [Header("Status (Read-Only)")]
         [SerializeField] private MusicPhase _currentPhase = MusicPhase.Planning;
@@ -40,6 +40,11 @@ namespace Audio
         private AudioSource _tradeSource;
         private AudioSource _movementSource;
         private AudioSource _eventSource;
+
+        private float _planningWeight = 1f;
+        private float _tradeWeight = 0f;
+        private float _movementWeight = 0f;
+        private float _eventWeight = 0f;
 
         private TriMap _triMap;
         private bool _isInitialized = false;
@@ -272,26 +277,31 @@ namespace Audio
 
         private void CrossfadeSources()
         {
-            float targetPlanning = (_currentPhase == MusicPhase.Planning) ? _masterVolume : 0f;
-            float targetTrade = (_currentPhase == MusicPhase.Trade) ? _masterVolume : 0f;
-            float targetMovement = (_currentPhase == MusicPhase.Movement) ? _masterVolume : 0f;
-            float targetEvent = (_currentPhase == MusicPhase.Event) ? _masterVolume : 0f;
+            float targetPlanning = (_currentPhase == MusicPhase.Planning) ? 1f : 0f;
+            float targetTrade = (_currentPhase == MusicPhase.Trade) ? 1f : 0f;
+            float targetMovement = (_currentPhase == MusicPhase.Movement) ? 1f : 0f;
+            float targetEvent = (_currentPhase == MusicPhase.Event) ? 1f : 0f;
 
             float step = (_crossfadeDuration > 0f)
-                ? (Time.unscaledDeltaTime / _crossfadeDuration) * _masterVolume
-                : _masterVolume;
+                ? (Time.unscaledDeltaTime / _crossfadeDuration)
+                : 1f;
+
+            _planningWeight = Mathf.MoveTowards(_planningWeight, targetPlanning, step);
+            _tradeWeight = Mathf.MoveTowards(_tradeWeight, targetTrade, step);
+            _movementWeight = Mathf.MoveTowards(_movementWeight, targetMovement, step);
+            _eventWeight = Mathf.MoveTowards(_eventWeight, targetEvent, step);
 
             if (_planningSource != null)
-                _planningSource.volume = Mathf.MoveTowards(_planningSource.volume, targetPlanning, step);
+                _planningSource.volume = Mathf.Sin(_planningWeight * Mathf.PI * 0.5f) * _masterVolume;
 
             if (_tradeSource != null)
-                _tradeSource.volume = Mathf.MoveTowards(_tradeSource.volume, targetTrade, step);
+                _tradeSource.volume = Mathf.Sin(_tradeWeight * Mathf.PI * 0.5f) * _masterVolume;
 
             if (_movementSource != null)
-                _movementSource.volume = Mathf.MoveTowards(_movementSource.volume, targetMovement, step);
+                _movementSource.volume = Mathf.Sin(_movementWeight * Mathf.PI * 0.5f) * _masterVolume;
 
             if (_eventSource != null)
-                _eventSource.volume = Mathf.MoveTowards(_eventSource.volume, targetEvent, step);
+                _eventSource.volume = Mathf.Sin(_eventWeight * Mathf.PI * 0.5f) * _masterVolume;
         }
 
         /// <summary>
