@@ -99,5 +99,6 @@ libdecor*.so*
 *_results.json
 test_bridge/
 play_vs_bot.sh
+match_evaluation.md
 Assets/Resources/PerformanceTestRun*.json*
 
