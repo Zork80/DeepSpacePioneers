@@ -3,7 +3,7 @@ using UnityEngine;
 /// <summary>
 /// Creates and animates multi-plane parallax layers for the space background:
 /// - Layer 0 (this SpriteRenderer): Deep-space galaxies & starfield (furthest, follows camera most)
-/// - Layer 1 (NebulaLayer): Translucent Catan-style galactic nebulae (mid-depth)
+/// - Layer 1 (NebulaLayer): Translucent galactic nebulae (mid-depth)
 /// - Layer 2 (ForegroundStarsLayer): Crisp near-board stars (closest, subtle parallax)
 /// </summary>
 public class SpaceParallaxBackground : MonoBehaviour
