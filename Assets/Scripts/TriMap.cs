@@ -3053,7 +3053,7 @@ public class TriMap : MonoBehaviour, IQPathWorld
         {
             GameObject upgradedModel = Instantiate(SpaceportPrefab, spaceport.transform);
             upgradedModel.transform.localPosition = Vector3.zero;
-            upgradedModel.transform.localRotation = SpaceportPrefab.transform.rotation;
+            upgradedModel.transform.localRotation = GetColonyOrientation(colony.Tri, SpaceportPrefab.transform.rotation);
             Player owner = GetPlayerForColony(colony) ?? CurrentPlayer;
             ApplyPlayerMaterial(upgradedModel, owner?.Material, owner?.Material != null ? owner.Material.color : Color.white);
             if (colonyObject != null)
@@ -5410,7 +5410,7 @@ public class TriMap : MonoBehaviour, IQPathWorld
         GameObject colonyGO;
         if (prefab != null)
         {
-            Quaternion initialRotation = prefab.transform.rotation;
+            Quaternion initialRotation = GetColonyOrientation(myTri, prefab.transform.rotation);
             colonyGO = (GameObject)Instantiate(prefab, myTriGO.transform.position, initialRotation, this.transform);
         }
         else
@@ -5443,6 +5443,14 @@ public class TriMap : MonoBehaviour, IQPathWorld
             OnColonyCreated(colony, colonyGO);
         }
 
+    }
+
+    private static Quaternion GetColonyOrientation(Tri tri, Quaternion baseRotation)
+    {
+        if (tri == null) return baseRotation;
+        // Align the 3 radial 120-degree wings with the 3 adjacent space-point connections
+        float yAngle = tri.IsUpsideDown ? -90f : 90f;
+        return Quaternion.Euler(0f, yAngle, 0f) * baseRotation;
     }
 
     public void SpawnTradeStationAt( TradeStation tradeStation, GameObject prefab, int q, int r, Player owner = null )
